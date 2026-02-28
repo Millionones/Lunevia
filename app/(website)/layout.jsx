@@ -1,4 +1,6 @@
 import { Geist, Geist_Mono, Lato } from "next/font/google";
+import Header from './Components/Header'
+import Footer from './Components/Footer'
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -23,7 +25,9 @@ export default function HomeLayout({ children }) {
             <body
                 className={`${latoSans.variable} ${latoSans.variable} antialiased`}
             >
+                <Header />
                 {children}
+                <Footer />
             </body>
         </html>
     );

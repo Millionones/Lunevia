@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import React from 'react'
 import Link from 'next/link'
+
 const Footer = () => {
     return (
         <section className='footer'>
