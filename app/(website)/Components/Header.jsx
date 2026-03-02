@@ -29,7 +29,7 @@ const Header = () => {
                             </ul> */}
                             <ul className='flex gap-5 header-menu'>
                                 <li>
-                                    <a href="">
+                                    <a href="/About-LUNEVIA">
                                         About LUNEVIA
                                     </a>
                                 </li>
