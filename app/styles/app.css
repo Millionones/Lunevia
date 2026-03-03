@@ -460,7 +460,7 @@
 .testimonial-swiper {
   max-width: 700px;
 
-  .swiper{
+  .swiper {
     min-height: 220px;
   }
 }
@@ -489,11 +489,97 @@
     margin-bottom: 8px;
   }
 
-  h2{
+  h2 {
     font-size: 18px;
   }
 
-  p{
+  p {
     font-size: 16px;
   }
+}
+
+.faq-section {
+  padding: 30px 0;
+  margin: 20px 0 0 0;
+}
+
+.faq-inner {
+  display: flex;
+  gap: 48px;
+  padding: 40px;
+
+  .faq-left-header,
+  .faqs {
+    width: calc(50% - 24px);
+  }
+}
+
+.faq-left-header {
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  h5 {
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    color: #272727;
+  }
+
+  h2 {
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1.2em;
+    letter-spacing: 0px;
+    color: #272727;
+  }
+
+  p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5em;
+    color: #3B3B3B;
+    max-width: 60%;
+  }
+}
+
+.faqs .Collapsible {
+  padding: 0;
+  background-color: transparent;
+  border-bottom: 0 solid #000;
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-size: 18px;
+    color: #272727;
+    font-weight: 400;
+    line-height: 1.5em;
+    border-style: solid;
+    border-width: 0px 0px 1px 0px;
+    border-color: #D4D8DB;
+    padding: 24px 24px 24px 24px;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+.CollapsibleContent {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5em;
+  color: #3B3B3B;
+  padding: 24px 24px 24px 24px;
+}
+
+.faq-icon {
+  transition: transform 0.3s ease;
+}
+
+.faq-icon.faq-open svg {
+  transform: rotate(180deg);
 }

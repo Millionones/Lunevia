@@ -1,0 +1,114 @@
+.testimonials-hero {
+    position: relative;
+    background-color: #02010100;
+    background-image: url("/about-us-hero.webp");
+    background-position: center center;
+    background-size: cover;
+    min-height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.testimonials-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    /* overlay */
+}
+
+.testimonials-hero-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+}
+
+.testimonials-hero-inner h1 {
+    line-height: 1.2em;
+    color: #FFFFFF;
+    font-size: 64px;
+}
+
+.testimonials-hero-inner ul {
+    color: #E7E7E7;
+    font-size: 16px;
+    line-height: 1.5em;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    .separator {
+        font-size: 22px;
+    }
+}
+
+.testimonial-section {
+    padding: 30px 0;
+    margin: 20px 0 0 0;
+}
+
+.testimonial-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.testimonial-header {
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    h5 {
+        font-weight: 500;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1.8px;
+        color: #272727;
+    }
+
+    h2 {
+        font-size: 38px;
+        font-weight: 400;
+        line-height: 1.2em;
+        letter-spacing: 0px;
+        color: #272727;
+    }
+}
+
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    gap: 20px 30px;
+    grid-auto-flow: row;
+    align-items: flex-start;
+}
+
+.testimonial {
+    border: 1px solid #F6F6F6;
+    padding: 30px;
+    /* border-radius: 10px 10px 60px 10px; */
+    background-color: #F6F6F6;
+    box-shadow: 1px 0px 7px -6px;
+}
+
+.testimonial-cond {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    h1 {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    h2 {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.7em;
+        font-style: italic;
+    }
+}
