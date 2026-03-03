@@ -6,27 +6,10 @@ const Header = () => {
             <section className='header'>
                 <div className='cmpad h-full'>
                     <div className='h-full flex justify-between items-center'>
-                        <div className=''>
+                        <a href="/">
                             <img src="/logo-white.png" alt="logo" className='max-w-[140px]' />
-                        </div>
+                        </a>
                         <div className='flex flex-col justify-center items-center gap-2.5'>
-                            {/* <ul className='flex gap-5 header-menu'>
-                                <li>
-                                    <a href="">
-                                        CGH EARTH AYURVEDA
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="">
-                                        SWASWARA
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="">
-                                        PRAKRITI SHAKTI
-                                    </a>
-                                </li>
-                            </ul> */}
                             <ul className='flex gap-5 header-menu'>
                                 <li>
                                     <a href="/About-LUNEVIA">
@@ -39,12 +22,12 @@ const Header = () => {
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="">
+                                    <a href="/destinations">
                                         Destinations
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="">
+                                    <a href="/Contact-us">
                                         Contact Us
                                     </a>
                                 </li>
@@ -59,7 +42,7 @@ const Header = () => {
                                     </a>
                                 </li> */}
                                 <li>
-                                    <a href="">
+                                    <a href="/testimonials">
                                         Testimonials
                                     </a>
                                 </li>

@@ -4,7 +4,7 @@
     background-image: url("/about-us-hero.webp");
     background-position: center center;
     background-size: cover;
-    min-height: 550px;
+    min-height: 450px;
     display: flex;
     align-items: center;
     justify-content: center;
