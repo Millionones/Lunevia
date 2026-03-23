@@ -17,7 +17,7 @@ const Header = () => {
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="">
+                                    <a href="/philosophy-experience">
                                         Our Philosophy / Experience
                                     </a>
                                 </li>

@@ -1,0 +1,292 @@
+.hero-section {
+    height: 600px;
+    width: 100%;
+    background-image: url('/beautiful-view-wooden-huts-ocean-captured-thailand.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.hero-section::before {
+    content: "";
+    background: #0009;
+    position: absolute;
+    inset: 0;
+}
+
+.hero-inner {
+    height: 100%;
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+
+    h1 {
+        font-size: 58px;
+        font-weight: 500;
+        line-height: 1.2em;
+        color: white;
+    }
+
+    h5 {
+        font-size: 26px;
+        font-weight: 400;
+        line-height: 1.5em;
+        color: white;
+        text-align: center;
+    }
+}
+
+.philosophy-section {
+    padding: 30px 0;
+    margin: 20px 0 0 0;
+}
+
+.philosophy-inner {
+    display: flex;
+    gap: 30px;
+
+    .philosophy-media,
+    .philosophy-contents {
+        width: calc(50% - 15px);
+    }
+}
+
+.philosophy-contents {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    h2 {
+        font-size: 48px;
+        font-weight: 400;
+        line-height: 1.2em;
+        letter-spacing: 0px;
+        color: #272727;
+    }
+
+    p {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.5em;
+        color: #3B3B3B;
+    }
+}
+
+
+.pillars-section {
+    position: relative;
+    background: url('/eco-vis-bg.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 60px 0;
+}
+
+.pillars-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+
+    h2 {
+        font-size: 48px;
+        font-weight: 400;
+        line-height: 1.2em;
+        letter-spacing: 0px;
+        color: #ffff;
+    }
+}
+
+.pillars-grids {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    li {
+        position: relative;
+        /* width: 268.8px; */
+        width: calc(25% - 40px);
+        min-height: 263.2px;
+        opacity: 1;
+        padding-top: 21px;
+        padding-right: 32.9px;
+        padding-bottom: 21px;
+        padding-left: 32.9px;
+        gap: 21px;
+        display: flex;
+        flex-direction: column;
+        /* background: url("/eco-vis-box-bg.png") center center / cover no-repeat; */
+        /* background: linear-gradient(135deg, #414141 0%, #333333 50%, #282828 100%);
+        backdrop-filter: opacity(30%); */
+        background: #0000002e;
+        border-radius: 14px;
+    }
+
+    .pillar-2 {
+        margin-top: 100px;
+    }
+
+    h2 {
+        font-size: 24px !important;
+    }
+
+    p {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.5em;
+        color: #fdfdfd;
+    }
+}
+
+.experience-section {
+    padding: 30px 0;
+    margin: 20px 0 0 0;
+}
+
+.experience-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.experience-header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+
+    h2 {
+        font-size: 48px;
+        font-weight: 400;
+        line-height: 1.2em;
+        letter-spacing: 0px;
+        color: #272727;
+    }
+
+    p {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.5em;
+        color: #3B3B3B;
+    }
+}
+
+.experience-row {
+    display: grid;
+    gap: 28px;
+    margin-top: 40px;
+    width: 100%;
+}
+
+.experience-list {
+    position: relative;
+    display: grid;
+    justify-content: space-around;
+    gap: 30px;
+    align-items: start;
+    padding-top: 70px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.experience-list::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #E5E7EB;
+}
+
+.experience-list li {
+    position: relative;
+    padding: 20px 0;
+    display: grid;
+    gap: 10px;
+    text-align: left;
+    min-height: 170px;
+    max-width: 240px;
+}
+
+.experience-list li::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    left: 32px;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #0067E5;
+    z-index: 1;
+}
+
+.experience-list li::after {
+    content: "";
+    position: absolute;
+    top: -70px;
+    left: 32px;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 50px;
+    background: #E5E7EB;
+}
+
+.experience-list li h3 {
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 22px;
+    leading-trim: NONE;
+    line-height: 35px;
+    letter-spacing: 0%;
+    vertical-align: middle;
+    color: #10171E;
+}
+
+.closing-stage-section {
+    padding: 60px 0;
+    margin: 20px 0 0 0;
+    background: #fff;
+}
+
+.closing-stage-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+}
+
+.closing-stage-header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    h2 {
+        font-size: 48px;
+        font-weight: 400;
+        line-height: 1.2em;
+        letter-spacing: 0px;
+        color: #272727;
+    }
+    
+    p {
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 1.5em;
+        color: #3B3B3B;
+    }
+}
+
+.closing-stage-link {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.5em;
+    padding: 10px 20px;
+    background: #3b3b3b;
+    border-radius: 14px;
+    color: #fff;
+}
