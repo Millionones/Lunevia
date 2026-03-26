@@ -1,5 +1,6 @@
 "use client"
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 import React, { useState } from 'react'
 
 const Destinations = () => {
@@ -55,7 +56,9 @@ const Destinations = () => {
               <h4>Discover Our Destinations</h4>
               <p>Each LUNEVIA property is a world of its own — united by philosophy, distinct in character.</p>
             </div>
-            <Button>Show All</Button>
+            <Link href="/destinations">
+              <Button>Show All</Button>
+            </Link>
           </div>
           <div className='destination-grids'>
             <ul>
@@ -63,15 +66,17 @@ const Destinations = () => {
                 data.map((item, index) => {
                   return (
                     <li>
-                      <div className='destination-grid'>
-                        <div className="image-wrapper">
-                          <img src={item.img} alt="" />
+                      <Link href='/destinations/details'>
+                        <div className='destination-grid'>
+                          <div className="image-wrapper">
+                            <img src={item.img} alt="" />
+                          </div>
+                          <div className='grid-details'>
+                            <h5>{item.title}</h5>
+                            <p>{item.description}</p>
+                          </div>
                         </div>
-                        <div className='grid-details'>
-                          <h5>{item.title}</h5>
-                          <p>{item.description}</p>
-                        </div>
-                      </div>
+                      </Link>
                     </li>
                   )
                 })

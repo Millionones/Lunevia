@@ -1,4 +1,5 @@
 "use client"
+import Link from 'next/link'
 import React, { useState } from 'react'
 
 const DestinationList = () => {
@@ -56,36 +57,38 @@ const DestinationList = () => {
                         {
                             data.map((item) => (
                                 <li className='destination-grid-card'>
-                                    <div className='destination-card-media'>
-                                        <img src={item.img} alt="" />
-                                    </div>
-                                    <div className='destination-card-detail'>
-                                        <div className='destination-card-header'>
-                                            <h2>{item.title}</h2>
-                                            <h2>$200 <span>/ Night</span></h2>
+                                    <Link href="/destinations/details">
+                                        <div className='destination-card-media'>
+                                            <img src={item.img} alt="" />
                                         </div>
-                                        <div className='destination-card-desc'>
-                                            <p>{item.description}</p>
+                                        <div className='destination-card-detail'>
+                                            <div className='destination-card-header'>
+                                                <h2>{item.title}</h2>
+                                                <h2>$200 <span>/ Night</span></h2>
+                                            </div>
+                                            <div className='destination-card-desc'>
+                                                <p>{item.description}</p>
+                                            </div>
+                                            <div className="line-separator"></div>
+                                            <ul className='destination-card-features'>
+                                                <li>
+                                                    <p>2 People</p>
+                                                </li>
+                                                <li>
+                                                    <p>1 Kingbeds</p>
+                                                </li>
+                                                <li>
+                                                    <p>1 Bathrooms</p>
+                                                </li>
+                                                <li>
+                                                    <p>Free Wifi</p>
+                                                </li>
+                                            </ul>
+                                            <button className='destination-card-button'>
+                                                <p>BOOK ROOM</p>
+                                            </button>
                                         </div>
-                                        <div className="line-separator"></div>
-                                        <ul className='destination-card-features'>
-                                            <li>
-                                                <p>2 People</p>
-                                            </li>
-                                            <li>
-                                                <p>1 Kingbeds</p>
-                                            </li>
-                                            <li>
-                                                <p>1 Bathrooms</p>
-                                            </li>
-                                            <li>
-                                                <p>Free Wifi</p>
-                                            </li>
-                                        </ul>
-                                        <button className='destination-card-button'>
-                                            <p>BOOK ROOM</p>
-                                        </button>
-                                    </div>
+                                    </Link>
                                 </li>
                             ))
                         }

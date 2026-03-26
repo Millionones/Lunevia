@@ -10,8 +10,8 @@ const page = () => {
     <>
       <Hero />
       <About />
-      <BookNow />
-      <Features />
+      {/* <BookNow /> */}
+      {/* <Features /> */}
       <Gallery />
     </>
   )
