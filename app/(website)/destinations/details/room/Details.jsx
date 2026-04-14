@@ -1,9 +1,7 @@
 "use client"
 import React, { useState } from 'react'
-import { tickIconSvg } from '../../../styles/icons'
-
-const About = () => {
-
+import { tickIconSvg } from '../../../../styles/icons'
+const Details = () => {
     const [data, setData] = useState({
         img: 'https://templates.sparklethings.com/palmea/wp-content/uploads/sites/246/2026/02/3d-rendering-luxury-tropical-bedroom-suite-in-reso-2026-01-07-02-15-56-utc-1024x682.webp',
         roomDetails: {
@@ -37,24 +35,7 @@ const About = () => {
     return (
         <section className='destination-about'>
             <div className='cmpad'>
-                <div className='about-inner-1'>
-                    <div className='about-inner-content'>
-                        <div className='inner-para'>
-                            <h5>LUNEVIA Backwater Reserve – Alleppey</h5>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores aliquam sapiente porro itaque, eligendi harum quaerat suscipit vitae ipsum neque a placeat labore unde dolor? Et nam nostrum maiores vitae.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores aliquam sapiente porro itaque, eligendi harum quaerat suscipit vitae ipsum neque a placeat labore unde dolor? Et nam nostrum maiores vitae.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores aliquam sapiente porro itaque, eligendi harum quaerat suscipit vitae ipsum neque a placeat labore unde dolor? Et nam nostrum maiores vitae.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores aliquam sapiente porro itaque, eligendi harum quaerat suscipit vitae ipsum neque a placeat labore unde dolor? Et nam nostrum maiores vitae.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores aliquam sapiente porro itaque, eligendi harum quaerat suscipit vitae ipsum neque a placeat labore unde dolor? Et nam nostrum maiores vitae.
-                            </p>
-                        </div>
-                        <div className='inner-media'>
-                            <img src="/coconut-resort.jpg" alt="" />
-                        </div>
-                    </div>
-                </div>
-                {/* <div className='about-inner'>
+                <div className='about-inner'>
                     <div className='about-inner-left'>
                         <div className='about-inner-left-media'>
                             <div className='about-inner-left-media-img'>
@@ -165,10 +146,10 @@ const About = () => {
                         </div>
                     </div>
 
-                </div> */}
+                </div>
             </div>
         </section>
     )
 }
 
-export default About
+export default Details

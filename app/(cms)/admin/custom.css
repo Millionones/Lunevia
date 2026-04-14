@@ -1,0 +1,20 @@
+.ql-toolbar {
+    border: none !important;
+    border-bottom: 1px solid #eee !important;
+    background: #fafafa;
+  }
+  
+  .ql-container {
+    border: none !important;
+    font-size: 15px;
+    line-height: 1.6;
+    padding: 10px;
+  }
+  
+  .ql-editor {
+    min-height: 180px;
+  }
+  
+  .ql-editor p {
+    margin-bottom: 10px;
+  }

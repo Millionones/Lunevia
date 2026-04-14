@@ -5,14 +5,18 @@ import About from './About'
 import Features from './Features'
 import Gallery from './Gallery'
 import BookNow from './BookNow'
+import Rooms from './Rooms'
+import Locations from './Locations'
 const page = () => {
   return (
     <>
       <Hero />
       <About />
+      <Rooms />
       {/* <BookNow /> */}
-      {/* <Features /> */}
       <Gallery />
+      <Features />
+      <Locations />
     </>
   )
 }

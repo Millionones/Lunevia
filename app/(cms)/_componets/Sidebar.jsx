@@ -39,11 +39,11 @@ const Sidebar = () => {
       link: "/testimonial",
       icon: <Quote size={20} />,
     },
-    // {
-    //   name: "Industries",
-    //   link: "/industries",
-    //   icon: <Factory size={20} />,
-    // },
+    {
+      name: "Properties",
+      link: "/properties",
+      icon: <Factory size={20} />,
+    },
     // {
     //   name: "Category",
     //   link: "/category",

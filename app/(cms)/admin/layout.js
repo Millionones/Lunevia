@@ -4,7 +4,7 @@ import { Loader, Rotate3D } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
-
+import './custom.css'
 export default function AdminLayout({ children }) {
   const [loading, setloading] = useState(true);
   const [logged, setLogged] = useState(false);
