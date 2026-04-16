@@ -7,6 +7,7 @@ import Gallery from './Gallery'
 import BookNow from './BookNow'
 import Rooms from './Rooms'
 import Locations from './Locations'
+import Suggested from './Suggested'
 const page = () => {
   return (
     <>
@@ -17,6 +18,7 @@ const page = () => {
       <Gallery />
       <Features />
       <Locations />
+      <Suggested />
     </>
   )
 }

@@ -4,11 +4,13 @@ import About from './About'
 import Testimonials from '../Components/Testimonials'
 import Gallery from '../Components/Gallery'
 import './styles.css'
+import Usps from './Usps'
 const page = () => {
   return (
     <>
       <Hero />
       <About />
+      <Usps />
       <Gallery />
       <Testimonials />
     </>

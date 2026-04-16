@@ -107,3 +107,129 @@
         color: #3B3B3B;
     }
 }
+
+.Usps-section {
+    padding: 30px 0;
+    margin: 20px 0 0 0;
+}
+
+.Usps-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.Usps-header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+
+    h2 {
+        font-size: 48px;
+        font-weight: 400;
+        line-height: 1.2em;
+        letter-spacing: 0px;
+        color: #272727;
+    }
+
+    p {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.5em;
+        color: #3B3B3B;
+    }
+}
+
+.Usps-row {
+    display: grid;
+    gap: 28px;
+    margin-top: 40px;
+    width: 100%;
+}
+
+.Usps-grid {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    gap: 30px;
+    flex-flow: wrap;
+    width: 100%;
+
+    li {
+        width: calc(25% - 30px);
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        row-gap: 14px;
+        column-gap: 14px;
+        padding: 16px;
+        border: 1px solid;
+        border-radius: 12px;
+    }
+}
+
+.Usps-list {
+    position: relative;
+    display: grid;
+    justify-content: space-around;
+    gap: 30px;
+    align-items: start;
+    padding-top: 70px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.Usps-list::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #E5E7EB;
+}
+
+.Usps-list li {
+    position: relative;
+    padding: 20px 0;
+    display: grid;
+    gap: 10px;
+    text-align: left;
+    min-height: 170px;
+    max-width: 240px;
+}
+
+.Usps-list li::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    left: 32px;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #0067E5;
+    z-index: 1;
+}
+
+.Usps-list li::after {
+    content: "";
+    position: absolute;
+    top: -70px;
+    left: 32px;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 50px;
+    background: #E5E7EB;
+}
+
+.Usps-list li h3 {
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 22px;
+    leading-trim: NONE;
+    line-height: 35px;
+    letter-spacing: 0%;
+    vertical-align: middle;
+    color: #10171E;
+}

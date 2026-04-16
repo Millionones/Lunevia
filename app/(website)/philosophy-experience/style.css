@@ -67,6 +67,12 @@
         color: #272727;
     }
 
+    .philosophy-para {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
     p {
         font-size: 16px;
         font-weight: 400;
@@ -265,6 +271,7 @@
     flex-direction: column;
     gap: 10px;
     align-items: center;
+
     h2 {
         font-size: 48px;
         font-weight: 400;
@@ -272,7 +279,7 @@
         letter-spacing: 0px;
         color: #272727;
     }
-    
+
     p {
         font-size: 24px;
         font-weight: 400;

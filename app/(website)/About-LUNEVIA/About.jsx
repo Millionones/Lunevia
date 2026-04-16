@@ -16,8 +16,9 @@ const About = () => {
                             <img src="/about-us-about.webp" alt="" />
                         </div>
                         <div className='about-para-content'>
-                            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit semper tortor placerat, aliquam erat lectus class laoreet mi feugiat venenatis cubilia rhoncus lacinia, habitasse ad neque sodales magnis aliquet vestibulum mus ut. Nullam dui donec duis interdum enim iaculis magna tincidunt, nibh convallis diam etiam augue.</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent rutrum, aenean ut conubia primis vehicula habitant nullam egestas convallis, tempor faucibus laoreet senectus dictumst non augue congue. Phasellus consequat hac aliquam.</p>
+                            <p>Lunevia is a hospitality-focused brand engaged in owning, leasing, developing, and operating resorts, restaurants, and other hospitality properties. Our vision is to create destinations that combine comfort, elegance, and genuine hospitality, while delivering sustainable value through professional management and guest-centric operations.</p>
+                            <p>At Lunevia, we are committed to excellence in every aspect of hospitality — from property selection and concept development to daily operations, service standards, and guest engagement. We seek to create spaces that are not only beautiful and functional, but also enriching for guests, partners, and communities.</p>
+                            <p>Driven by a passion for hospitality and a focus on long-term growth, Lunevia aspires to build a trusted name known for quality experiences, efficient management, and distinctive destinations.</p>
                         </div>
                     </div>
                 </div>

@@ -10,15 +10,12 @@ const Philosophy = () => {
                     </div>
                     <div className='philosophy-contents'>
                         <h2>Hospitality Rooted in Experience</h2>
-                        <p>
-                            LUNEVIA was founded on a simple belief — travel should awaken the senses, slow the pace of life, and reconnect us with the beauty of the world around us.
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure id cumque, beatae aliquam dolorem rem maxime adipisci deserunt quibusdam? Minima laboriosam, voluptatum numquam aspernatur autem saepe perspiciatis totam quae iusto!
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam iure laboriosam eius cum facere. Nesciunt odio nobis aliquid placeat inventore incidunt, eveniet vel id repellendus necessitatibus assumenda, molestiae, in adipisci?
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, ipsa perferendis? Dolore ducimus perferendis nemo soluta vero, voluptatum nostrum dolorum accusamus quisquam odit animi laborum quibusdam aperiam, voluptatem reprehenderit voluptates. <br />
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut nesciunt, suscipit reiciendis dignissimos sequi soluta deleniti est similique nemo autem velit et earum quasi dicta magnam ut possimus eos incidunt.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, velit rem nisi, praesentium ipsa quam minima eius ratione repudiandae fugit eligendi. Non inventore temporibus velit laudantium iste, vero voluptate quod!
-                        </p>
-                        
+                        <div className='philosophy-para'>
+                            <p>At Lunevia, we believe hospitality is not just about offering a place to stay or dine, but about creating meaningful experiences that people remember. Our philosophy is rooted in warmth, authenticity, comfort, and thoughtful service.</p>
+                            <p>We aim to build spaces where guests feel welcomed, valued, and at ease. Every resort, restaurant, and hospitality property under Lunevia is envisioned as a destination that blends quality, care, and character. We focus on delivering experiences that are aesthetically pleasing, operationally efficient, and emotionally memorable.</p>
+                            <p>For us, true hospitality lies in the details — the ambiance, the service, the people, and the sense of belonging that each guest carries back with them.</p>
+                        </div>
+
                     </div>
                 </div>
             </div>

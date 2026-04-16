@@ -41,15 +41,26 @@
 
 
 .header-menu li a {
+  position: relative;
   font-size: 12px;
   font-weight: 700;
-  line-height: 12px;
   letter-spacing: 2px;
+  text-decoration: none;
 }
 
-.header-menu li a:hover {
-  text-decoration: underline;
-  color: #7d7d7d;
+.header-menu li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0%;
+  height: 1px;
+  background-color: currentColor;
+  transition: width 0.3s ease;
+}
+
+.header-menu li a:hover::after {
+  width: 100%;
 }
 
 .head-btn {
@@ -165,10 +176,23 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   line-height: 20px;
+  position: relative;
+  text-decoration: none;
 }
 
-.footer-menu a:hover {
-  text-decoration: underline;
+.footer-menu a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0%;
+  height: 1px;
+  background-color: currentColor;
+  transition: width 0.3s ease;
+}
+
+.footer-menu a:hover::after {
+  width: 100%;
 }
 
 .footer-social-menus ul img {
