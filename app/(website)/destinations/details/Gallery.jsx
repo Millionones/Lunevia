@@ -10,15 +10,18 @@ import { closeIconSvg } from '../../../styles/icons';
 const Gallery = () => {
 
   const [data, setData] = useState([
-    "/sample-gallery-img1.jpg",
-    "/sample-gallery-img2.jpg",
-    "/sample-gallery-img3.jpg",
-    "/sample-gallery-img4.jpg",
-    "/sample-gallery-img5.jpg",
-    "/sample-gallery-img6.jpg",
-    "/sample-gallery-img8.jpg",
-    "/sample-gallery-img9.jpg",
-    "/sample-gallery-img10.jpg",
+    "/client-resort-img1.webp",
+    "/client-resort-img2.jpeg",
+    "/client-resort-img3.jpeg",
+    "/client-resort-img4.jpeg",
+    "/client-resort-img5.webp",
+    "/client-resort-img6.jpeg",
+    "/client-resort-img7.jpeg",
+    "/client-resort-img8.avif",
+    "/client-resort-img9.webp",
+    "/client-resort-img11.jpeg",
+    "/client-resort-img12.jpeg",
+    "/client-resort-img13.webp",
   ])
   const [state, setState] = React.useState({
     top: false,

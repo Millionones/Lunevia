@@ -64,7 +64,7 @@ const DestinationList = () => {
                                         <div className='destination-card-detail'>
                                             <div className='destination-card-header'>
                                                 <h2>{item.title}</h2>
-                                                <h2>$200 <span>/ Night</span></h2>
+                                                {/* <h2>$200 <span>/ Night</span></h2> */}
                                             </div>
                                             <div className='destination-card-desc'>
                                                 <p>{item.description}</p>
