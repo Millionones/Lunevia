@@ -595,26 +595,26 @@
 
 }
 
-.destination-list-grid {
+.rooms-list-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
 
 }
 
-.destination-card-media img {
+.rooms-card-media img {
     max-height: 400px;
     width: 100%;
 }
 
-.destination-grid-card {
+.rooms-grid-card {
     background: #02010100;
     display: flex;
     flex-direction: column;
     border: 1px solid #D4D8DB;
 }
 
-.destination-card-detail {
+.rooms-card-detail {
     padding: 24px;
     display: flex;
     flex-direction: column;
@@ -622,7 +622,7 @@
     gap: 24px;
 }
 
-.destination-card-header {
+.rooms-card-header {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -641,7 +641,7 @@
     }
 }
 
-.destination-card-desc p {
+.rooms-card-desc p {
     font-size: 16px;
     line-height: 1.5em;
     color: #3B3B3B;
@@ -653,7 +653,7 @@
     height: 1px;
 }
 
-.destination-card-features {
+.rooms-card-features {
     display: flex;
     justify-content: space-between;
     max-width: 95%;
@@ -666,7 +666,7 @@
     }
 }
 
-.destination-card-button {
+.rooms-card-button {
     width: 100%;
     background: #F9DCBE;
     padding: 12px 30px 12px 30px;
@@ -677,7 +677,7 @@
     fill: #3B3B3B;
 }
 
-.destination-list-inner {
+.rooms-list-inner {
     padding: 40px;
     display: flex;
     flex-direction: column;
@@ -742,7 +742,7 @@
     }
 }
 
-.suggested-section{
+.suggested-section {
     background-color: #f6f9ff;
     padding: 30px 0;
     position: relative;
@@ -824,7 +824,8 @@
     color: #3B3B3B;
 
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* number of lines you want */
+    -webkit-line-clamp: 3;
+    /* number of lines you want */
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -864,4 +865,72 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
+}
+
+.highlight-section {
+    background-color: #f6f9ff;
+    padding: 30px 0;
+    position: relative;
+}
+
+.highlight-list-inner {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.highlight-header {
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+
+    h5 {
+        font-weight: 500;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1.8px;
+        color: #272727;
+    }
+
+    h2 {
+        font-size: 48px;
+        font-weight: 400;
+        line-height: 1.2em;
+        letter-spacing: 0px;
+        color: #272727;
+    }
+}
+
+.highlight-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    padding: 20px 0;
+    margin: 20px 0;
+
+    li {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.5em;
+        letter-spacing: 0px;
+        position: relative;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    li::before {
+        content: "";
+        /* position: absolute; */
+        min-width: 14px;
+        min-height: 14px;
+        display: flex;
+        align-items: center;
+        left: 0px;
+        background: url("/tick.svg") no-repeat center;
+        background-size: contain;
+    }
 }

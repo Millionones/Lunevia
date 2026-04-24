@@ -40,17 +40,18 @@ const About = () => {
                 <div className='about-inner-1'>
                     <div className='about-inner-content'>
                         <div className='inner-para'>
-                            <h5>LUNEVIA Backwater Reserve – Alleppey</h5>
+                            <h5>Crown woods Munnar By Lunevia</h5>
                             <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores aliquam sapiente porro itaque, eligendi harum quaerat suscipit vitae ipsum neque a placeat labore unde dolor? Et nam nostrum maiores vitae.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores aliquam sapiente porro itaque, eligendi harum quaerat suscipit vitae ipsum neque a placeat labore unde dolor? Et nam nostrum maiores vitae.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores aliquam sapiente porro itaque, eligendi harum quaerat suscipit vitae ipsum neque a placeat labore unde dolor? Et nam nostrum maiores vitae.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores aliquam sapiente porro itaque, eligendi harum quaerat suscipit vitae ipsum neque a placeat labore unde dolor? Et nam nostrum maiores vitae.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores aliquam sapiente porro itaque, eligendi harum quaerat suscipit vitae ipsum neque a placeat labore unde dolor? Et nam nostrum maiores vitae.
+                                Crown woods Munnar, provides a perfect ambience for a relaxed stay. Surrounded by beautiful tea estates, valleys and waterfalls, the hotel is sure to attract hordes of tourists. Well furnished rooms with balcony, quality services and a comfortable setting are the key features of this resort.<br/>
+                                Crown Woods Munnar is positioned Opp Fort Munnar, Chinnakanal in Munnar. Prominent landmarks like Anayirankal Dam (Approx. 7km) and St. Joseph Church (Approx. 3km) are located nearby. A popular tourist attraction, Anayirankal Dam and lake is surrounded by Tata tea plantations and evergreen forests with herds of elephants visiting the lake. Travellers should make it a point to explore Chinnakanal Waterfalls, Elephant Lake and Echo Point. <br/>
+                                Nestled in the breathtaking hills of Munnar, India, Crown woods Munnar Resorts With Balcony is a charming 3-star hotel that invites you to experience the serene beauty of nature while enjoying modern comforts. This delightful resort features 20 elegantly designed rooms, each equipped with a private balcony that offers stunning views of the lush green landscapes and rolling hills that Munnar is famous for. Whether
+                                you're here for a romantic escape, a family vacation, or a solo retreat, this hotel provides a perfect blend of hospitality and tranquility. At Crown Woods Munnar Resorts, your comfort is our priority. With a check-in time starting at 1:00 PM and check-out until 11:00 AM, we ensure that your stay is as convenient as possible. Families will appreciate our child policy, which allows children aged between 3 to 8 years
+                                to stay free of charge, making it an ideal choice for those traveling with little ones. Come and indulge in the enchanting atmosphere of Munnar, where every moment spent at our resort promises to be a delightful experience. <br/>
+                                Address: Opp Fort Munnar Hotel, Suryanelli Road, Chinnakanal, Munnar, Kerala 685618.
                             </p>
                         </div>
                         <div className='inner-media'>
-                            <img src="/coconut-resort.jpg" alt="" />
+                            <img src="/Crown_woods_Munnar.webp" alt="" />
                         </div>
                     </div>
                 </div>

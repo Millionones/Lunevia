@@ -8,6 +8,7 @@ import BookNow from './BookNow'
 import Rooms from './Rooms'
 import Locations from './Locations'
 import Suggested from './Suggested'
+import Highlights from './Highligts'
 const page = () => {
   return (
     <>
@@ -18,6 +19,7 @@ const page = () => {
       <Gallery />
       <Features />
       <Locations />
+      <Highlights/>
       <Suggested />
     </>
   )

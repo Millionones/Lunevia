@@ -130,6 +130,11 @@
     font-size: 16px;
     line-height: 1.5em;
     color: #3B3B3B;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /* number of lines you want */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .line-separator {

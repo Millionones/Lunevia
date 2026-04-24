@@ -5,9 +5,9 @@ import React, { useState } from 'react'
 const DestinationList = () => {
     const [data, setData] = useState([
         {
-            img: '/destination1.png',
-            title: 'LUNEVIA Backwater Reserve – Alleppey',
-            description: 'Floating gently along tranquil canals, Backwater Reserve is a sanctuary of slow luxury. Private houseboat suites, palm-framed horizons, and golden reflections at dusk define this intimate waterside escape.'
+            img: '/Crown_woods_Munnar.webp',
+            title: 'Crown woods Munnar By Lunevia',
+            description: 'Crown woods Munnar, provides a perfect ambience for a relaxed stay. Surrounded by beautiful tea estates, valleys and waterfalls, the hotel is sure to attract hordes of tourists. Well furnished rooms with balcony, quality services and a comfortable setting are the key features of this resort.'
         },
         {
             img: '/destination2.png',

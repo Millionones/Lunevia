@@ -5,8 +5,8 @@ const Hero = () => {
     return (
         <section>
             <div className='hero'>
-                <img src="/destination1.png" alt="" />
-                <h1>LUNEVIA Backwater Reserve – Alleppey</h1>
+                <img src="/Crown_woods_Munnar.webp" alt="" />
+                <h1>Crown woods Munnar By Lunevia</h1>
             </div>
             <div className='hero-support-badge'>
                 <ul>

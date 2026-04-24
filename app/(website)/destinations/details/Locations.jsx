@@ -5,24 +5,38 @@ const Locations = () => {
 
     const [data, setData] = useState([
             {
-                img: "/locations-1.jpg",
-                title: "Canoe Ride",
-                desc: "Cruise along the multiple canals of Kumarakom to experience the life on the backwaters or take a canoe ride to explore Coconut Lagoon's canals."
+                img: "/Kolukkumalai_Sunrise.jpg",
+                title: "Kolukkumalai Sunrise Trucking (Starting point 1.5KM)",
+                desc: "This tourist attraction offers a thrilling jeep safari and breathtaking sunrise views from the highest tea plantation in the world. They highlight the adventurous off-road experience and the magical, dreamlike atmosphere created by the mist rolling over the peaks. They also like the opportunity to visit the Tea Factory and taste fresh tea"
             },
             {
-                img:"/locations-2.jpg",
-                title:"Sunset Cruise",
-                desc:"One of the best ways to enjoy the lake is to take our sunset cruise, an hour-long idyll with flute accompaniment. Water lovers might also enjoy taking an oar or punt-boat out on to the lake with one of the local fishermen, both for company and a steadying hand on the tiller. Within minutes, you're in a watery universe, so quiet, you can hear your own blood pumping around your head."
+                img:"/Zipline_Suryanelli.jpg",
+                title:"Zipline Suryanelli (3KM)",
+                desc:"Longest Dual Zipline in Kerala, Experience the thrill of flying side-by-side with a friend or family member on the longest dual zip line in Kerala. This zipline spans impressive lengths, providing an adrenaline-pumping ride from start to finish"
             },
             {
-                img:"/locations-3.jpg",
-                title:"Kayaking",
-                desc:"Paddle over the enchanting Kumarakom lake during you stay with us at Coconut Lagoon. The backwaters beckon you at sunrise. Go on a guided kayaking trip across tranquil backwaters and experience the languid pace of life in Kuttanad."
+                img:"/Pappathichola.jpg",
+                title:"Pappathichola (8.5KM)",
+                desc:"Pappathichola, located near Chinnakanal in Munnar, is a high-altitude area known for its mist-covered landscapes, scenic viewpoints, and suitability for adventure activities like trekking and camping. It is part of the scenic Idukki district of Kerala, characterized by rolling hills and close proximity to the popular Kolukkumalai tea estates."
             },
             {
-                img:"/locations-4.jpg",
-                title:"Floating Tea Shop",
-                desc:"The life around backwaters is so dependant on being able to float from one place to the other. Our floating tea shop represents one of the aspects of this way of living. This also is a chance to meet our own Tea Lady from the village near the resort."
+                img:"/anayirangal_Dam.jpg",
+                title:"Anayirangal Dam (3.5KM)",
+                desc:"Anayirangal Dam is a scenic, large earthen reservoir located about 3.5km from the resort surrounded by lush Tata Tea plantations and dense forests. Built on the Panniyar River, it offers boating, 360-degree views of the Western Ghats, and frequent sightings of wild elephants"
+            },
+            {
+                img:"/gap_road.jpg",
+                title:"Gap Road",
+                desc:"Gap road is a scenic 12–15 km mountain pass on the -Madurai Highway (NH 85) famous for its panoramic views of tea plantations, misty valleys, and rock-cut pathways"
+            },
+            {
+                title:"Munnar Town (21KM)"
+            },
+            {
+                title:"Cochin Airport (120 KM)"
+            },
+            {
+                title:"Railway station (95 KM)"
             }
         ])
   return (
@@ -37,8 +51,10 @@ const Locations = () => {
                             {
                                 data.map((item, idx) => (
                                     <li >
-                                        <div>
+                                        <div>{item.img ?
                                             <img src={item.img} alt="" />
+                                            :
+                                            <img src="/dummy-location.avif" alt="" />}
                                         </div>
                                         <div className='amenteties-grid-content'>
                                             <h6>{item.title}</h6>
