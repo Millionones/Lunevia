@@ -7,10 +7,10 @@ const Details = () => {
         roomDetails: {
             title: 'Deluxe Room',
             price: '200',
-            desc: 'Lorem ipsum dolor sit amet consectetur adipiscing elit sapien velit conubia, bibendum montes pretium fusce torquent curabitur venenatis cubilia donec nullam, purus mauris felis etiam ligula leo gravida nam euismod. Penatibus aliquet turpis et natoque at erat ultrices fames, commodo sollicitudin ac inceptos justo elementum id lobortis orci, mollis lacinia nisl tellus nec magnis.'
+            desc: 'Experience luxury and comfort in this beautifully designed room, offering a perfect blend of style and functionality. Large windows allow natural light to fill the space, creating a bright and inviting atmosphere.'
         },
         features: {
-            desc: 'Lorem ipsum dolor sit amet consectetur adipiscing elit, proin varius vel etiam porta hac porttitor habitasse, suspendisse litora ornare netus facilisi pulvinar. Ad torquent velit lacinia semper.',
+            // desc: 'Lorem ipsum dolor sit amet consectetur adipiscing elit, proin varius vel etiam porta hac porttitor habitasse, suspendisse litora ornare netus facilisi pulvinar. Ad torquent velit lacinia semper.',
             list: [
                 'Daily Breakfast',
                 'Complimentary Lunch or Dinner',
@@ -21,11 +21,11 @@ const Details = () => {
             ]
         },
         resortDetails: {
-            desc: 'Lorem ipsum dolor sit amet consectetur adipiscing elit, proin varius vel etiam porta hac porttitor habitasse, suspendisse litora ornare netus facilisi pulvinar. Ad torquent velit lacinia semper.',
+            desc: 'Our resort is thoughtfully designed to offer a perfect blend of comfort, relaxation, and convenience. Guests can enjoy modern facilities along with serene surroundings, making it an ideal getaway for both leisure and business stays.',
             list: [
-                'Infinity Swimming Pool',
-                'Spa &amp; Wellness Center',
-                'Private Beach Area',
+                'Outdoor swimming pool',
+                'Dedicated travel assistance',
+                'Peaceful natural surroundings',
                 'Fine Dining Restaurant',
                 '24/7 Guest Services',
                 'Fitness Center'
@@ -33,7 +33,7 @@ const Details = () => {
         }
     })
     return (
-        <section className='destination-about'>
+        <section className='destination-about' id='detail'>
             <div className='cmpad'>
                 <div className='about-inner'>
                     <div className='about-inner-left'>
@@ -45,10 +45,10 @@ const Details = () => {
                         <div className='about-inner-room-detail'>
                             <div className='about-inner-room-detail-header'>
                                 <h2 className='about-inner-room-detail-header-title'>{data.roomDetails.title}</h2>
-                                <div className='about-inner-room-detail-header-price'>
+                                {/* <div className='about-inner-room-detail-header-price'>
                                     <h2 className='about-inner-room-detail-header-price-amount'>${data.roomDetails.price}</h2>
                                     <p className='about-inner-room-detail-header-price-per'>/ Night</p>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="line-separator"></div>
                             <div className='about-inner-room-detail-description'>

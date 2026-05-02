@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Link from 'next/link'
 const Header = () => {
     return (
         <>
@@ -18,7 +18,7 @@ const Header = () => {
                                 </li>
                                 <li>
                                     <a href="/philosophy-experience">
-                                        Our Philosophy / Experience
+                                        Experience
                                     </a>
                                 </li>
                                 <li>
@@ -31,11 +31,11 @@ const Header = () => {
                                         Contact Us
                                     </a>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <a href="">
                                         Enquiry Form
                                     </a>
-                                </li>
+                                </li> */}
                                 {/* <li>
                                     <a href="">
                                         Careers 
@@ -49,12 +49,12 @@ const Header = () => {
                             </ul>
                         </div>
                         <div className='flex items-center gap-3'>
-                            <button className='head-btn'>
+                            <Link href="/destinations" className='head-btn'>
                                 <p>Book Now</p>
-                            </button>
-                            <button className='head-btn'>
+                            </Link>
+                            <Link href="Contact-us" className='head-btn'>
                                 <p>Enquire Now</p>
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

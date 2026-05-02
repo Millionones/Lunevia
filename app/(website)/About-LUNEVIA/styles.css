@@ -1,7 +1,7 @@
 .about-hero {
     position: relative;
     background-color: #02010100;
-    background-image: url("/about-us-hero.webp");
+    /* background-image: url("/about-us-hero.webp"); */
     background-position: center center;
     background-size: cover;
     min-height: 450px;
@@ -71,7 +71,7 @@
     }
 
     h2 {
-        font-size: 48px;
+        font-size: 36px;
         font-weight: 400;
         line-height: 1.2em;
         letter-spacing: 0px;

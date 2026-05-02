@@ -29,7 +29,7 @@ const Footer = () => {
                                 <Link href="">Blogs</Link>
                             </li>
                             <li>
-                                <Link href="">Our Philosophy / Experience</Link>
+                                <Link href="">Experience</Link>
                             </li>
                             <li>
                                 <Link href="">Enquiry Form</Link>
@@ -45,23 +45,35 @@ const Footer = () => {
                     <div className='footer-social-menus'>
                         <ul>
                             <li>
-                                <Link href="">
+                                <Link href="https://www.facebook.com/profile.php?id=61574276712917">
                                     <img src="facebook_white.png" alt="" />
                                 </Link>
                             </li>
                             <li>
-                                <Link href="">
+                                <Link href="https://www.instagram.com/luneviaresorts/">
                                     <img src="instagram_white.png" alt="" />
                                 </Link>
                             </li>
                             <li>
-                                <Link href="">
+                                <Link href="https://pin.it/B6u8cDOdo">
                                     <img src="pintrest_white.png" alt="" />
                                 </Link>
                             </li>
                             <li>
-                                <Link href="">
+                                <Link href="https://x.com/luneviaresorts">
                                     <img src="twitter_white.png" alt="" />
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="https://www.linkedin.com/company/lunevia/?viewAsMember=true">
+                                    {/* <img src="twitter_white.png" alt="" /> */}
+                                    linked in
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="https://www.youtube.com/@Luneviaresorts">
+                                    {/* <img src="twitter_white.png" alt="" /> */}
+                                    Youtube
                                 </Link>
                             </li>
                         </ul>
@@ -72,7 +84,7 @@ const Footer = () => {
                     </div> */}
                     <div className='line'></div>
                     <div className='footer-bottom'>
-                        <p>© 2026 PUMP SHOP - AK BROTHERS, Powered by Horatio</p>
+                        <p>© 2026 Lunevia, Powered by Horatio</p>
                     </div>
                 </div>
             </div>

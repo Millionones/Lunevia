@@ -4,20 +4,20 @@ const Features = () => {
 
     const [data, setData] = useState([
         {
-            img: "/amenteties-1.jpg",
-            title: "A lakeside pool",
-            desc: "The swimming pool at Coconut lagoon is a water body with twin purposes. While it will certainly help you cool off on a hot day, it will also help you take in the beauty and grandeur of the Vembanad lake from a unique location."
+            img: "/restaurent.jpg",
+            title: "Restaurent",
+            desc: "Enjoy a delightful dining experience at our in-house restaurant, offering a variety of multi-cuisine dishes prepared with fresh ingredients. Whether it's a hearty breakfast, a relaxed lunch, or a cozy dinner, our restaurant provides the perfect ambiance to satisfy your cravings."
         },
         {
-            img:"/amenteties-2.jpg",
-            title:"Club of nature",
-            desc:"Join our naturalists at the Darter Club - the interpretation center at Coconut Lagoon - to know about the fascinating bio diversity of the Vembanad Lake and its satellite ecosystems that are unique in the world."
+            img:"/parking.jpg",
+            title:"Free parking",
+            desc:"The resort offers complimentary parking facilities for all guests, ensuring a hassle-free stay. With secure and spacious parking areas, guests can conveniently park their vehicles and enjoy their time without any worries."
         },
-        {
-            img:"/amenteties-3.jpg",
-            title:"WiFi access",
-            desc:"WiFi is available across the property to enable you to stay connected at work. However, we at CGH Earth think that a holiday with us is best enjoyed unplugged, or plugged minimally. Let nature lead your eyes and heart for a change!"
-        }
+        // {
+        //     img:"/amenteties-3.jpg",
+        //     title:"WiFi access",
+        //     desc:"WiFi is available across the property to enable you to stay connected at work. However, we at CGH Earth think that a holiday with us is best enjoyed unplugged, or plugged minimally. Let nature lead your eyes and heart for a change!"
+        // }
     ])
     return (
         <section className='amenteties-section'>

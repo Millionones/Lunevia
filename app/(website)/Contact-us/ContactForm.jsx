@@ -10,12 +10,17 @@ const ContactForm = () => {
                         <div className='contact-header'>
                             <h5>Contact Us</h5>
                             <h2>Get in Touch with Our Hospitality Team</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipiscing elit felis himenaeos, suscipit faucibus eu vitae.</p>
+                            <p>Have questions or need assistance with your booking? Our team is here to help.
+                                Feel free to reach out to us anytime, and we’ll ensure your stay is smooth and memorable.</p>
                         </div>
                         <div className='contact-links'>
                             <div className='contact-link'>
                                 <div>
                                     <h3>Phone</h3>
+                                    <a href="">
+                                        <span className="icon">{phoneSvg}</span>
+                                        <p>+1 (555) 123-4567</p>
+                                    </a>
                                     <a href="">
                                         <span className="icon">{phoneSvg}</span>
                                         <p>+1 (555) 123-4567</p>
@@ -71,6 +76,12 @@ const ContactForm = () => {
                                     <input type="text" placeholder='Email Address' />
                                 </div>
                                 <div className='input-row'>
+                                    <label htmlFor="">Mobile Number</label>
+                                    <input type="number" placeholder='Mobile Number' />
+                                </div>
+                            </div>
+                            <div className='contact-input-section'>
+                                <div className='input-row'>
                                     <label htmlFor="">Subject</label>
                                     <input type="text" placeholder='Subject' />
                                 </div>
@@ -81,8 +92,8 @@ const ContactForm = () => {
                                     <textarea name="" id="" placeholder='Comments' cols={30} rows={10}></textarea>
                                 </div>
                             </div>
-                            <div>
-                                <button>SEND MESSAGE</button>
+                            <div >
+                                <button className='send-btn'>SEND MESSAGE</button>
                             </div>
                         </div>
                     </div>

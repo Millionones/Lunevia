@@ -30,13 +30,19 @@ const Locations = () => {
                 desc:"Gap road is a scenic 12–15 km mountain pass on the -Madurai Highway (NH 85) famous for its panoramic views of tea plantations, misty valleys, and rock-cut pathways"
             },
             {
-                title:"Munnar Town (21KM)"
+                img:"/Munnar_Overview.jpg",
+                title:"Munnar Town (21KM)",
+                desc:"Munnar is a town in the Western Ghats mountain range in India’s Kerala state. A hill station and former resort for the British Raj elite, it's surrounded by rolling hills dotted with tea plantations established in the late 19th century. Eravikulam National Park, a habitat for the endangered mountain goat Nilgiri tahr, is home to the Lakkam Waterfalls, hiking trails and 2,695m-tall Anamudi Peak. "
             },
             {
-                title:"Cochin Airport (120 KM)"
+                title:"Cochin Airport (120 KM)",
+                img:"/cochin-airport.jpg",
+                desc:"Cochin International Airport (IATA: COK, ICAO: VOCI), also known as Kochi International Airport, is an international airport serving the city of Kochi, Kerala, India. Located at Nedumbassery"
             },
             {
-                title:"Railway station (95 KM)"
+                img:"/Ernakulam_Junction.jpg",
+                title:"Railway station (95 KM)",
+                desc:`Kochi (formerly Cochin) does not have a single station named "Cochin Railway Station." Instead, the city is served by two main central stations: Ernakulam Junction (South) and Ernakulam Town (North). Both stations connect seamlessly with the rest of India and offer easy transit access`
             }
         ])
   return (

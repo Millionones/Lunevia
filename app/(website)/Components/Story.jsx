@@ -16,7 +16,7 @@ const Story = () => {
                         <p>We create spaces where architecture meets landscape, where culture meets comfort, and where every detail is intentional.</p>
                         <div className='mt-4'>
                             <Button>
-                                <Link href="">
+                                <Link href="/destinations">
                                     Explore our locations
                                 </Link>
                             </Button>

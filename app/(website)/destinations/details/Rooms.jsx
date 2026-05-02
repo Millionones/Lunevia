@@ -29,7 +29,7 @@ const Rooms = () => {
                         {
                             data.map((item) => (
                                 <li className='rooms-grid-card'>
-                                    <Link href="/destinations/details/room">
+                                    <Link href="/destinations/details/room#detail">
                                         <div className='rooms-card-media'>
                                             <img src={item.img} alt="" />
                                         </div>

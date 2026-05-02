@@ -1,7 +1,7 @@
 .contact-hero {
     position: relative;
     background-color: #02010100;
-    background-image: url("/about-us-hero.webp");
+    /* background-image: url("/about-us-hero.webp"); */
     background-position: center center;
     background-size: cover;
     min-height: 450px;
@@ -208,4 +208,15 @@
             gap: 12px;
         }
     }
+}
+
+.send-btn{
+     width: 100%;
+    background: #F9DCBE;
+    padding: 12px 30px 12px 30px;
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #3B3B3B;
+    fill: #3B3B3B;
 }

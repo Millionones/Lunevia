@@ -102,7 +102,7 @@
         font-weight: 400;
         line-height: 1.2em;
         letter-spacing: 0px;
-        color: #ffff;
+        color: #272727;
     }
 }
 
@@ -128,7 +128,10 @@
         /* background: url("/eco-vis-box-bg.png") center center / cover no-repeat; */
         /* background: linear-gradient(135deg, #414141 0%, #333333 50%, #282828 100%);
         backdrop-filter: opacity(30%); */
-        background: #0000002e;
+        /* background: #0000002e; */
+        background: rgba(173, 216, 255, 0.25);
+        /* light blue with transparency */
+        backdrop-filter: blur(10px);
         border-radius: 14px;
     }
 
@@ -138,13 +141,14 @@
 
     h2 {
         font-size: 24px !important;
+        color: #1A2A3A;
     }
 
     p {
         font-size: 16px;
         font-weight: 400;
         line-height: 1.5em;
-        color: #fdfdfd;
+        color: #5B6B7C;
     }
 }
 
