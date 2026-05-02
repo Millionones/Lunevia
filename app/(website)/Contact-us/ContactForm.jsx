@@ -17,20 +17,20 @@ const ContactForm = () => {
                             <div className='contact-link'>
                                 <div>
                                     <h3>Phone</h3>
-                                    <a href="">
+                                    <a href="tel:+916238829339">
                                         <span className="icon">{phoneSvg}</span>
-                                        <p>+1 (555) 123-4567</p>
+                                        <p>+91 6238829339</p>
                                     </a>
-                                    <a href="">
+                                    <a href="tel:+916238899339">
                                         <span className="icon">{phoneSvg}</span>
-                                        <p>+1 (555) 123-4567</p>
+                                        <p>+91 6238899339</p>
                                     </a>
                                 </div>
                                 <div>
                                     <h3>Email</h3>
-                                    <a href="">
+                                    <a href="mailto:info@lunevia.in">
                                         <span>{mailSvg}</span>
-                                        <p>support@lunevia.com</p>
+                                        <p>info@lunevia.in</p>
                                     </a>
                                 </div>
                             </div>
@@ -38,19 +38,19 @@ const ContactForm = () => {
                                 <h3>Social Media</h3>
                                 <ul>
                                     <li>
-                                        <a href="">
+                                        <a href="/https://www.facebook.com/profile.php?id=61574276712917">
                                             <span>{facebookSvg}</span>
                                             <p>Facebook</p>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="">
+                                        <a href="/https://x.com/luneviaresorts">
                                             <span>{twitterSvg}</span>
                                             <p>X Twitter</p>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="">
+                                        <a href="/https://www.instagram.com/luneviaresorts/">
                                             <span>{instagramSvg}</span>
                                             <p>Instagram</p>
                                         </a>

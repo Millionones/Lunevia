@@ -50,7 +50,7 @@ const Gallery = () => {
       <div className='cmpad'>'
         <div className='destination-gallery-inner'>
           <div className='destination-gallery-header'>
-            <h1>Explore our property</h1>
+            <h1>Explore our Rooms</h1>
           </div>
           <div className='destination-gallery-grid'>
             <div className='destination-gallery-grid-items'>

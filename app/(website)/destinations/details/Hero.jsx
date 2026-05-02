@@ -1,5 +1,5 @@
 import React from 'react'
-import { mailSvg, phoneSvg } from '../../../styles/icons'
+import { locationIcon, mailSvg, phoneSvg } from '../../../styles/icons'
 
 const Hero = () => {
     return (
@@ -10,9 +10,9 @@ const Hero = () => {
             </div>
             <div className='hero-support-badge'>
                 <ul>
-                    <li><a href="">{phoneSvg}</a></li>
-                    <li><a href="">{mailSvg}</a></li>
-                    {/* <li><a href=""></a></li> */}
+                    <li><a href="tel:+916238829339">{phoneSvg}</a></li>
+                    <li><a href="mailto:info@lunevia.in">{mailSvg}</a></li>
+                    <li><a href="">{locationIcon}</a></li>
                 </ul>
             </div>
         </section>

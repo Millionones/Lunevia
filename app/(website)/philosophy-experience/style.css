@@ -84,7 +84,8 @@
 
 .pillars-section {
     position: relative;
-    background: url('/eco-vis-bg.png');
+    /* background: url('/eco-vis-bg.png'); */
+    background: #EAF4FF;;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

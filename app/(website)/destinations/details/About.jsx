@@ -41,6 +41,7 @@ const About = () => {
                     <div className='about-inner-content'>
                         <div className='inner-para'>
                             <h5>Crown woods Munnar By Lunevia</h5>
+                            
                             <div>
                                 <p>
                                     Crown woods Munnar, provides a perfect ambience for a relaxed stay. Surrounded by beautiful tea estates, valleys and waterfalls, the hotel is sure to attract hordes of tourists. Well furnished rooms with balcony, quality services and a comfortable setting are the key features of this resort.
