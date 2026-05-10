@@ -83,6 +83,11 @@ const Destinations = () => {
               }
             </ul>
           </div>
+          <div className='flex sm:hidden justify-center'>
+             <Link href="/destinations">
+              <Button>Show More</Button>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

@@ -18,7 +18,7 @@ const Gallery = () => {
                     </div>
                     <div className='gallery-grids'>
                         <div className='gallery-grid-1'>
-                            <div className='flex gap-5'>
+                            <div className='flex flex-col sm:flex-row gap-5'>
                                 <div className='gallery-img-1'>
                                     <img src="/gallery-1.webp" alt="" />
                                 </div>
@@ -43,6 +43,11 @@ const Gallery = () => {
                                 <img src="/gallery-6.webp" alt="" />
                             </div>
                         </div>
+                    </div>
+                    <div className='flex sm:hidden justify-center'>
+                        <Button>
+                            DISCOVER MORE
+                        </Button>
                     </div>
                 </div>
             </div>

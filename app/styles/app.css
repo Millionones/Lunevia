@@ -39,6 +39,12 @@
   color: #fff;
 }
 
+@media screen and (max-width:640px) {
+  .header {
+    height: 80px;
+  }
+}
+
 
 .header-menu li a {
   position: relative;
@@ -86,6 +92,12 @@
   }
 }
 
+@media screen and (max-width:640px) {
+  .hero-slide {
+    height: 80vh;
+  }
+}
+
 .story-section {
   position: relative;
   padding: 20px 0;
@@ -127,6 +139,34 @@
   font-size: 16px;
   font-weight: 400;
   line-height: 28px;
+}
+
+@media screen and (max-width:640px) {
+  .story-inner {
+    flex-direction: column-reverse;
+  }
+
+  .story-media {
+    display: none;
+  }
+
+  .story-para {
+    width: 100%;
+  }
+
+  .story-para {
+    h1 {
+      font-size: 32px;
+    }
+
+    h5 {
+      font-size: 18px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
 }
 
 .footer {
@@ -239,6 +279,12 @@
   font-size: 12px;
 }
 
+@media screen and (max-width:640px) {
+  .footer-menu {
+    display: none;
+  }
+}
+
 .line {
   height: 0.5px;
   background: #fdfdfd;
@@ -275,6 +321,10 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
+
+    @media screen and (max-width:640px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
 
     .destination-grid {
       position: relative;
@@ -341,6 +391,22 @@
     font-size: 14px;
     line-height: 26px;
     font-weight: 400;
+  }
+}
+
+@media screen and (max-width:640px) {
+  .destination-header {
+    h4 {
+      font-size: 24px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+
+    a {
+      display: none;
+    }
   }
 }
 
@@ -438,6 +504,36 @@
   }
 }
 
+@media screen and (max-width:640px) {
+  .gallery-header {
+    h1 {
+      font-size: 32px;
+    }
+
+    a,
+    button {
+      display: none;
+    }
+  }
+
+  .gallery-grids {
+    flex-direction: column;
+  }
+
+  .gallery-grid-1 {
+    width: 100%;
+
+    .gallery-img-1,
+    .gallery-img-2-half {
+      width: 100%;
+    }
+  }
+
+  .gallery-grid-2 {
+    width: 100%;
+  }
+}
+
 .testimonials {}
 
 .testimonials {
@@ -487,6 +583,10 @@
   .swiper {
     min-height: 220px;
   }
+
+  @media screen and (max-width:640px) {
+    width: 100%;
+  }
 }
 
 .testimonial-slide {
@@ -519,6 +619,24 @@
 
   p {
     font-size: 16px;
+  }
+}
+
+@media screen and (max-width:640px) {
+  .testimonials {
+    padding: 30px 0;
+  }
+
+  .testimonial-slide {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+
+    .testimonial-media {
+      width: 100%;
+      max-width: 80px;
+    }
   }
 }
 

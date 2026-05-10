@@ -79,10 +79,10 @@ const Testimonials = () => {
                             <Swiper
                                 spaceBetween={0}
                                 slidesPerView={1}
-                                autoplay={{
-                                    delay: 3000, // 3 seconds
-                                    disableOnInteraction: false,
-                                }}
+                                // autoplay={{
+                                //     delay: 3000, // 3 seconds
+                                //     disableOnInteraction: false,
+                                // }}
                                 loop={true}
                                 pagination={true}
                                 modules={[Pagination, Autoplay]}
