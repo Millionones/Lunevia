@@ -63,7 +63,7 @@ const Header = () => {
                             </Link>
                         </div>
                         {/* Mobile menu button */}
-                        <div className="menu" ref={dropdownRef}>
+                        <div className="menu flex sm:hidden" ref={dropdownRef}>
                             <button
                                 type="button"
                                 className={`icon-btn ${menuOpen ? "icon-btn--active" : ""}  mobile-menu-btn inline-flex items-center justify-center w-9 h-9 rounded-md`}
