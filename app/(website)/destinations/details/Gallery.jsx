@@ -50,7 +50,7 @@ const Gallery = () => {
 
   return (
     <section className='destination-gallery'>
-      <div className='cmpad'>'
+      <div className='cmpad'>
         <div className='destination-gallery-inner'>
           <div className='destination-gallery-header'>
             <h1>Explore our property</h1>
