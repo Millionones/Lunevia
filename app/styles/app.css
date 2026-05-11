@@ -561,6 +561,10 @@
     letter-spacing: 2px;
     font-weight: 500;
     text-transform: uppercase;
+
+    @media screen and (max-width:640px) {
+      font-size: 36px;
+    }
   }
 
   h5 {
@@ -724,4 +728,32 @@
 
 .faq-icon.faq-open svg {
   transform: rotate(180deg);
+}
+
+@media screen and (max-width:640px) {
+  .faq-inner {
+    padding: 10px;
+    flex-direction: column;
+
+    .faq-left-header,
+    .faqs {
+      width: 100%;
+    }
+
+    .faq-left-header {
+      h2 {
+        font-size: 32px;
+      }
+
+      p {
+        max-width: 100%;
+      }
+    }
+  }
+
+  .faqs .Collapsible {
+    button {
+      padding: 24px 0;
+    }
+  }
 }
