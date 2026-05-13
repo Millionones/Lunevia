@@ -7,7 +7,7 @@ const Story = () => {
             <div className="cmpad">
                 <div className='story-inner'>
                     <div className='story-media'>
-                        <img src="beautiful-view-wooden-huts-ocean-captured-thailand.jpg" alt="" />
+                        <img src="/About_Image_Lunevia.png" alt="" />
                     </div>
                     <div className='story-para'>
                         <h1>The LUNEVIA Way</h1>
