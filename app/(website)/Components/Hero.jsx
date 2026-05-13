@@ -21,12 +21,12 @@ const Hero = () => {
             >
                 <SwiperSlide>
                     <div className='hero-slide'>
-                        <img src="beautiful-view-wooden-huts-ocean-captured-thailand.jpg" alt="" />
+                        <img src="/lunevia_home_hero1.png" alt="" />
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
                     <div className='hero-slide'>
-                        <img src="luxury-thai-massage-pavilion.jpg" alt="" />
+                        <img src="/lunevia_home_hero2.png" alt="" />
                     </div>
                 </SwiperSlide>
             </Swiper>
