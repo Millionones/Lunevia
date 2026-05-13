@@ -9,13 +9,13 @@ const Header = () => {
     const dropdownRef = useRef(null);
     const mobileNavRef = useRef(null);
 
-    useEffect(()=>{
-        if(menuOpen == true){
+    useEffect(() => {
+        if (menuOpen == true) {
             document.body.style.overflow = "hidden";
-        }else{
+        } else {
             document.body.style.overflow = "auto";
         }
-    },[menuOpen])
+    }, [menuOpen])
 
     return (
         <>
@@ -61,6 +61,10 @@ const Header = () => {
                             <Link href="Contact-us" className='head-btn'>
                                 <p>Enquire Now</p>
                             </Link>
+                            <Link href="https://wa.me/6238829339"
+                                target="_blank" className='wtsp-btn'>
+                                <img src="/whatsapp.png" alt="" />
+                            </Link>
                         </div>
                         {/* Mobile menu button */}
                         <div className="menu flex sm:hidden" ref={dropdownRef}>
@@ -79,7 +83,7 @@ const Header = () => {
                             <div className='py-5 px-5 flex flex-col gap-[24px]'>
                                 <div className='flex justify-between items-center'>
                                     <img src="/logo-black.png" alt="logo" className='max-w-[140px]' />
-                                    <button className='' onClick={()=>setMenuOpen(false)}>
+                                    <button className='' onClick={() => setMenuOpen(false)}>
                                         <img src="/cross_icon.svg" alt="" className='max-w-[24px]' />
                                     </button>
                                 </div>
@@ -131,6 +135,13 @@ const Header = () => {
                                         <Link href="">Enquiry Form</Link>
                                     </li>
                                 </ul>
+                                <div className='flex justify-center'>
+                                    <Link href="https://wa.me/6238829339"
+                                        target="_blank" className='wtsp-mob-btn'>
+                                            <p>Whatsapp Us</p>
+                                        <img src="/whatsapp.png" alt="" />
+                                    </Link>
+                                </div>
                                 <div className='flex items-center justify-center gap-2.5 '>
                                     <Link href="/destinations" className='head-btn' style={{ borderColor: "#000000", color: "#000000" }}>
                                         <p>Book Now</p>

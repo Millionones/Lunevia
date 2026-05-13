@@ -76,6 +76,62 @@
   font-weight: 600;
 }
 
+.wtsp-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+
+  img {
+    width: 40px;
+  }
+
+}
+
+.wtsp-btn:hover {
+  animation: bounce 0.6s ease infinite;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+
+  30% {
+    transform: translateY(-8px);
+  }
+
+  50% {
+    transform: translateY(0);
+  }
+
+  70% {
+    transform: translateY(-4px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.wtsp-mob-btn {
+  border: 1px solid;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #15151e;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  max-width: 200px;
+
+  img {
+    width: 40px;
+  }
+}
+
 .head-btn:hover {
   background: #7d7d7d;
   border-color: #7d7d7d;
@@ -500,6 +556,7 @@
 
   .gallery-img-6 {
     height: 100%;
+
     img {
       max-height: 480px;
       width: 100%;
