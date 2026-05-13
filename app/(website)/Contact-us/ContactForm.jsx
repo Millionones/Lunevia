@@ -1,7 +1,59 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 import { facebookSvg, instagramSvg, mailSvg, phoneSvg, twitterSvg } from '../../styles/icons'
 
 const ContactForm = () => {
+
+    const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    mobile: "",
+    subject: "",
+    comments: "",
+});
+
+const handleChange = (e) => {
+    console.log(e.target.name,"_", e.target.value)
+    setFormData({
+        ...formData,
+        [e.target.name]: e.target.value,
+    });
+};
+
+const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+
+        const response = await fetch("/api/contact", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+
+            alert("Message Sent Successfully");
+
+            setFormData({
+                firstName: "",
+                lastName: "",
+                email: "",
+                mobile: "",
+                subject: "",
+                comments: "",
+            });
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+};
     return (
         <section className='contact-section'>
             <div className='cmpad'>
@@ -61,41 +113,41 @@ const ContactForm = () => {
                     </div>
 
                     <div className='contact-right'>
-                        <div className='contact-form'>
+                        <form className='contact-form' onSubmit={handleSubmit}>
                             <div className='contact-input-grid'>
                                 <div className='input-row'>
                                     <label htmlFor="">First Name</label>
-                                    <input type="text" placeholder='First Name' />
+                                    <input type="text" placeholder='First Name' name='firstName' value={formData.firstName} onChange={handleChange}/>
                                 </div>
                                 <div className='input-row'>
                                     <label htmlFor="">Last Name</label>
-                                    <input type="text" placeholder='Last Name' />
+                                    <input type="text" placeholder='Last Name' name='lastName' value={formData.lastName} onChange={handleChange}/>
                                 </div>
                                 <div className='input-row'>
                                     <label htmlFor="">Email Address</label>
-                                    <input type="text" placeholder='Email Address' />
+                                    <input type="text" placeholder='Email Address' name='email' value={formData.email} onChange={handleChange}/>
                                 </div>
                                 <div className='input-row'>
                                     <label htmlFor="">Mobile Number</label>
-                                    <input type="number" placeholder='Mobile Number' />
+                                    <input type="number" placeholder='Mobile Number' name='mobile' value={formData.mobile} onChange={handleChange}/>
                                 </div>
                             </div>
                             <div className='contact-input-section'>
                                 <div className='input-row'>
                                     <label htmlFor="">Subject</label>
-                                    <input type="text" placeholder='Subject' />
+                                    <input type="text" placeholder='Subject' name='subject' value={formData.subject} onChange={handleChange}/>
                                 </div>
                             </div>
                             <div className='contact-input-section'>
                                 <div className='input-row'>
                                     <label htmlFor="">Comments / Questions</label>
-                                    <textarea name="" id="" placeholder='Comments' cols={30} rows={10}></textarea>
+                                    <textarea name="" id="" placeholder='Comments' cols={30} rows={10} name='comments' value={formData.comments} onChange={handleChange}></textarea>
                                 </div>
                             </div>
                             <div >
-                                <button className='send-btn'>SEND MESSAGE</button>
+                                <button type="submit" className='send-btn'>SEND MESSAGE</button>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

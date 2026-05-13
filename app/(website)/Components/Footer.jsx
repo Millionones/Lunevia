@@ -45,32 +45,32 @@ const Footer = () => {
                     <div className='footer-social-menus'>
                         <ul>
                             <li>
-                                <Link href="https://www.facebook.com/profile.php?id=61574276712917">
+                                <Link target='_blank' href="https://www.facebook.com/profile.php?id=61574276712917">
                                     <img src="/facebook_white.png" alt="" />
                                 </Link>
                             </li>
                             <li>
-                                <Link href="https://www.instagram.com/luneviaresorts/">
+                                <Link target='_blank' href="https://www.instagram.com/luneviaresorts/">
                                     <img src="/instagram_white.png" alt="" />
                                 </Link>
                             </li>
                             <li>
-                                <Link href="https://pin.it/B6u8cDOdo">
+                                <Link target='_blank' href="https://pin.it/B6u8cDOdo">
                                     <img src="/pintrest_white.png" alt="" />
                                 </Link>
                             </li>
                             <li>
-                                <Link href="https://x.com/luneviaresorts">
+                                <Link target='_blank' href="https://x.com/luneviaresorts">
                                     <img src="/twitter_white.png" alt="" />
                                 </Link>
                             </li>
                             <li>
-                                <Link href="https://www.linkedin.com/company/lunevia/?viewAsMember=true">
+                                <Link target='_blank' href="https://www.linkedin.com/company/lunevia/?viewAsMember=true">
                                     <img src="/linkedin-app-white-icon.png" alt="" />
                                 </Link>
                             </li>
                             <li>
-                                <Link href="https://www.youtube.com/@Luneviaresorts">
+                                <Link target='_blank' href="https://www.youtube.com/@Luneviaresorts">
                                     <img src="/youtube-app-white-icon.png" alt="" />
                                 </Link>
                             </li>

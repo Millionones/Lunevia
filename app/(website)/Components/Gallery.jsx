@@ -20,27 +20,27 @@ const Gallery = () => {
                         <div className='gallery-grid-1'>
                             <div className='flex flex-col sm:flex-row gap-5'>
                                 <div className='gallery-img-1'>
-                                    <img src="/gallery-1.webp" alt="" />
+                                    <img src="/client-resort-img13.webp" alt="" />
                                 </div>
                                 <div className='gallery-img-2-half'>
                                     <div className="gallery-img-2">
-                                        <img src="/gallery-2.webp" alt="" />
+                                        <img src="/client-resort-img2.jpeg" alt="" />
                                     </div>
                                     <div className="gallery-img-3">
-                                        <img src="/gallery-3.webp" alt="" />
+                                        <img src="/client-resort-img3.jpeg" alt="" />
                                     </div>
                                 </div>
                             </div>
                             <div className="gallery-img-4">
-                                <img src="/gallery-4.webp" alt="" />
+                                <img src="/client-resort-img11.jpeg" alt="" />
                             </div>
                         </div>
                         <div className='gallery-grid-2'>
                             <div className="gallery-img-5">
-                                <img src="/gallery-5.webp" alt="" />
+                                <img src="/client-resort-img5.webp" alt="" />
                             </div>
                             <div className="gallery-img-6">
-                                <img src="/gallery-6.webp" alt="" />
+                                <img src="/client-resort-img1.webp" alt="" />
                             </div>
                         </div>
                     </div>
