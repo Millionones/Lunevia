@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 const DestinationList = () => {
     const [data, setData] = useState([
         {
-            img: '/Crown_woods_Munnar.webp',
+            img: '/Banner_Image_Lunevia.png',
             title: 'Crown woods Munnar By Lunevia',
             description: 'Crown woods Munnar, provides a perfect ambience for a relaxed stay. Surrounded by beautiful tea estates, valleys and waterfalls, the hotel is sure to attract hordes of tourists. Well furnished rooms with balcony, quality services and a comfortable setting are the key features of this resort.'
         },
