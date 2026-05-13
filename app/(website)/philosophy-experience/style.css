@@ -1,7 +1,7 @@
 .hero-section {
     height: 600px;
     width: 100%;
-    background-image: url('/beautiful-view-wooden-huts-ocean-captured-thailand.jpg');
+    background-image: url('/Experience_banner.png');
     background-size: cover;
     background-position: center;
     position: relative;
@@ -84,7 +84,7 @@
 
 .pillars-section {
     position: relative;
-    /* background: url('/eco-vis-bg.png'); */
+    background: url('/eco-vis-bg.png');
     background: #EAF4FF;;
     background-position: center;
     background-repeat: no-repeat;

@@ -6,7 +6,7 @@ const Philosophy = () => {
             <div className='cmpad'>
                 <div className='philosophy-inner'>
                     <div className='philosophy-media'>
-                        <img src="/about-us-about.webp" alt="" />
+                        <img src="/Experience_about.png" alt="" />
                     </div>
                     <div className='philosophy-contents'>
                         <h2>Hospitality Rooted in Experience</h2>

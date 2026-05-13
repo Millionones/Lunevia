@@ -60,7 +60,7 @@ const About = () => {
                             </div>
                         </div>
                         <div className='inner-media'>
-                            <img src="/Crown_woods_Munnar.webp" alt="" />
+                            <img src="/destination_about_img.png" alt="" />
                         </div>
                     </div>
                 </div>

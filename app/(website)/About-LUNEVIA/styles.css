@@ -1,7 +1,7 @@
 .about-hero {
     position: relative;
     background-color: #02010100;
-    /* background-image: url("/about-us-hero.webp"); */
+    background-image: url("/About_us_banner.png");
     background-position: center center;
     background-size: cover;
     min-height: 450px;
@@ -232,4 +232,60 @@
     letter-spacing: 0%;
     vertical-align: middle;
     color: #10171E;
+}
+
+@media screen and (max-width:640px) {
+    .about-hero-inner h1 {
+        font-size: 48px;
+    }
+
+    .about-inner {
+        padding: 0px;
+    }
+
+    .about-section {
+        padding: 15px 0;
+        margin: 10px 0;
+    }
+
+    .about-header h2 {
+        font-size: 24px;
+    }
+
+    .about-para {
+        flex-direction: column;
+    }
+
+    .about-para-media,
+    .about-para-content {
+        width: 100%;
+    }
+    .about-para-media{
+        display: none;
+    }
+}
+
+@media (max-width: 900px) {
+    .Usps-list::before {
+        display: none;
+    }
+
+    .products__card {
+        border-top: 2px solid #E5E7EB;
+        padding-top: 60px !important;
+    }
+
+    /* Adjust dot and connector positions to sit above the card border */
+    .products__card::before {
+        top: 36px;
+        left: 35px;
+        transform: translateX(0);
+    }
+
+    .products__card::after {
+        top: 0px;
+        left: 40px;
+        transform: translateX(0);
+        height: 36px;
+    }
 }
