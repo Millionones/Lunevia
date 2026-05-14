@@ -9,7 +9,7 @@ const page = () => {
     <>
       <Hero />
       <DestinationList />
-      <Testimonials />
+      {/* <Testimonials /> */}
       <Faq/>
     </>
   )
