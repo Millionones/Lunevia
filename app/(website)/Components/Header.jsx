@@ -47,11 +47,11 @@ const Header = () => {
                                         Contact Us
                                     </a>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <a href="/testimonials">
                                         Testimonials
                                     </a>
-                                </li>
+                                </li> */}
                             </ul>
                         </div>
                         <div className='hidden sm:flex items-center gap-3'>
@@ -108,11 +108,11 @@ const Header = () => {
                                             Contact Us
                                         </a>
                                     </li>
-                                    <li>
+                                    {/* <li>
                                         <a href="/testimonials">
                                             Testimonials
                                         </a>
-                                    </li>
+                                    </li> */}
                                     <li>
                                         <Link href="">Careers</Link>
                                     </li>
