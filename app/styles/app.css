@@ -77,13 +77,16 @@
 }
 
 .wtsp-btn {
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
   transition: transform 0.3s ease;
 
   img {
-    width: 40px;
+    width: 60px;
   }
 
 }
