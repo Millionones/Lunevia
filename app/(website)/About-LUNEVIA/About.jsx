@@ -13,7 +13,7 @@ const About = () => {
                     </div>
                     <div className='about-para'>
                         <div className='about-para-media'>
-                            <img src="/about-us-about.webp" alt="" />
+                            <img src="/about-us-about2.webp" alt="" />
                         </div>
                         <div className='about-para-content'>
                             <p>Lunevia is a hospitality-focused brand engaged in owning, leasing, developing, and operating resorts, restaurants, and other hospitality properties. Our vision is to create destinations that combine comfort, elegance, and genuine hospitality, while delivering sustainable value through professional management and guest-centric operations.</p>

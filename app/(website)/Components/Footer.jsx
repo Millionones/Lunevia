@@ -50,7 +50,7 @@ const Footer = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link target='_blank' href="https://www.instagram.com/luneviaresorts/">
+                                <Link target='_blank' href="https://www.instagram.com/lunevia_resorts/">
                                     <img src="/instagram_white.png" alt="" />
                                 </Link>
                             </li>
