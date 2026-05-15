@@ -58,7 +58,7 @@ const Header = () => {
                             <Link href="/destinations" className='head-btn'>
                                 <p>Book Now</p>
                             </Link>
-                            <Link href="Contact-us" className='head-btn'>
+                            <Link href="/Contact-us" className='head-btn'>
                                 <p>Enquire Now</p>
                             </Link>
                         </div>
@@ -146,7 +146,7 @@ const Header = () => {
                                     <Link href="/destinations" className='head-btn' style={{ borderColor: "#000000", color: "#000000" }}>
                                         <p>Book Now</p>
                                     </Link>
-                                    <Link href="Contact-us" className='head-btn' style={{ borderColor: "#000000", color: "#000000" }}>
+                                    <Link href="/Contact-us" className='head-btn' style={{ borderColor: "#000000", color: "#000000" }}>
                                         <p>Enquire Now</p>
                                     </Link>
                                 </div>
