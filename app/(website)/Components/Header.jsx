@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { closeIconSvg } from '../../styles/icons';
+import { Toaster } from 'react-hot-toast';
 const Header = () => {
 
     const [menuOpen, setMenuOpen] = useState(false);
@@ -19,6 +20,10 @@ const Header = () => {
 
     return (
         <>
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+            />
             <section className='header'>
                 <div className='cmpad h-full'>
                     <div className='h-full flex justify-between items-center'>

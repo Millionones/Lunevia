@@ -1,6 +1,8 @@
 "use client"
 import React, { useState } from 'react'
 import { facebookSvg, instagramSvg, mailSvg, phoneSvg, twitterSvg } from '../../styles/icons'
+import toast from 'react-hot-toast';
+import { validateEmail, validateMobile } from '../../../helpers/functions';
 
 const ContactForm = () => {
 
@@ -25,7 +27,21 @@ const ContactForm = () => {
         e.preventDefault();
 
         try {
-
+            if (formData.firstName.length == 0) {
+                return toast.error("Please Fill the First Name")
+            }
+            if (formData.lastName.length == 0) {
+                return toast.error("Please Fill the Last Name")
+            }
+            if (!validateEmail(formData.email)) {
+                return toast.error("Please Enter Valid Email")
+            }
+            if (!validateMobile(formData.mobile)) {
+                return toast.error("Please Enter Valid Mobile Number")
+            }
+            if (formData.subject.length == 0) {
+                return toast.error("Please Fill the Subject")
+            }
             const response = await fetch("/api/contact", {
                 method: "POST",
                 headers: {

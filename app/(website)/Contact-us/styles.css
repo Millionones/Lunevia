@@ -197,12 +197,12 @@
         }
     }
 
-    .contact-social{
+    .contact-social {
         display: flex;
         flex-direction: column;
         gap: 16px;
 
-        ul{
+        ul {
             display: flex;
             flex-direction: column;
             gap: 12px;
@@ -210,8 +210,8 @@
     }
 }
 
-.send-btn{
-     width: 100%;
+.send-btn {
+    width: 100%;
     background: #F9DCBE;
     padding: 12px 30px 12px 30px;
     font-size: 13px;
@@ -219,4 +219,10 @@
     text-transform: uppercase;
     color: #3B3B3B;
     fill: #3B3B3B;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.send-btn:hover {
+    background: #f9c893;
 }

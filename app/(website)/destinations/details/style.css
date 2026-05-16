@@ -312,6 +312,7 @@
 .about-inner-right-form-item {
     display: flex;
     flex-direction: column;
+    width: 100%;
 
     label {
         color: #3B3B3B;
@@ -324,6 +325,7 @@
         font-size: 16px;
         border: 1px solid #EAECF1;
         padding: 15px 24px 17px 24px;
+        width: 100%;
     }
 }
 
@@ -340,6 +342,12 @@
         text-shadow: 0px 0px 0px rgba(0, 0, 0, 0.3);
         color: #3B3B3B;
         box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.5);
+        transition: transform 0.3s ease;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #f9c893;
     }
 }
 
@@ -1088,7 +1096,7 @@
         font-size: 30px;
     }
 
-    .about-inner-right{
+    .about-inner-right {
         width: 100%;
     }
 }

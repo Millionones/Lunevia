@@ -4,11 +4,13 @@ import '../style.css'
 import Details from './Details'
 import Gallery from './Gallery'
 
-const page = () => {
+const page = async({params }) => {
+    const { slug } = await params
+    console.log(slug)
     return (
         <>
             <Hero />
-            <Details />
+            <Details slug={slug}/>
             <Gallery />
         </>
     )

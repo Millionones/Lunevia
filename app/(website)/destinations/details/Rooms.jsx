@@ -6,16 +6,19 @@ const Rooms = () => {
 
     const [data, setData] = useState([
         {
+            id:"superior_room",
             img: '/client-resort-img4.jpeg',
             title: 'Superior Room',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio libero maiores quo dicta odit voluptas. Qui nulla dolorum excepturi, amet doloribus expedita quam exercitationem ab necessitatibus fuga velit reiciendis totam.'
         },
         {
+            id:"deluxe_room",
             img: '/client-resort-img4.jpeg',
             title: 'Deluxe Room ',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio libero maiores quo dicta odit voluptas. Qui nulla dolorum excepturi, amet doloribus expedita quam exercitationem ab necessitatibus fuga velit reiciendis totam.'
         },
         {
+            id:"suite_room",
             img: '/client-resort-img4.jpeg',
             title: 'Suite Room',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio libero maiores quo dicta odit voluptas. Qui nulla dolorum excepturi, amet doloribus expedita quam exercitationem ab necessitatibus fuga velit reiciendis totam.'
@@ -29,7 +32,7 @@ const Rooms = () => {
                         {
                             data.map((item) => (
                                 <li className='rooms-grid-card'>
-                                    <Link href="/destinations/details/room#detail">
+                                    <Link href={`/destinations/details/${item.id}#detail`}>
                                         <div className='rooms-card-media'>
                                             <img src={item.img} alt="" />
                                         </div>

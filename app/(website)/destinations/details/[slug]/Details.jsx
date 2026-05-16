@@ -1,7 +1,9 @@
 "use client"
 import React, { useState } from 'react'
 import { tickIconSvg } from '../../../../styles/icons'
-const Details = () => {
+import toast from 'react-hot-toast'
+import { validateEmail, validateMobile } from '../../../../../helpers/functions'
+const Details = ({ slug }) => {
     const [data, setData] = useState({
         img: 'https://templates.sparklethings.com/palmea/wp-content/uploads/sites/246/2026/02/3d-rendering-luxury-tropical-bedroom-suite-in-reso-2026-01-07-02-15-56-utc-1024x682.webp',
         roomDetails: {
@@ -32,6 +34,98 @@ const Details = () => {
             ]
         }
     })
+    const today = new Date().toISOString().split("T")[0];
+    const [formData, setFormData] = useState({
+        fullName: "",
+        email: "",
+        mobile: "",
+        guestNo: "",
+        adults: "",
+        childrens: "",
+        checkIn: "",
+        checkOut: "",
+        destination: "Crown woods Munnar By Lunevia",
+        room: slug
+    });
+
+    const handleChange = (e) => {
+        console.log(e.target.name, "_", e.target.value)
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const getNextDay = (date) => {
+        if (!date) return today;
+
+        const nextDay = new Date(date);
+        nextDay.setDate(nextDay.getDate() + 1);
+
+        return nextDay.toISOString().split("T")[0];
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            let data = { ...formData }
+            if (formData.fullName.length == 0) {
+                return toast.error("Please Fill the Full Name")
+            }
+            if (!validateEmail(formData.email)) {
+                return toast.error("Please Enter Valid Email")
+            }
+            if (!validateMobile(formData.mobile)) {
+                return toast.error("Please Enter Valid Mobile Number")
+            }
+            if (formData.guestNo.length == 0 || formData.guestNo == 0 || formData.guestNo > 10) {
+                return toast.error("Please Enter Valid Guest Count")
+            }
+            if (formData.adults.length == 0 || formData.adults == 0 || formData.adults > 10) {
+                return toast.error("Please Enter Valid Adult Count")
+            }
+            if (formData.childrens > 10) {
+                return toast.error("Please Enter Valid Childrens Count")
+            }
+            if (formData.checkIn.length == 0) {
+                return toast.error("Please Enter Valid Check In Date")
+            }
+            if (formData.checkOut.length == 0) {
+                return toast.error("Please Enter Valid Check Out Date")
+            }
+            const response = await fetch("/api/booking", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+
+            const responseData = await response.json();
+
+            if (responseData.success) {
+
+                // alert("Message Sent Successfully");
+                toast.success("Booking Sent Successfully")
+
+                setFormData({
+                    fullName: "",
+                    email: "",
+                    mobile: "",
+                    guestNo: "",
+                    adults: "",
+                    childrens: "",
+                    checkIn: "",
+                    checkOut: "",
+                });
+                data = {}
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    };
     return (
         <section className='destination-about' id='detail'>
             <div className='cmpad'>
@@ -119,31 +213,51 @@ const Details = () => {
                                 </li>
                             </ul>
                         </div>
-                        <div className='about-inner-right-form'>
-                            <div className='about-inner-right-form-item'>
-                                <label htmlFor="">Full Name</label>
-                                <input type="text" placeholder='Full Name' />
+                        <form className='about-inner-right-form' onSubmit={handleSubmit}>
+                            <div className='flex gap-4 flex-col sm:flex-row'>
+                                <div className='about-inner-right-form-item'>
+                                    <label htmlFor="">Full Name</label>
+                                    <input type="text" placeholder='Full Name' name='fullName' value={formData.fullName} onChange={handleChange} />
+                                </div>
+                                <div className='about-inner-right-form-item'>
+                                    <label htmlFor="">Email</label>
+                                    <input type="text" placeholder='Email Address' name='email' value={formData.email} onChange={handleChange} />
+                                </div>
                             </div>
-                            <div className='about-inner-right-form-item'>
-                                <label htmlFor="">Email</label>
-                                <input type="text" placeholder='Email Address' />
+                            <div className='flex gap-4 flex-col sm:flex-row'>
+                                <div className='about-inner-right-form-item'>
+                                    <label htmlFor="">Mobile</label>
+                                    <input type="number" placeholder='Mobile Number' name='mobile' value={formData.mobile} onChange={handleChange} />
+                                </div>
+                                <div className='about-inner-right-form-item'>
+                                    <label htmlFor="">Guest</label>
+                                    <input type="number" placeholder='No. of Guest' name='guestNo' value={formData.guestNo} onChange={handleChange} />
+                                </div>
                             </div>
-                            <div className='about-inner-right-form-item'>
-                                <label htmlFor="">Guest</label>
-                                <input type="number" placeholder='No. of Guest' />
+                            <div className='flex gap-4 flex-col sm:flex-row'>
+                                <div className='about-inner-right-form-item'>
+                                    <label htmlFor="">No. of Adults</label>
+                                    <input type="number" placeholder='No. of Guest' name='adults' value={formData.adults} onChange={handleChange} />
+                                </div>
+                                <div className='about-inner-right-form-item'>
+                                    <label htmlFor="">No. of Childrens</label>
+                                    <input type="number" placeholder='No. of Guest' name='childrens' value={formData.childrens} onChange={handleChange} />
+                                </div>
                             </div>
-                            <div className='about-inner-right-form-item'>
-                                <label htmlFor="">Check in</label>
-                                <input type="date" />
-                            </div>
-                            <div className='about-inner-right-form-item'>
-                                <label htmlFor="">Check out</label>
-                                <input type="date" />
+                            <div className='flex gap-4 flex-col sm:flex-row'>
+                                <div className='about-inner-right-form-item'>
+                                    <label htmlFor="">Check in</label>
+                                    <input type="date" name='checkIn' value={formData.checkIn} onChange={handleChange} min={today} />
+                                </div>
+                                <div className='about-inner-right-form-item'>
+                                    <label htmlFor="">Check out</label>
+                                    <input type="date" name='checkOut' value={formData.checkOut} onChange={handleChange} min={getNextDay(formData.checkIn)} disabled={formData.checkIn.length == 0} />
+                                </div>
                             </div>
                             <div className='about-inner-right-form-submit'>
-                                <button>Book Now</button>
+                                <button type="submit">Book Now</button>
                             </div>
-                        </div>
+                        </form>
                     </div>
 
                 </div>
