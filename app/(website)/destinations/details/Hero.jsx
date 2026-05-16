@@ -10,9 +10,9 @@ const Hero = () => {
             </div>
             <div className='hero-support-badge'>
                 <ul>
-                    <li><a href="tel:+916238829339">{phoneSvg}</a></li>
-                    <li><a href="mailto:info@lunevia.in">{mailSvg}</a></li>
-                    <li><a href="">{locationIcon}</a></li>
+                    <li><a href="tel:+916238829339" target='_blank'>{phoneSvg}</a></li>
+                    <li><a href="mailto:info@lunevia.in" target='_blank'>{mailSvg}</a></li>
+                    <li><a href="" target='_blank'>{locationIcon}</a></li>
                 </ul>
             </div>
         </section>

@@ -327,6 +327,16 @@
         padding: 15px 24px 17px 24px;
         width: 100%;
     }
+
+    .css-10o2lyd-MuiStack-root {
+        overflow: hidden;
+        max-width: 100%;
+        padding: 0;
+
+        .css-qru2u2-MuiPickersSectionList-root-MuiPickersInputBase-sectionsContainer-MuiPickersOutlinedInput-sectionsContainer{
+            width: 100%;
+        }
+    }
 }
 
 .about-inner-right-form-submit {

@@ -12,7 +12,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { get, post } from "../../../helpers/api";
 import { useRouter } from "next/navigation";
-
+import "./app.css"
 function AdminLogin() {
   const router = useRouter();
   const validation = useFormik({

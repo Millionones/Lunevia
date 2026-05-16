@@ -14,7 +14,9 @@ export async function POST(req) {
             adults,
             childrens,
             checkIn,
+            checkInTime,
             checkOut,
+            checkOutTime,
             destination,
             room
         } = body;
@@ -79,8 +81,12 @@ export async function POST(req) {
                             <td>${childrens == "" ? 0 : childrens}</td>
                         </tr>
                         <tr>
-                            <td><strong>Booking on </strong></td>
-                            <td>${checkIn} - ${checkOut}</td>
+                            <td><strong>Check In </strong></td>
+                            <td>${checkIn} - ${checkInTime}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Check out </strong></td>
+                            <td>${checkOut} - ${checkOutTime}</td>
                         </tr>
                         <tr>
                             <td><strong>Destination</strong></td>

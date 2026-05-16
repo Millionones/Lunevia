@@ -3,6 +3,10 @@ import React, { useState } from 'react'
 import { tickIconSvg } from '../../../../styles/icons'
 import toast from 'react-hot-toast'
 import { validateEmail, validateMobile } from '../../../../../helpers/functions'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 const Details = ({ slug }) => {
     const [data, setData] = useState({
         img: 'https://templates.sparklethings.com/palmea/wp-content/uploads/sites/246/2026/02/3d-rendering-luxury-tropical-bedroom-suite-in-reso-2026-01-07-02-15-56-utc-1024x682.webp',
@@ -43,7 +47,9 @@ const Details = ({ slug }) => {
         adults: "",
         childrens: "",
         checkIn: "",
+        checkInTime: "",
         checkOut: "",
+        checkOutTime: "",
         destination: "Crown woods Munnar By Lunevia",
         room: slug
     });
@@ -117,7 +123,9 @@ const Details = ({ slug }) => {
                     adults: "",
                     childrens: "",
                     checkIn: "",
+                    checkInTime:"",
                     checkOut: "",
+                    checkOutTime:""
                 });
                 data = {}
             }
@@ -246,12 +254,32 @@ const Details = ({ slug }) => {
                             </div>
                             <div className='flex gap-4 flex-col sm:flex-row'>
                                 <div className='about-inner-right-form-item'>
-                                    <label htmlFor="">Check in</label>
+                                    <label htmlFor="">Check In Date</label>
                                     <input type="date" name='checkIn' value={formData.checkIn} onChange={handleChange} min={today} />
                                 </div>
                                 <div className='about-inner-right-form-item'>
-                                    <label htmlFor="">Check out</label>
-                                    <input type="date" name='checkOut' value={formData.checkOut} onChange={handleChange} min={getNextDay(formData.checkIn)} disabled={formData.checkIn.length == 0} />
+                                    <label htmlFor="">Check In Time</label>
+                                    <input type="time" name='checkInTime' value={formData.checkInTime} onChange={handleChange} disabled={formData.checkIn.length == 0} />
+                                    {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                        <DemoContainer components={['TimePicker']}>
+                                            <TimePicker label="Select the time" name='checkInTime'value={formData.checkInTime}  onChange={handleChange} disabled={formData.checkIn.length == 0}/>
+                                        </DemoContainer>
+                                    </LocalizationProvider> */}
+                                </div>
+                            </div>
+                            <div className='flex gap-4 flex-col sm:flex-row'>
+                                <div className='about-inner-right-form-item'>
+                                    <label htmlFor="">Check Out Date</label>
+                                    <input type="date" name='checkOut' value={formData.checkOut} onChange={handleChange} min={getNextDay(formData.checkIn)} />
+                                </div>
+                                <div className='about-inner-right-form-item'>
+                                    <label htmlFor="">Check Out Time</label>
+                                    <input type="time" name='checkOutTime' value={formData.checkOutTime} onChange={handleChange} disabled={formData.checkOut.length == 0} />
+                                    {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                        <DemoContainer components={['TimePicker']}>
+                                            <TimePicker label="Select the time" name='checkOutTime'  onChange={handleChange} disabled={formData.checkOut.length == 0}/>
+                                        </DemoContainer>
+                                    </LocalizationProvider> */}
                                 </div>
                             </div>
                             <div className='about-inner-right-form-submit'>
