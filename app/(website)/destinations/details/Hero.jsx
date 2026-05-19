@@ -5,7 +5,8 @@ const Hero = () => {
     return (
         <section>
             <div className='hero'>
-                <img src="/Banner_Image_Lunevia.webp" alt="" />
+                {/* <img src="/Banner_Image_Lunevia.webp" alt="" /> */}
+                <img src="/Crown_woods_Munnar1.jpeg" alt="" />
                 {/* <h1>Crown woods Munnar By Lunevia</h1> */}
             </div>
             <div className='hero-support-badge'>

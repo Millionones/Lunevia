@@ -11,7 +11,7 @@ const page = async({params }) => {
         <>
             <Hero />
             <Details slug={slug}/>
-            <Gallery />
+            <Gallery slug={slug}/>
         </>
     )
 }

@@ -7,19 +7,41 @@ import 'lightgallery/css/lg-zoom.css';
 import 'lightgallery/css/lg-thumbnail.css';
 import Drawer from '@mui/material/Drawer';
 import { closeIconSvg } from '../../../../styles/icons';
-const Gallery = () => {
+const Gallery = ({slug}) => {
 
-  const [data, setData] = useState([
-    "/sample-gallery-img1.jpg",
-    "/sample-gallery-img2.jpg",
-    "/sample-gallery-img3.jpg",
-    "/sample-gallery-img4.jpg",
-    "/sample-gallery-img5.jpg",
-    "/sample-gallery-img6.jpg",
-    "/sample-gallery-img8.jpg",
-    "/sample-gallery-img9.jpg",
-    "/sample-gallery-img10.jpg",
-  ])
+  const roomsGallery = {
+    superior_room:[
+      "/Superior_Room.jpeg",
+      "/Superior_Room_2.jpeg",
+      "/Superior_Room_3.jpeg",
+      "/Lobby.jpeg",
+      "/Balcony_view_2.jpeg",
+      "/Coffee_Shop.jpeg",
+      "/Wash_Room.jpeg",
+      "/Wash_Room_1.jpeg",
+    ],
+    deluxe_room:[
+      "/Deluxe_Room.jpeg",
+      "/Deluxe_Room_1.jpeg",
+      "/Lobby.jpeg",
+      "/Balcony_view_2.jpeg",
+      "/Coffee_Shop.jpeg",
+      "/Wash_Room.jpeg",
+      "/Wash_Room_1.jpeg",
+    ],
+    suite_room:[
+      "/Suite_Room.jpeg",
+      "/Suite_Room_2.jpeg",
+      "/Suite_Room_Balcony.jpeg",
+      "/Lobby.jpeg",
+      "/Balcony_view_2.jpeg",
+      "/Coffee_Shop.jpeg",
+      "/Wash_Room.jpeg",
+      "/Wash_Room_1.jpeg",
+    ],
+  }
+
+  const [data, setData] = useState(roomsGallery[slug])
   const [state, setState] = React.useState({
     top: false,
     left: false,

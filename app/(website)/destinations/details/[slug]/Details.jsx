@@ -8,10 +8,25 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 const Details = ({ slug }) => {
+
+    const roomImages = {
+        superior_room:{
+            mainImg:"/Superior_Room.jpeg",
+            title:"Superior Room"
+        },
+        deluxe_room:{
+            mainImg:"/Deluxe_Room.jpeg",
+            title:"Deluxe Room"
+        },
+        suite_room:{
+            mainImg:"/Suite_Room.jpeg",
+            title:"Suite Room"
+        },
+    }
     const [data, setData] = useState({
-        img: 'https://templates.sparklethings.com/palmea/wp-content/uploads/sites/246/2026/02/3d-rendering-luxury-tropical-bedroom-suite-in-reso-2026-01-07-02-15-56-utc-1024x682.webp',
+        img: roomImages[slug].mainImg,
         roomDetails: {
-            title: 'Deluxe Room',
+            title: roomImages[slug].title,
             price: '200',
             desc: 'Experience luxury and comfort in this beautifully designed room, offering a perfect blend of style and functionality. Large windows allow natural light to fill the space, creating a bright and inviting atmosphere.'
         },

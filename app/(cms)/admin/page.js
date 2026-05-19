@@ -5,6 +5,8 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { LockKeyhole, Mail } from "lucide-react";
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import toast, { Toaster } from "react-hot-toast";
 
@@ -30,6 +32,8 @@ function AdminLogin() {
       handleSubmit(values);
     },
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (data) => {
     post("auth/login", data)
@@ -80,17 +84,31 @@ function AdminLogin() {
                     />
                   </div>
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-2 mb-4">
                   <Label htmlFor="password">Password</Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="Password"
-                    onChange={validation.handleChange}
-                    onBlur={validation.handleBlur}
-                    value={validation.values.password || ""}
-                    error={validation.touched.password && validation.errors.password ? validation.errors.password : ""}
-                  />
+                  <div className="relative">
+                    <Input
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Password"
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.password || ""}
+                      error={
+                        validation.touched.password && validation.errors.password
+                          ? validation.errors.password
+                          : ""
+                      }
+                    />
+
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </button>
+                  </div>
                 </div>
               </CardContent>
               <CardFooter className="flex flex-col space-y-4">

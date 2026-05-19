@@ -7,7 +7,8 @@ const Destinations = () => {
 
   const [data, setData] = useState([
     {
-      img: '/Banner_Image_Lunevia.png',
+      // img: '/Banner_Image_Lunevia.png',
+      img: '/Crown_woods_Munnar1.jpeg',
       title: 'Crown woods Munnar By Lunevia',
       description: 'Crown woods Munnar, provides a perfect ambience for a relaxed stay. Surrounded by beautiful tea estates, valleys and waterfalls, the hotel is sure to attract hordes of tourists. Well furnished rooms with balcony, quality services and a comfortable setting are the key features of this resort.'
     },

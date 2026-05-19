@@ -32,6 +32,10 @@ const Properties = () => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
+    const updateData = (data) =>{
+        console.log(data,'data')
+    }
     return (
         <>
             <Box sx={{ width: '100%', typography: 'body1' }}>
@@ -45,7 +49,7 @@ const Properties = () => {
                         </TabList>
                     </Box>
                     <TabPanel value="1">
-                        <PropertyDetails />
+                        <PropertyDetails updateData={updateData}/>
                     </TabPanel>
                     <TabPanel value="2">
                         <RoomDetails />

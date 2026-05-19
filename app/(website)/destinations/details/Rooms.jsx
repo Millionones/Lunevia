@@ -7,19 +7,19 @@ const Rooms = () => {
     const [data, setData] = useState([
         {
             id:"superior_room",
-            img: '/client-resort-img4.jpeg',
+            img: '/Superior_Room.jpeg',
             title: 'Superior Room',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio libero maiores quo dicta odit voluptas. Qui nulla dolorum excepturi, amet doloribus expedita quam exercitationem ab necessitatibus fuga velit reiciendis totam.'
         },
         {
             id:"deluxe_room",
-            img: '/client-resort-img4.jpeg',
+            img: '/Deluxe_Room.jpeg',
             title: 'Deluxe Room ',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio libero maiores quo dicta odit voluptas. Qui nulla dolorum excepturi, amet doloribus expedita quam exercitationem ab necessitatibus fuga velit reiciendis totam.'
         },
         {
             id:"suite_room",
-            img: '/client-resort-img4.jpeg',
+            img: '/Suite_Room.jpeg',
             title: 'Suite Room',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio libero maiores quo dicta odit voluptas. Qui nulla dolorum excepturi, amet doloribus expedita quam exercitationem ab necessitatibus fuga velit reiciendis totam.'
         },
