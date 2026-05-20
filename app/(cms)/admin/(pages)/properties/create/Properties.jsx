@@ -23,19 +23,50 @@ import RoomDetails from "./RoomDetails";
 import Amenties from "./Amenties";
 import Locations from "./Locations";
 
+const STORAGE_KEY = "propertyForm";
 
 const Properties = () => {
 
 
     const [value, setValue] = useState('1');
+    const [formData, setFormData] = useState({})
+
+    useEffect(() => {
+        let data = getFromLocalStorage()
+
+        if (data) {
+            console.log(data, 'use effect')
+            setFormData(JSON.parse(data));
+        }
+    }, [])
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
-    const updateData = (data) =>{
-        console.log(data,'data')
+    const getFromLocalStorage = () => {
+        const savedData = localStorage.getItem(STORAGE_KEY);
+
+        return savedData
     }
+
+    const updateData = (data) => {
+        const existing = getFromLocalStorage();
+
+        let parsedData = existing ? JSON.parse(existing) : {};
+
+        const updatedData = {
+            ...parsedData,
+            ...data,
+        };
+
+        setFormData(updatedData);
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(updatedData)
+        );
+    };
     return (
         <>
             <Box sx={{ width: '100%', typography: 'body1' }}>
@@ -49,7 +80,7 @@ const Properties = () => {
                         </TabList>
                     </Box>
                     <TabPanel value="1">
-                        <PropertyDetails updateData={updateData}/>
+                        <PropertyDetails updateData={updateData} existData={formData} />
                     </TabPanel>
                     <TabPanel value="2">
                         <RoomDetails />
