@@ -13,33 +13,33 @@ const Footer = () => {
                     </div>
                     <div className='footer-menu'>
                         <ul>
-                            <li>
+                            {/* <li>
                                 <Link href="">careers</Link>
+                            </li> */}
+                            <li>
+                                <Link href="/faq">Faq</Link>
                             </li>
                             <li>
-                                <Link href="">faq</Link>
+                                <Link href="/terms-and-conditions">Terms & Conditions</Link>
                             </li>
                             <li>
-                                <Link href="">terms & conditions</Link>
+                                <Link href="/privacy-policy">Privacy Policy</Link>
                             </li>
-                            <li>
-                                <Link href="">privacy policy</Link>
-                            </li>
-                            <li>
+                            {/* <li>
                                 <Link href="">Blogs</Link>
+                            </li> */}
+                            <li>
+                                <Link href="/philosophy-experience">Experience</Link>
                             </li>
                             <li>
-                                <Link href="">Experience</Link>
+                                <Link href="/Contact-us">Enquiry Form</Link>
                             </li>
-                            <li>
-                                <Link href="">Enquiry Form</Link>
-                            </li>
-                            <li>
+                            {/* <li>
                                 <Link href="">Reviews</Link>
-                            </li>
-                            <li>
+                            </li> */}
+                            {/* <li>
                                 <Link href="">Tell a Friend</Link>
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
                     <div className='footer-social-menus'>

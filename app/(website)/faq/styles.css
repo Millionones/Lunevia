@@ -1,0 +1,45 @@
+.testimonials-hero {
+    position: relative;
+    background-color: #02010100;
+    background-image: url("/About_us_banner.png");
+    background-position: center center;
+    background-size: cover;
+    min-height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.testimonials-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    /* overlay */
+}
+
+.testimonials-hero-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+}
+
+.testimonials-hero-inner h1 {
+    line-height: 1.2em;
+    color: #FFFFFF;
+    font-size: 64px;
+}
+
+.testimonials-hero-inner ul {
+    color: #E7E7E7;
+    font-size: 16px;
+    line-height: 1.5em;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    .separator {
+        font-size: 22px;
+    }
+}
