@@ -76,10 +76,10 @@ const DestinationList = () => {
                                                     <p>2 People</p>
                                                 </li>
                                                 <li>
-                                                    <p>1 Kingbeds</p>
+                                                    <p>1 Kingbed</p>
                                                 </li>
                                                 <li>
-                                                    <p>1 Bathrooms</p>
+                                                    <p>1 Bathroom</p>
                                                 </li>
                                                 <li>
                                                     <p>Free Wifi</p>
