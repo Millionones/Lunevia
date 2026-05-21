@@ -34,22 +34,17 @@ const Details = ({ slug }) => {
             // desc: 'Lorem ipsum dolor sit amet consectetur adipiscing elit, proin varius vel etiam porta hac porttitor habitasse, suspendisse litora ornare netus facilisi pulvinar. Ad torquent velit lacinia semper.',
             list: [
                 'Daily Breakfast',
-                'Complimentary Lunch or Dinner',
                 'Welcome Drink Upon Arrival',
-                'Access to Infinity Pool',
-                'Private Beach Access',
                 'Daily Housekeeping'
             ]
         },
         resortDetails: {
             desc: 'Our resort is thoughtfully designed to offer a perfect blend of comfort, relaxation, and convenience. Guests can enjoy modern facilities along with serene surroundings, making it an ideal getaway for both leisure and business stays.',
             list: [
-                'Outdoor swimming pool',
                 'Dedicated travel assistance',
                 'Peaceful natural surroundings',
-                'Fine Dining Restaurant',
+                'Coffee Shop',
                 '24/7 Guest Services',
-                'Fitness Center'
             ]
         }
     })
@@ -217,23 +212,23 @@ const Details = ({ slug }) => {
                                 <li >
                                     <span className="about-inner-right-room-list-icon">
                                         <svg aria-hidden="true" className="e-font-icon-svg e-fas-bed" viewBox="0 0 640 512" xmlns="http://www.w3.org/2000/svg"><path d="M176 256c44.11 0 80-35.89 80-80s-35.89-80-80-80-80 35.89-80 80 35.89 80 80 80zm352-128H304c-8.84 0-16 7.16-16 16v144H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v352c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16v-48h512v48c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V240c0-61.86-50.14-112-112-112z"></path></svg>						</span>
-                                    <span className="about-inner-right-room-text">Bed: 1 Kingbeds</span>
+                                    <span className="about-inner-right-room-text">Bed: 1 Kingbed</span>
                                 </li>
                                 <li >
                                     <span className="about-inner-right-room-list-icon">
                                         <svg aria-hidden="true" className="e-font-icon-svg e-fas-shower" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M304,320a16,16,0,1,0,16,16A16,16,0,0,0,304,320Zm32-96a16,16,0,1,0,16,16A16,16,0,0,0,336,224Zm32,64a16,16,0,1,0-16-16A16,16,0,0,0,368,288Zm-32,32a16,16,0,1,0-16-16A16,16,0,0,0,336,320Zm-32-64a16,16,0,1,0,16,16A16,16,0,0,0,304,256Zm128-32a16,16,0,1,0-16-16A16,16,0,0,0,432,224Zm-48,16a16,16,0,1,0,16-16A16,16,0,0,0,384,240Zm-16-48a16,16,0,1,0,16,16A16,16,0,0,0,368,192Zm96,32a16,16,0,1,0,16,16A16,16,0,0,0,464,224Zm32-32a16,16,0,1,0,16,16A16,16,0,0,0,496,192Zm-64,64a16,16,0,1,0,16,16A16,16,0,0,0,432,256Zm-32,32a16,16,0,1,0,16,16A16,16,0,0,0,400,288Zm-64,64a16,16,0,1,0,16,16A16,16,0,0,0,336,352Zm-32,32a16,16,0,1,0,16,16A16,16,0,0,0,304,384Zm64-64a16,16,0,1,0,16,16A16,16,0,0,0,368,320Zm21.65-218.35-11.3-11.31a16,16,0,0,0-22.63,0L350.05,96A111.19,111.19,0,0,0,272,64c-19.24,0-37.08,5.3-52.9,13.85l-10-10A121.72,121.72,0,0,0,123.44,32C55.49,31.5,0,92.91,0,160.85V464a16,16,0,0,0,16,16H48a16,16,0,0,0,16-16V158.4c0-30.15,21-58.2,51-61.93a58.38,58.38,0,0,1,48.93,16.67l10,10C165.3,138.92,160,156.76,160,176a111.23,111.23,0,0,0,32,78.05l-5.66,5.67a16,16,0,0,0,0,22.62l11.3,11.31a16,16,0,0,0,22.63,0L389.65,124.28A16,16,0,0,0,389.65,101.65Z"></path></svg>						</span>
-                                    <span className="about-inner-right-room-text">Bathrooms: 1 </span>
+                                    <span className="about-inner-right-room-text">Bathroom: 1 </span>
                                 </li>
                                 <li >
                                     <span className="about-inner-right-room-list-icon">
                                         <svg aria-hidden="true" className="e-font-icon-svg e-fas-ruler-combined" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M160 288h-56c-4.42 0-8-3.58-8-8v-16c0-4.42 3.58-8 8-8h56v-64h-56c-4.42 0-8-3.58-8-8v-16c0-4.42 3.58-8 8-8h56V96h-56c-4.42 0-8-3.58-8-8V72c0-4.42 3.58-8 8-8h56V32c0-17.67-14.33-32-32-32H32C14.33 0 0 14.33 0 32v448c0 2.77.91 5.24 1.57 7.8L160 329.38V288zm320 64h-32v56c0 4.42-3.58 8-8 8h-16c-4.42 0-8-3.58-8-8v-56h-64v56c0 4.42-3.58 8-8 8h-16c-4.42 0-8-3.58-8-8v-56h-64v56c0 4.42-3.58 8-8 8h-16c-4.42 0-8-3.58-8-8v-56h-41.37L24.2 510.43c2.56.66 5.04 1.57 7.8 1.57h448c17.67 0 32-14.33 32-32v-96c0-17.67-14.33-32-32-32z"></path></svg>						</span>
                                     <span className="about-inner-right-room-text">Room Size: 38 m²</span>
                                 </li>
-                                <li >
+                                {/* <li >
                                     <span className="about-inner-right-room-list-icon">
                                         <svg aria-hidden="true" className="e-font-icon-svg e-fas-image" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M464 448H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h416c26.51 0 48 21.49 48 48v288c0 26.51-21.49 48-48 48zM112 120c-30.928 0-56 25.072-56 56s25.072 56 56 56 56-25.072 56-56-25.072-56-56-56zM64 384h384V272l-87.515-87.515c-4.686-4.686-12.284-4.686-16.971 0L208 320l-55.515-55.515c-4.686-4.686-12.284-4.686-16.971 0L64 336v48z"></path></svg>						</span>
                                     <span className="about-inner-right-room-text">View: Infinity Pool View</span>
-                                </li>
+                                </li> */}
                             </ul>
                         </div>
                         <form className='about-inner-right-form' onSubmit={handleSubmit}>
