@@ -85,7 +85,8 @@
 .pillars-section {
     position: relative;
     background: url('/eco-vis-bg.png');
-    background: #EAF4FF;;
+    background: #EAF4FF;
+    ;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -301,4 +302,116 @@
     background: #3b3b3b;
     border-radius: 14px;
     color: #fff;
+}
+
+
+@media screen and (max-width:640px) {
+    .hero-inner {
+
+        align-items: flex-start;
+        padding: 0 20px;
+
+        h1 {
+            font-size: 30px;
+        }
+
+        h5 {
+            font-size: 20px;
+            text-align: start;
+        }
+    }
+
+    .philosophy-inner {
+        flex-direction: column;
+
+        .philosophy-media,
+        .philosophy-contents {
+            width: 100%;
+        }
+    }
+
+    .philosophy-contents {
+        h2 {
+            font-size: 36px;
+        }
+    }
+
+    .pillars-inner {
+        h2 {
+            font-size: 36px;
+        }
+    }
+
+    .pillars-grids {
+
+        flex-flow: wrap;
+        gap: 20px;
+
+        li {
+            width: 100%;
+        }
+
+        .pillar-2 {
+            margin-top: 0px;
+        }
+    }
+
+    .experience-header {
+        text-align: start;
+
+        h2 {
+            font-size: 30px;
+        }
+    }
+
+    .closing-stage-inner {
+        align-items: flex-start;
+    }
+
+    .closing-stage-header {
+        align-items: flex-start;
+
+        h2 {
+            font-size: 30px;
+        }
+
+        p {
+            font-size: 18px;
+        }
+    }
+
+    .closing-stage-link {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 900px) {
+    .experience-list::before {
+        display: none;
+    }
+
+    .experience-list {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        padding-top: 20px;
+    }
+
+    .experience-list li {
+        border-top: 2px solid #E5E7EB;
+        padding-top: 60px !important;
+        max-width: 100%;
+    }
+
+    /* Adjust dot and connector positions to sit above the card border */
+    .experience-list li::before {
+        top: 36px;
+        left: 35px;
+        transform: translateX(0);
+    }
+
+    .experience-list li::after {
+        top: 0px;
+        left: 40px;
+        transform: translateX(0);
+        height: 36px;
+    }
 }

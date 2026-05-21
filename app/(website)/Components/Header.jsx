@@ -85,68 +85,63 @@ const Header = () => {
                         </div>
 
                         <div ref={mobileNavRef} className={`${menuOpen ? "block" : "hidden"} absolute bg-white border shadow-lg z-40 min-w-[300px] top-0 right-0 h-full min-h-[100vh]`}>
-                            <div className='py-5 px-5 flex flex-col gap-[24px]'>
-                                <div className='flex justify-between items-center'>
-                                    <img src="/logo-black.png" alt="logo" className='max-w-[140px]' />
-                                    <button className='' onClick={() => setMenuOpen(false)}>
-                                        <img src="/cross_icon.svg" alt="" className='max-w-[24px]' />
-                                    </button>
-                                </div>
-                                <ul className="grid gap-4 text-black">
-                                    <li >
-                                        <a href="/About-LUNEVIA">
-                                            About LUNEVIA
-                                        </a>
-                                    </li>
-                                    <li >
-                                        <a href="/philosophy-experience">
-                                            Experience
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/destinations">
-                                            Destinations
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/Contact-us">
-                                            Contact Us
-                                        </a>
-                                    </li>
-                                    {/* <li>
+                            <div className='py-5 px-5 flex flex-col gap-[24px] justify-between h-full'>
+                                <div className='flex flex-col gap-[24px]'>
+                                    <div className='flex justify-between items-center'>
+                                        <img src="/logo-black.png" alt="logo" className='max-w-[140px]' />
+                                        <button className='' onClick={() => setMenuOpen(false)}>
+                                            <img src="/cross_icon.svg" alt="" className='max-w-[24px]' />
+                                        </button>
+                                    </div>
+                                    <ul className="grid gap-4 text-black">
+                                        <li >
+                                            <a href="/About-LUNEVIA">
+                                                About LUNEVIA
+                                            </a>
+                                        </li>
+                                        <li >
+                                            <a href="/philosophy-experience">
+                                                Experience
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/destinations">
+                                                Destinations
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Contact-us">
+                                                Contact Us
+                                            </a>
+                                        </li>
+                                        {/* <li>
                                         <a href="/testimonials">
                                             Testimonials
                                         </a>
                                     </li> */}
-                                    <li>
+                                        {/* <li>
                                         <Link href="">Careers</Link>
-                                    </li>
-                                    <li>
-                                        <Link href="">Faq</Link>
-                                    </li>
-                                    <li>
-                                        <Link href="">Terms & Conditions</Link>
-                                    </li>
-                                    <li>
-                                        <Link href="">Privacy Policy</Link>
-                                    </li>
-                                    <li>
+                                    </li> */}
+                                        <li>
+                                            <Link href="/faq">Faq</Link>
+                                        </li>
+                                        <li>
+                                            <Link href="/terms-and-conditions">Terms & Conditions</Link>
+                                        </li>
+                                        <li>
+                                            <Link href="/privacy-policy">Privacy Policy</Link>
+                                        </li>
+                                        {/* <li>
                                         <Link href="">Blogs</Link>
-                                    </li>
-                                    <li>
-                                        <Link href="">Experience</Link>
-                                    </li>
-                                    <li>
-                                        <Link href="">Enquiry Form</Link>
-                                    </li>
-                                </ul>
-                                {/* <div className='flex justify-center'>
-                                    <Link href="https://wa.me/8113027095"
-                                        target="_blank" className='wtsp-mob-btn'>
-                                        <p>Whatsapp Us</p>
-                                        <img src="/whatsapp.png" alt="" />
-                                    </Link>
-                                </div> */}
+                                    </li> */}
+                                        {/* <li>
+                                            <Link href="/philosophy-experience">Experience</Link>
+                                        </li> */}
+                                        {/* <li>
+                                        <Link href="/enquiry-form">Enquiry Form</Link>
+                                    </li> */}
+                                    </ul>
+                                </div>
                                 <div className='flex items-center justify-center gap-2.5 '>
                                     <Link href="/destinations" className='head-btn' style={{ borderColor: "#000000", color: "#000000" }}>
                                         <p>Book Now</p>

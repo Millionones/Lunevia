@@ -89,7 +89,7 @@ const FaqSection = () => {
                     </div>
                     <div className='faq-inner'>
                         <div className='faq-left-header'>
-                            <h5>Faq</h5>
+                            <h5 className='hidden sm:flex'>Faq</h5>
                             <h2>Cancellation and Refund related</h2>
                             <p>Everything you may wish to know before your stay.</p>
                         </div>

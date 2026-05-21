@@ -107,3 +107,13 @@
         }
     }
 }
+
+@media screen and (max-width:640px) {
+    .testimonials-hero-inner h1 {
+        font-size: 40px;
+    }
+
+    .content-section .content-inner-header h2{
+        font-size: 36px;
+    }
+}

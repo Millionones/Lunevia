@@ -254,15 +254,17 @@
 
     .about-para {
         flex-direction: column;
+
+        .about-para-media,
+        .about-para-content {
+            width: 100%;
+        }
+
+        .about-para-media {
+            display: none;
+        }
     }
 
-    .about-para-media,
-    .about-para-content {
-        width: 100%;
-    }
-    .about-para-media{
-        display: none;
-    }
 }
 
 @media (max-width: 900px) {
@@ -270,19 +272,24 @@
         display: none;
     }
 
-    .products__card {
+    .Usps-list{
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+
+    .Usps-list li {
         border-top: 2px solid #E5E7EB;
         padding-top: 60px !important;
+        max-width: 100%;
     }
 
     /* Adjust dot and connector positions to sit above the card border */
-    .products__card::before {
+    .Usps-list li::before {
         top: 36px;
         left: 35px;
         transform: translateX(0);
     }
 
-    .products__card::after {
+    .Usps-list li::after {
         top: 0px;
         left: 40px;
         transform: translateX(0);
