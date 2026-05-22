@@ -1,149 +1,489 @@
 "use client";
 
-import React, { useEffect, useState } from 'react'
-import { Input } from "@/components/ui/input";
-import TextField from "@mui/material/TextField";
+import React, { useEffect, useState } from "react";
+
 import { useFormik } from "formik";
+
+import {
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
+} from "@mui/material";
+
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
+import { Input } from "@/components/ui/input";
+
 import { Textarea } from "@/components/ui/textarea";
+
 import { Button } from "@/components/ui/button";
 
-const Locations = () => {
-    const [roomFeatures, setRoomFeatures] = useState([
-        { label: "", answer: "" },
-    ]);
-    const [featuresOptions, setFeaturesOptions] = useState([]);
+import {
+    Trash2,
+    Pencil,
+    Loader,
+} from "lucide-react";
 
+import toast from "react-hot-toast";
+
+import { post } from "@/helpers/api";
+
+import { BASE_URL } from "../../../../../../config";
+
+const defaultLocation = {
+    title: "",
+    image: "",
+    description: "",
+    completed: false,
+};
+
+const Locations = ({
+    updateData,
+    existData,
+}) => {
+    const [loading, setLoading] =
+        useState(false);
+
+    const [
+        expandedLocation,
+        setExpandedLocation,
+    ] = useState(0);
 
     const formik = useFormik({
+        enableReinitialize: true,
+
         initialValues: {
-            title: "",
-            mainImage: "",
-
-            roomImage: "",
-            price: "",
-            roomDescription: "",
-
-            availableDescription: "",
-            propertyDescription: "",
-
-            address: "",
-            latitude: "",
-            longitude: "",
+            locations:
+                existData?.step4
+                    ?.locations || [
+                    defaultLocation,
+                ],
         },
 
         onSubmit: async (values) => {
             try {
+                updateData(values);
 
-                const payload = {
-                    title: values.title,
-                    mainImage: values.mainImage,
-
-                    roomDetails: {
-                        image: values.roomImage,
-                        description: values.roomDescription,
-                        price: values.price,
-                        features: roomFeatures,
-                    },
-
-                    availableFeatures: {
-                        description: values.availableDescription,
-                    },
-
-                    propertyFeatures: {
-                        description: values.propertyDescription,
-                    },
-
-                    location: {
-                        address: values.address,
-                        latitude: values.latitude,
-                        longitude: values.longitude,
-                    },
-                    gallery: galleryImages
-                };
-
-                await post("destination", payload);
-
-                toast.success("Property created successfully");
+                toast.success(
+                    "Locations saved successfully"
+                );
             } catch (err) {
                 toast.error(err.message);
             }
         },
     });
 
-    // ADD FEATURE
-    const addFeature = () => {
-        setRoomFeatures((prev) => [...prev, { label: "", answer: "" }]);
+    // LOAD EXISTING
+    useEffect(() => {
+        if (existData?.step4) {
+            setLoading(true);
+
+            setTimeout(() => {
+                setLoading(false);
+            }, 800);
+        }
+    }, [existData]);
+
+    // IMAGE UPLOAD
+    const uploadImage = async (
+        file,
+        path
+    ) => {
+        try {
+            const formData =
+                new FormData();
+
+            formData.append(
+                "file",
+                file
+            );
+
+            const url = `common/image/${path}`;
+
+            const res = await post(
+                url,
+                formData
+            );
+
+            return res.data
+                .new_filename;
+        } catch (err) {
+            toast.error(
+                "Image upload failed"
+            );
+            throw err;
+        }
     };
 
-    // REMOVE FEATURE
-    const removeFeature = (index) => {
-        setRoomFeatures((prev) => prev.filter((_, i) => i !== index));
+    // ADD LOCATION
+    const addLocation = () => {
+        const updated = [
+            ...formik.values
+                .locations,
+            defaultLocation,
+        ];
+
+        formik.setFieldValue(
+            "locations",
+            updated
+        );
+
+        setExpandedLocation(
+            updated.length - 1
+        );
     };
+
+    // REMOVE LOCATION
+    const removeLocation = (
+        index
+    ) => {
+        const updated =
+            formik.values.locations.filter(
+                (_, i) => i !== index
+            );
+
+        formik.setFieldValue(
+            "locations",
+            updated
+        );
+
+        if (
+            expandedLocation ===
+            index
+        ) {
+            setExpandedLocation(
+                null
+            );
+        }
+    };
+
+    // SAVE LOCATION
+    const saveLocation = (
+        index
+    ) => {
+        const updated = [
+            ...formik.values
+                .locations,
+        ];
+
+        updated[
+            index
+        ].completed = true;
+
+        formik.setFieldValue(
+            "locations",
+            updated
+        );
+
+        setExpandedLocation(null);
+
+        toast.success(
+            "Location saved"
+        );
+    };
+
     return (
         <>
-            <form
-                onSubmit={formik.handleSubmit}
-                className="p-6 space-y-8 max-w-4xl mx-auto"
-            >
-                <div className="border p-4 rounded bg-white flex flex-col gap-5">
-                    <div>
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <label>Title</label>
-                                <Input
-                                    name="title"
-                                    placeholder="Title"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.title}
-                                />
-                            </div>
-                            <div>
-                                <label>Image</label>
-                                <Input
-                                    type="file"
-                                    onChange={async (e) => {
-                                        const file = e.target.files[0];
+            {loading ? (
+                <div className="w-full h-screen flex justify-center items-center">
+                    <Loader size={32} />
+                </div>
+            ) : (
+                <form
+                    onSubmit={
+                        formik.handleSubmit
+                    }
+                    className="p-6 space-y-8 max-w-4xl mx-auto"
+                >
+                    {formik.values.locations.map(
+                        (
+                            location,
+                            index
+                        ) => (
+                            <Accordion
+                                key={index}
+                                expanded={
+                                    expandedLocation ===
+                                    index
+                                }
+                                onChange={() =>
+                                    setExpandedLocation(
+                                        expandedLocation ===
+                                            index
+                                            ? null
+                                            : index
+                                    )
+                                }
+                            >
+                                {/* SUMMARY */}
+                                <AccordionSummary
+                                    expandIcon={
+                                        <ExpandMoreIcon />
+                                    }
+                                >
+                                    <div className="w-full flex justify-between items-center pr-5">
+                                        <div className="flex gap-4 items-center">
 
-                                        if (!file) return;
+                                            <div>
+                                                <h2 className="font-bold text-lg">
+                                                    {location.title ||
+                                                        `Location ${index + 1}`}
+                                                </h2>
 
-                                        const uploadedPath = await uploadImage(file, "destination");
+                                            </div>
+                                        </div>
 
-                                        formik.setFieldValue("mainImage", uploadedPath);
-                                    }}
-                                />
-                            </div>
-                        </div>
-                        <div className="mt-4">
-                            <label>Description</label>
-                            <Textarea
-                                name="address"
-                                placeholder="Description"
-                                onChange={formik.handleChange}
-                                value={formik.values.address}
-                            />
+                                        {/* ACTIONS */}
+                                        <div className="flex gap-2">
+                                            <button
+                                                type="button"
+                                                onClick={(
+                                                    e
+                                                ) => {
+                                                    e.stopPropagation();
+                                                    setExpandedLocation(
+                                                        index
+                                                    );
+                                                }}
+                                                className="p-2 bg-blue-100 rounded"
+                                            >
+                                                <Pencil
+                                                    size={
+                                                        16
+                                                    }
+                                                />
+                                            </button>
 
-                        </div>
-                        <div className="flex justify-end mt-5 gap-5">
-                            <Button type="submit" className="  ">
-                                Cancel
-                            </Button>
-                            <Button type="submit" className="bg-green-600 text-white">
-                                Save
-                            </Button>
-                        </div>
+                                            <button
+                                                type="button"
+                                                onClick={(
+                                                    e
+                                                ) => {
+                                                    e.stopPropagation();
+                                                    removeLocation(
+                                                        index
+                                                    );
+                                                }}
+                                                className="p-2 bg-red-100 rounded"
+                                            >
+                                                <Trash2
+                                                    size={
+                                                        16
+                                                    }
+                                                />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </AccordionSummary>
+
+                                {/* DETAILS */}
+                                <AccordionDetails>
+                                    <div className="flex flex-col gap-5">
+                                        {/* TITLE + IMAGE */}
+                                        <div className="grid grid-cols-2 gap-4">
+                                            {/* TITLE */}
+                                            <div>
+                                                <label>
+                                                    Title
+                                                </label>
+
+                                                <Input
+                                                    value={
+                                                        location.title
+                                                    }
+                                                    onChange={(
+                                                        e
+                                                    ) => {
+                                                        const updated =
+                                                            [
+                                                                ...formik
+                                                                    .values
+                                                                    .locations,
+                                                            ];
+
+                                                        updated[
+                                                            index
+                                                        ].title =
+                                                            e
+                                                                .target
+                                                                .value;
+
+                                                        formik.setFieldValue(
+                                                            "locations",
+                                                            updated
+                                                        );
+                                                    }}
+                                                />
+                                            </div>
+
+                                            {/* IMAGE */}
+                                            <div>
+                                                <label>
+                                                    Image
+                                                </label>
+
+                                                {location.image ? (
+                                                    <div className="relative w-fit">
+                                                        <img
+                                                            src={`${BASE_URL}/${location.image}`}
+                                                            className="w-40 h-40 object-cover rounded"
+                                                        />
+
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => {
+                                                                const updated =
+                                                                    [
+                                                                        ...formik
+                                                                            .values
+                                                                            .locations,
+                                                                    ];
+
+                                                                updated[
+                                                                    index
+                                                                ].image =
+                                                                    "";
+
+                                                                formik.setFieldValue(
+                                                                    "locations",
+                                                                    updated
+                                                                );
+                                                            }}
+                                                            className="absolute top-0 right-0 bg-red-500 text-white text-xs px-1 rounded"
+                                                        >
+                                                            ✕
+                                                        </button>
+                                                    </div>
+                                                ) : (
+                                                    <Input
+                                                        type="file"
+                                                        onChange={async (
+                                                            e
+                                                        ) => {
+                                                            const file =
+                                                                e
+                                                                    .target
+                                                                    .files[0];
+
+                                                            if (
+                                                                !file
+                                                            )
+                                                                return;
+
+                                                            const uploaded =
+                                                                await uploadImage(
+                                                                    file,
+                                                                    "locations"
+                                                                );
+
+                                                            const updated =
+                                                                [
+                                                                    ...formik
+                                                                        .values
+                                                                        .locations,
+                                                                ];
+
+                                                            updated[
+                                                                index
+                                                            ].image =
+                                                                uploaded;
+
+                                                            formik.setFieldValue(
+                                                                "locations",
+                                                                updated
+                                                            );
+                                                        }}
+                                                    />
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        {/* DESCRIPTION */}
+                                        <div>
+                                            <label>
+                                                Description
+                                            </label>
+
+                                            <Textarea
+                                                value={
+                                                    location.description
+                                                }
+                                                onChange={(
+                                                    e
+                                                ) => {
+                                                    const updated =
+                                                        [
+                                                            ...formik
+                                                                .values
+                                                                .locations,
+                                                        ];
+
+                                                    updated[
+                                                        index
+                                                    ].description =
+                                                        e
+                                                            .target
+                                                            .value;
+
+                                                    formik.setFieldValue(
+                                                        "locations",
+                                                        updated
+                                                    );
+                                                }}
+                                            />
+                                        </div>
+
+                                        {/* SAVE */}
+                                        <div className="flex justify-end gap-3">
+                                            <Button
+                                                type="button"
+                                                variant="outline"
+                                                onClick={() =>
+                                                    setExpandedLocation(
+                                                        null
+                                                    )
+                                                }
+                                            >
+                                                Cancel
+                                            </Button>
+
+                                            <Button
+                                                type="button"
+                                                onClick={() =>
+                                                    saveLocation(
+                                                        index
+                                                    )
+                                                }
+                                            >
+                                                Save
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </AccordionDetails>
+                            </Accordion>
+                        )
+                    )}
+
+                    {/* ACTIONS */}
+                    <div className="flex justify-between">
+                        <Button
+                            type="button"
+                            onClick={addLocation}
+                        >
+                            + Add Location
+                        </Button>
+
+                        <Button
+                            type="submit"
+                            className="bg-green-600 text-white"
+                        >
+                            Save & Finish
+                        </Button>
                     </div>
-                </div>
-                <div className="flex items-center justify-between">
-                    <Button type="button" onClick={addFeature} className="mt-2">
-                        + Add Locations
-                    </Button>
-                    <Button type="submit" className="bg-green-600 text-white mt-2">
-                        Save
-                    </Button>
-                </div>
-            </form>
+                </form>
+            )}
         </>
-    )
-}
+    );
+};
 
-export default Locations
+export default Locations;

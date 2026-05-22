@@ -2,61 +2,106 @@
 
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
+
 import { Input } from "@/components/ui/input";
 import QuillEditor from "../../../../_componets/TextEditor";
-import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
+
+import Autocomplete, {
+    createFilterOptions,
+} from "@mui/material/Autocomplete";
+
 import { Button } from "@/components/ui/button";
 import TextField from "@mui/material/TextField";
+
 import { get, post } from "@/helpers/api";
-import { Trash2 } from "lucide-react";
+
+import { Trash2, Loader } from "lucide-react";
+
 import toast from "react-hot-toast";
+
 import { BASE_URL } from "../../../../../../config";
-import { Loader, Rotate3D } from "lucide-react";
 
 const filter = createFilterOptions();
 
-const PropertyDetails = ({ updateData, existData }) => {
-    const [highlights, setHighlights] = useState([""]);
-    const [featuresOptions, setFeaturesOptions] = useState([]);
-    const [highlightsOptions, setHighlightsOptions] = useState([]);
+const PropertyDetails = ({
+    updateData,
+    existData,
+}) => {
+    const [highlights, setHighlights] = useState([
+        "",
+    ]);
 
-    const [galleryPreview, setGalleryPreview] = useState([]);
-    const [loading, setLoading] = useState(false)
+    const [highlightsOptions, setHighlightsOptions] =
+        useState([]);
+
+    const [galleryPreview, setGalleryPreview] =
+        useState([]);
+
+    const [mainImagePreview, setMainImagePreview] =
+        useState("");
+
+    const [aboutImagePreview, setAboutImagePreview] =
+        useState("");
+
+    const [loading, setLoading] = useState(false);
+
     // FORM
     const formik = useFormik({
         enableReinitialize: true,
 
         initialValues: {
-            title: existData?.title || "",
-            mainImage: existData?.mainImage || "",
-            locationLink: existData?.locationLink || "",
+            title:
+                existData?.step1?.title || "",
+
+            mainImage:
+                existData?.step1?.mainImage ||
+                "",
+
+            locationLink:
+                existData?.step1
+                    ?.locationLink || "",
 
             aboutProperty: {
-                image: existData?.aboutProperty?.image || "",
+                image:
+                    existData?.step1
+                        ?.aboutProperty?.image ||
+                    "",
+
                 description:
-                    existData?.aboutProperty?.description || "",
+                    existData?.step1
+                        ?.aboutProperty
+                        ?.description || "",
+
                 highlights:
-                    existData?.aboutProperty?.highlights || [],
+                    existData?.step1
+                        ?.aboutProperty
+                        ?.highlights || [],
             },
 
             galleryImages:
-                existData?.galleryImages || [],
+                existData?.step1
+                    ?.galleryImages || [],
         },
 
         onSubmit: async (values) => {
             try {
                 const payload = {
                     ...values,
+
                     aboutProperty: {
                         ...values.aboutProperty,
-                        highlights,
+
+                        highlights: highlights
+                            .filter(Boolean)
+                            .map((h) => h._id),
                     },
                 };
-                console.log(payload, 'payload')
-                // await post("destination", payload);
 
-                // toast.success("Property created successfully");
-                updateData(payload)
+                updateData(payload);
+
+                toast.success(
+                    "Property details saved successfully"
+                );
             } catch (err) {
                 toast.error(err.message);
             }
@@ -64,97 +109,202 @@ const PropertyDetails = ({ updateData, existData }) => {
     });
 
     useEffect(() => {
-        if(existData){
-            setLoading(true)
-            setTimeout(() => {
-                setLoading(false)
-            }, 3000);
-        }
-        if (existData?.aboutProperty?.highlights) {
-            setHighlights(existData.aboutProperty.highlights);
-        }
+        fetchHighlightsOpts();
+    }, []);
 
-        if (existData?.galleryImages && existData?.galleryImages?.length > 0) {
-            let galleryImages = existData?.galleryImages?.map((item) => `${BASE_URL}/${item}`)
-            setGalleryPreview(galleryImages)
+    // LOAD EXISTING DATA
+    useEffect(() => {
+        if (existData?.step1) {
+            setLoading(true);
+
+            setTimeout(() => {
+                setLoading(false);
+            }, 1000);
+
+            // HIGHLIGHTS
+            if (
+                existData?.step1
+                    ?.aboutProperty?.highlights
+            ) {
+                fetchHighlightsOpts()
+            }
+
+            // MAIN IMAGE
+            if (existData?.step1?.mainImage) {
+                setMainImagePreview(
+                    `${BASE_URL}/${existData.step1.mainImage}`
+                );
+            }
+
+            // ABOUT IMAGE
+            if (
+                existData?.step1?.aboutProperty
+                    ?.image
+            ) {
+                setAboutImagePreview(
+                    `${BASE_URL}/${existData.step1.aboutProperty.image}`
+                );
+            }
+
+            // GALLERY
+            if (
+                existData?.step1
+                    ?.galleryImages?.length > 0
+            ) {
+                let galleryImages =
+                    existData.step1.galleryImages.map(
+                        (item) =>
+                            `${BASE_URL}/${item}`
+                    );
+
+                setGalleryPreview(
+                    galleryImages
+                );
+            }
         }
     }, [existData]);
 
     // ADD HIGHLIGHT
     const addHighlight = () => {
-        setHighlights((prev) => [...prev, ""]);
+        setHighlights((prev) => [
+            ...prev,
+            "",
+        ]);
     };
 
     // REMOVE HIGHLIGHT
     const removeHighlight = (index) => {
-        setHighlights((prev) => prev.filter((_, i) => i !== index));
+        const updated = highlights.filter(
+            (_, i) => i !== index
+        );
+
+        setHighlights(updated);
     };
 
     // IMAGE UPLOAD
-    const uploadImage = async (file, path, category) => {
+    const uploadImage = async (
+        file,
+        path
+    ) => {
         try {
             const formData = new FormData();
+
             formData.append("file", file);
 
             const url = `common/image/${path}`;
 
-            const res = await post(url, formData);
+            const res = await post(
+                url,
+                formData
+            );
 
             return res.data.new_filename;
         } catch (err) {
-            toast.error("Image upload failed");
+            toast.error(
+                "Image upload failed"
+            );
+
             throw err;
         }
     };
 
-    // GALLERY IMAGE
-    const handleGalleryChange = async (e) => {
-        const files = Array.from(e.target.files);
+    // GALLERY CHANGE
+    const handleGalleryChange = async (
+        e
+    ) => {
+        try {
+            const files = Array.from(
+                e.target.files
+            );
 
-        const uploadedPaths = [];
-        const previews = [];
+            const uploadedPaths = [];
 
-        for (let file of files) {
-            const path = await uploadImage(file, "gallery");
-            
-            let prevFile = `${BASE_URL}/${path}`
-            previews.push(prevFile);
+            const previews = [];
 
-            uploadedPaths.push(path);
+            for (let file of files) {
+                const path =
+                    await uploadImage(
+                        file,
+                        "gallery"
+                    );
+
+                uploadedPaths.push(path);
+
+                previews.push(
+                    URL.createObjectURL(file)
+                );
+            }
+
+            formik.setFieldValue(
+                "galleryImages",
+                [
+                    ...formik.values
+                        .galleryImages,
+                    ...uploadedPaths,
+                ]
+            );
+
+            setGalleryPreview((prev) => [
+                ...prev,
+                ...previews,
+            ]);
+        } catch (err) {
+            toast.error(
+                "Gallery upload failed"
+            );
         }
-
-        formik.setFieldValue("galleryImages", [
-            ...formik.values.galleryImages,
-            ...uploadedPaths,
-        ]);
-
-        setGalleryPreview((prev) => [...prev, ...previews]);
     };
 
     // REMOVE GALLERY IMAGE
-    const removeGalleryImage = (index) => {
-        const updatedImages = formik.values.galleryImages.filter(
-            (_, i) => i !== index
+    const removeGalleryImage = (
+        index
+    ) => {
+        const updatedImages =
+            formik.values.galleryImages.filter(
+                (_, i) => i !== index
+            );
+
+        const updatedPreview =
+            galleryPreview.filter(
+                (_, i) => i !== index
+            );
+
+        formik.setFieldValue(
+            "galleryImages",
+            updatedImages
         );
 
-        const updatedPreview = galleryPreview.filter(
-            (_, i) => i !== index
+        setGalleryPreview(
+            updatedPreview
         );
-
-        formik.setFieldValue("galleryImages", updatedImages);
-
-        setGalleryPreview(updatedPreview);
     };
 
-    // FETCH FEATURE OPTIONS
-    const fetchHighlightsOpts = async () => {
-        const res = await get(`common/property-highlights`);
-        setHighlightsOptions(res.data);
-    };
+    // FETCH HIGHLIGHT OPTIONS
+    const fetchHighlightsOpts =
+        async () => {
+            try {
+                const res = await get(
+                    `common/property-highlights`
+                );
 
-    useEffect(() => {
-        fetchHighlightsOpts();
-    }, []);
+                setHighlightsOptions(
+                    res.data
+                );
+                if (
+                    existData?.step1
+                        ?.aboutProperty?.highlights
+                ) {
+                    let data = res.data.filter((option) =>
+                        existData.step1.aboutProperty.highlights.includes(option._id)
+                    );
+                    setHighlights(data);
+                }
+            } catch (err) {
+                toast.error(
+                    "Failed to fetch highlights"
+                );
+            }
+        };
 
     return (
         <>
@@ -164,7 +314,9 @@ const PropertyDetails = ({ updateData, existData }) => {
                 </div>
             ) : (
                 <form
-                    onSubmit={formik.handleSubmit}
+                    onSubmit={
+                        formik.handleSubmit
+                    }
                     className="p-6 space-y-8 max-w-4xl mx-auto"
                 >
                     <div className="border p-4 rounded bg-white flex flex-col gap-5 border-white">
@@ -172,87 +324,178 @@ const PropertyDetails = ({ updateData, existData }) => {
                         <div className="grid grid-cols-2 gap-4">
                             {/* TITLE */}
                             <div>
-                                <label>Title</label>
+                                <label>
+                                    Title
+                                </label>
 
                                 <Input
                                     name="title"
                                     placeholder="Title"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.title}
+                                    onChange={
+                                        formik.handleChange
+                                    }
+                                    value={
+                                        formik
+                                            .values
+                                            .title
+                                    }
                                 />
                             </div>
 
                             {/* MAIN IMAGE */}
                             <div>
-                                <label>Banner Image</label>
-                                {formik.initialValues.mainImage ?
-                                    <div className="relative">
-                                        <img src={`${BASE_URL}/${formik.initialValues.mainImage}`} alt="" className="w-48 h-48 object-cover rounded-lg border" />
+                                <label>
+                                    Banner
+                                    Image
+                                </label>
 
-                                        <button type="button" onClick={() => removeGalleryImage(index)} className="absolute top-0 right-0 bg-red-500 text-white text-xs px-1 rounded">
+                                {formik.values
+                                    .mainImage ? (
+                                    <div className="relative w-fit">
+                                        <img
+                                            src={
+                                                mainImagePreview
+                                            }
+                                            alt=""
+                                            className="w-48 h-48 object-cover rounded-lg border"
+                                        />
+
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                formik.setFieldValue(
+                                                    "mainImage",
+                                                    ""
+                                                );
+
+                                                setMainImagePreview(
+                                                    ""
+                                                );
+                                            }}
+                                            className="absolute top-0 right-0 bg-red-500 text-white text-xs px-1 rounded"
+                                        >
                                             ✕
                                         </button>
                                     </div>
-                                    :
+                                ) : (
                                     <Input
                                         type="file"
-                                        onChange={async (e) => {
-                                            const file = e.target.files[0];
+                                        onChange={async (
+                                            e
+                                        ) => {
+                                            const file =
+                                                e
+                                                    .target
+                                                    .files[0];
 
-                                            if (!file) return;
+                                            if (
+                                                !file
+                                            )
+                                                return;
 
-                                            const uploadedPath = await uploadImage(
-                                                file,
-                                                "destination"
-                                            );
+                                            const uploadedPath =
+                                                await uploadImage(
+                                                    file,
+                                                    "destination"
+                                                );
 
                                             formik.setFieldValue(
                                                 "mainImage",
                                                 uploadedPath
                                             );
+
+                                            setMainImagePreview(
+                                                URL.createObjectURL(
+                                                    file
+                                                )
+                                            );
                                         }}
                                     />
-                                }
+                                )}
                             </div>
 
                             {/* LOCATION LINK */}
                             <div className="col-span-2">
-                                <label>Location Link</label>
+                                <label>
+                                    Location
+                                    Link
+                                </label>
 
                                 <Input
                                     name="locationLink"
                                     placeholder="Google map link"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.locationLink}
+                                    onChange={
+                                        formik.handleChange
+                                    }
+                                    value={
+                                        formik
+                                            .values
+                                            .locationLink
+                                    }
                                 />
                             </div>
                         </div>
 
                         {/* ABOUT PROPERTY */}
                         <h2 className="font-bold text-lg">
-                            About Property
+                            About
+                            Property
                         </h2>
 
                         <div className="border p-4 rounded border-gray-300">
                             <div className="grid grid-cols-2 gap-4">
                                 {/* ABOUT IMAGE */}
                                 <div>
-                                    <label>About Image</label>
-                                    {formik.initialValues.aboutProperty?.image ?
-                                        <div className="relative">
-                                            <img src={`${BASE_URL}/${formik.initialValues.aboutProperty?.image}`} alt="" className="w-48 h-48 object-cover rounded-lg border" />
+                                    <label>
+                                        About
+                                        Image
+                                    </label>
 
-                                            <button type="button" onClick={() => removeGalleryImage(index)} className="absolute top-0 right-0 bg-red-500 text-white text-xs px-1 rounded">
+                                    {formik
+                                        .values
+                                        .aboutProperty
+                                        ?.image ? (
+                                        <div className="relative w-fit">
+                                            <img
+                                                src={
+                                                    aboutImagePreview
+                                                }
+                                                alt=""
+                                                className="w-48 h-48 object-cover rounded-lg border"
+                                            />
+
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    formik.setFieldValue(
+                                                        "aboutProperty.image",
+                                                        ""
+                                                    );
+
+                                                    setAboutImagePreview(
+                                                        ""
+                                                    );
+                                                }}
+                                                className="absolute top-0 right-0 bg-red-500 text-white text-xs px-1 rounded"
+                                            >
                                                 ✕
                                             </button>
                                         </div>
-                                        :
+                                    ) : (
                                         <Input
                                             type="file"
-                                            onChange={async (e) => {
-                                                const file = e.target.files[0];
+                                            onChange={async (
+                                                e
+                                            ) => {
+                                                const file =
+                                                    e
+                                                        .target
+                                                        .files[0];
 
-                                                if (!file) return;
+                                                if (
+                                                    !file
+                                                )
+                                                    return;
 
                                                 const uploadedPath =
                                                     await uploadImage(
@@ -264,9 +507,15 @@ const PropertyDetails = ({ updateData, existData }) => {
                                                     "aboutProperty.image",
                                                     uploadedPath
                                                 );
+
+                                                setAboutImagePreview(
+                                                    URL.createObjectURL(
+                                                        file
+                                                    )
+                                                );
                                             }}
                                         />
-                                    }
+                                    )}
                                 </div>
                             </div>
 
@@ -274,9 +523,14 @@ const PropertyDetails = ({ updateData, existData }) => {
                             <div className="mt-4">
                                 <QuillEditor
                                     value={
-                                        formik.values.aboutProperty.description
+                                        formik
+                                            .values
+                                            .aboutProperty
+                                            .description
                                     }
-                                    onChange={(val) =>
+                                    onChange={(
+                                        val
+                                    ) =>
                                         formik.setFieldValue(
                                             "aboutProperty.description",
                                             val
@@ -287,128 +541,149 @@ const PropertyDetails = ({ updateData, existData }) => {
 
                             {/* HIGHLIGHTS */}
                             <h4 className="font-bold mt-4">
-                                Property Highlights
+                                Property
+                                Highlights
                             </h4>
+
                             <div className="grid grid-cols-2 gap-4">
-                                {highlights.map((item, index) => (
-                                    <div
-                                        key={index}
-                                        className="flex gap-2.5 items-center mt-2"
-                                    >
-                                        <Autocomplete
-                                            className="w-full"
-                                            value={item}
-                                            onChange={async (
-                                                event,
-                                                newValue
-                                            ) => {
-                                                let updated = [...highlights];
+                                {highlights.map(
+                                    (
+                                        item,
+                                        index
+                                    ) => (
+                                        <div
+                                            key={
+                                                index
+                                            }
+                                            className="flex gap-2.5 items-center mt-2"
+                                        >
+                                            <Autocomplete
+                                                className="w-full"
+                                                value={item.name || null}
+                                                onChange={async (event, newValue) => {
+                                                    let updated = [...highlights];
 
-                                                if (
-                                                    typeof newValue === "string"
-                                                ) {
-                                                    updated[index] = newValue;
-                                                } else if (
-                                                    newValue?.inputValue
-                                                ) {
-                                                    const newItem = {
-                                                        name: newValue.inputValue,
-                                                    };
+                                                    // CASE 1: user typed raw string
+                                                    if (typeof newValue === "string") {
+                                                        updated[index] = {
+                                                            name: newValue,
+                                                        };
+                                                    }
 
-                                                    await post(
-                                                        "common/property-highlights",
-                                                        newItem
-                                                    );
+                                                    // CASE 2: user clicked "Add new"
+                                                    else if (newValue?.inputValue) {
+                                                        const newItem = {
+                                                            name: newValue.inputValue,
+                                                        };
 
-                                                    setHighlightsOptions(
-                                                        (prev) => [
-                                                            ...prev,
-                                                            newItem,
-                                                        ]
-                                                    );
+                                                        try {
+                                                            const res = await post(
+                                                                "common/property-highlights",
+                                                                newItem
+                                                            );
 
-                                                    updated[index] =
-                                                        newValue.inputValue;
-                                                } else {
-                                                    updated[index] =
-                                                        newValue?.name || "";
-                                                }
+                                                            const savedItem = res?.data;
+                                                            // MUST contain {_id, name}
 
-                                                setHighlights(updated);
-                                            }}
-                                            filterOptions={(
-                                                options,
-                                                params
-                                            ) => {
-                                                const filtered = filter(
-                                                    options,
-                                                    params
-                                                );
+                                                            if (!savedItem?._id) {
+                                                                throw new Error(
+                                                                    "Backend did not return _id"
+                                                                );
+                                                            }
 
-                                                const { inputValue } =
-                                                    params;
+                                                            // update dropdown options
+                                                            setHighlightsOptions((prev) => [
+                                                                ...prev,
+                                                                savedItem,
+                                                            ]);
 
-                                                const isExisting =
-                                                    options.some(
+                                                            // store FULL object
+                                                            updated[index] = savedItem;
+                                                        } catch (err) {
+                                                            toast.error(
+                                                                "Failed to create highlight"
+                                                            );
+                                                            return;
+                                                        }
+                                                    }
+
+                                                    // CASE 3: existing selection
+                                                    else {
+                                                        updated[index] = newValue;
+                                                    }
+
+                                                    setHighlights(updated);
+                                                }}
+                                                filterOptions={(options, params) => {
+                                                    const filtered = filter(options, params);
+
+                                                    const { inputValue } = params;
+
+                                                    const isExisting = options.some(
                                                         (o) =>
                                                             o.name.toLowerCase() ===
                                                             inputValue.toLowerCase()
                                                     );
 
-                                                if (
-                                                    inputValue !== "" &&
-                                                    !isExisting
-                                                ) {
-                                                    filtered.push({
-                                                        inputValue,
-                                                        name: `Add "${inputValue}"`,
-                                                    });
+                                                    if (inputValue !== "" && !isExisting) {
+                                                        filtered.push({
+                                                            inputValue,
+                                                            name: `Add "${inputValue}"`,
+                                                        });
+                                                    }
+
+                                                    return filtered;
+                                                }}
+                                                options={highlightsOptions}
+                                                getOptionLabel={(option) => {
+                                                    if (typeof option === "string")
+                                                        return option;
+
+                                                    if (option?.inputValue)
+                                                        return option.inputValue;
+
+                                                    return option?.name || "";
+                                                }}
+                                                isOptionEqualToValue={(option, value) =>
+                                                    option?._id === value?._id
                                                 }
+                                                renderInput={(params) => (
+                                                    <TextField
+                                                        {...params}
+                                                        label="Highlight"
+                                                    />
+                                                )}
+                                                freeSolo
+                                            />
 
-                                                return filtered;
-                                            }}
-                                            options={highlightsOptions}
-                                            getOptionLabel={(option) => {
-                                                if (
-                                                    typeof option === "string"
-                                                )
-                                                    return option;
-
-                                                if (option.inputValue)
-                                                    return option.inputValue;
-
-                                                return option.name;
-                                            }}
-                                            renderInput={(params) => (
-                                                <TextField
-                                                    {...params}
-                                                    label="Highlight"
-                                                />
-                                            )}
-                                            freeSolo
-                                        />
-
-                                        {/* DELETE */}
-                                        {highlights.length > 1 && (
-                                            <button
-                                                type="button"
-                                                onClick={() =>
-                                                    removeHighlight(index)
-                                                }
-                                            >
-                                                <Trash2 />
-                                            </button>
-                                        )}
-                                    </div>
-                                ))}
+                                            {/* DELETE */}
+                                            {highlights.length >
+                                                1 && (
+                                                    <button
+                                                        type="button"
+                                                        onClick={() =>
+                                                            removeHighlight(
+                                                                index
+                                                            )
+                                                        }
+                                                    >
+                                                        <Trash2 />
+                                                    </button>
+                                                )}
+                                        </div>
+                                    )
+                                )}
                             </div>
 
                             <Button
                                 type="button"
-                                onClick={addHighlight}
+                                onClick={
+                                    addHighlight
+                                }
                                 className="mt-2"
                             >
-                                + Add Highlight
+                                + Add
+                                Highlight
                             </Button>
                         </div>
 
@@ -419,41 +694,55 @@ const PropertyDetails = ({ updateData, existData }) => {
 
                         <div className="border p-4 mb-2 rounded border-gray-300">
                             <div>
-                                <label>Gallery Images</label>
+                                <label>
+                                    Gallery
+                                    Images
+                                </label>
 
                                 <Input
                                     type="file"
                                     multiple
-                                    onChange={handleGalleryChange}
+                                    onChange={
+                                        handleGalleryChange
+                                    }
                                 />
                             </div>
 
                             {/* PREVIEW */}
                             <div className="flex gap-3 flex-wrap mt-3">
-                                {galleryPreview.map((img, index) => (
-                                    <div
-                                        key={index}
-                                        className="relative"
-                                    >
-                                        <img
-                                            src={img}
-                                            alt=""
-                                            className="w-24 h-24 object-cover rounded-lg border"
-                                        />
-
-                                        <button
-                                            type="button"
-                                            onClick={() =>
-                                                removeGalleryImage(
-                                                    index
-                                                )
+                                {galleryPreview.map(
+                                    (
+                                        img,
+                                        index
+                                    ) => (
+                                        <div
+                                            key={
+                                                index
                                             }
-                                            className="absolute top-0 right-0 bg-red-500 text-white text-xs px-1 rounded"
+                                            className="relative"
                                         >
-                                            ✕
-                                        </button>
-                                    </div>
-                                ))}
+                                            <img
+                                                src={
+                                                    img
+                                                }
+                                                alt=""
+                                                className="w-24 h-24 object-cover rounded-lg border"
+                                            />
+
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    removeGalleryImage(
+                                                        index
+                                                    )
+                                                }
+                                                className="absolute top-0 right-0 bg-red-500 text-white text-xs px-1 rounded"
+                                            >
+                                                ✕
+                                            </button>
+                                        </div>
+                                    )
+                                )}
                             </div>
                         </div>
                     </div>
@@ -464,12 +753,12 @@ const PropertyDetails = ({ updateData, existData }) => {
                             type="submit"
                             className="bg-green-600 text-white"
                         >
-                            Save & Continue
+                            Save &
+                            Continue
                         </Button>
                     </div>
                 </form>
-            )
-            }
+            )}
         </>
     );
 };
