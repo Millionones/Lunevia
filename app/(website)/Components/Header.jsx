@@ -126,14 +126,14 @@ const Header = () => {
                                             <Link href="/faq">Faq</Link>
                                         </li>
                                         <li>
+                                            <Link href="/blog">Blogs</Link>
+                                        </li>
+                                        <li>
                                             <Link href="/terms-and-conditions">Terms & Conditions</Link>
                                         </li>
                                         <li>
                                             <Link href="/privacy-policy">Privacy Policy</Link>
                                         </li>
-                                        {/* <li>
-                                        <Link href="">Blogs</Link>
-                                    </li> */}
                                         {/* <li>
                                             <Link href="/philosophy-experience">Experience</Link>
                                         </li> */}
