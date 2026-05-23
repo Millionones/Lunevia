@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
+import * as Yup from "yup";
 
 import { Input } from "@/components/ui/input";
 import QuillEditor from "../../../../_componets/TextEditor";
@@ -23,27 +24,62 @@ import { BASE_URL } from "../../../../../../config";
 
 const filter = createFilterOptions();
 
+// VALIDATION
+const validationSchema = Yup.object({
+    title: Yup.string()
+        .trim()
+        .required("Title is required"),
+
+    mainImage: Yup.string()
+        .required("Banner image is required"),
+
+    locationLink: Yup.string()
+        .matches(
+            /^https?:\/\/.+/,
+            "Enter valid URL"
+        )
+        .required("Location link is required"),
+
+    aboutProperty: Yup.object({
+        image: Yup.string()
+            .required("About image is required"),
+
+        description: Yup.string()
+            .required("Description is required"),
+    }),
+
+    galleryImages: Yup.array(),
+});
+
 const PropertyDetails = ({
     updateData,
     existData,
 }) => {
-    const [highlights, setHighlights] = useState([
-        "",
-    ]);
+    const [highlights, setHighlights] =
+        useState([""]);
 
-    const [highlightsOptions, setHighlightsOptions] =
-        useState([]);
+    const [
+        highlightsOptions,
+        setHighlightsOptions,
+    ] = useState([]);
 
-    const [galleryPreview, setGalleryPreview] =
-        useState([]);
+    const [
+        galleryPreview,
+        setGalleryPreview,
+    ] = useState([]);
 
-    const [mainImagePreview, setMainImagePreview] =
-        useState("");
+    const [
+        mainImagePreview,
+        setMainImagePreview,
+    ] = useState("");
 
-    const [aboutImagePreview, setAboutImagePreview] =
-        useState("");
+    const [
+        aboutImagePreview,
+        setAboutImagePreview,
+    ] = useState("");
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] =
+        useState(false);
 
     // FORM
     const formik = useFormik({
@@ -51,11 +87,12 @@ const PropertyDetails = ({
 
         initialValues: {
             title:
-                existData?.step1?.title || "",
+                existData?.step1?.title ||
+                "",
 
             mainImage:
-                existData?.step1?.mainImage ||
-                "",
+                existData?.step1
+                    ?.mainImage || "",
 
             locationLink:
                 existData?.step1
@@ -64,8 +101,8 @@ const PropertyDetails = ({
             aboutProperty: {
                 image:
                     existData?.step1
-                        ?.aboutProperty?.image ||
-                    "",
+                        ?.aboutProperty
+                        ?.image || "",
 
                 description:
                     existData?.step1
@@ -83,6 +120,8 @@ const PropertyDetails = ({
                     ?.galleryImages || [],
         },
 
+        validationSchema,
+
         onSubmit: async (values) => {
             try {
                 const payload = {
@@ -91,19 +130,29 @@ const PropertyDetails = ({
                     aboutProperty: {
                         ...values.aboutProperty,
 
-                        highlights: highlights
-                            .filter(Boolean)
-                            .map((h) => h._id),
+                        highlights:
+                            highlights
+                                .filter(
+                                    Boolean
+                                )
+                                .map(
+                                    (
+                                        h
+                                    ) =>
+                                        h._id
+                                ),
                     },
                 };
 
                 updateData(payload);
 
                 toast.success(
-                    "Property details saved successfully"
+                    "Property details saved"
                 );
             } catch (err) {
-                toast.error(err.message);
+                toast.error(
+                    err.message
+                );
             }
         },
     });
@@ -121,16 +170,11 @@ const PropertyDetails = ({
                 setLoading(false);
             }, 1000);
 
-            // HIGHLIGHTS
+            // MAIN IMAGE
             if (
                 existData?.step1
-                    ?.aboutProperty?.highlights
+                    ?.mainImage
             ) {
-                fetchHighlightsOpts()
-            }
-
-            // MAIN IMAGE
-            if (existData?.step1?.mainImage) {
                 setMainImagePreview(
                     `${BASE_URL}/${existData.step1.mainImage}`
                 );
@@ -138,7 +182,8 @@ const PropertyDetails = ({
 
             // ABOUT IMAGE
             if (
-                existData?.step1?.aboutProperty
+                existData?.step1
+                    ?.aboutProperty
                     ?.image
             ) {
                 setAboutImagePreview(
@@ -149,11 +194,14 @@ const PropertyDetails = ({
             // GALLERY
             if (
                 existData?.step1
-                    ?.galleryImages?.length > 0
+                    ?.galleryImages
+                    ?.length > 0
             ) {
                 let galleryImages =
                     existData.step1.galleryImages.map(
-                        (item) =>
+                        (
+                            item
+                        ) =>
                             `${BASE_URL}/${item}`
                     );
 
@@ -173,12 +221,21 @@ const PropertyDetails = ({
     };
 
     // REMOVE HIGHLIGHT
-    const removeHighlight = (index) => {
-        const updated = highlights.filter(
-            (_, i) => i !== index
-        );
+    const removeHighlight = (
+        index
+    ) => {
+        const updated =
+            highlights.filter(
+                (_, i) =>
+                    i !== index
+            );
 
         setHighlights(updated);
+
+        formik.setFieldValue(
+            "aboutProperty.highlights",
+            updated
+        );
     };
 
     // IMAGE UPLOAD
@@ -187,9 +244,13 @@ const PropertyDetails = ({
         path
     ) => {
         try {
-            const formData = new FormData();
+            const formData =
+                new FormData();
 
-            formData.append("file", file);
+            formData.append(
+                "file",
+                file
+            );
 
             const url = `common/image/${path}`;
 
@@ -198,7 +259,8 @@ const PropertyDetails = ({
                 formData
             );
 
-            return res.data.new_filename;
+            return res.data
+                .new_filename;
         } catch (err) {
             toast.error(
                 "Image upload failed"
@@ -209,51 +271,58 @@ const PropertyDetails = ({
     };
 
     // GALLERY CHANGE
-    const handleGalleryChange = async (
-        e
-    ) => {
-        try {
-            const files = Array.from(
-                e.target.files
-            );
-
-            const uploadedPaths = [];
-
-            const previews = [];
-
-            for (let file of files) {
-                const path =
-                    await uploadImage(
-                        file,
-                        "gallery"
+    const handleGalleryChange =
+        async (e) => {
+            try {
+                const files =
+                    Array.from(
+                        e.target.files
                     );
 
-                uploadedPaths.push(path);
+                const uploadedPaths =
+                    [];
 
-                previews.push(
-                    URL.createObjectURL(file)
+                const previews = [];
+
+                for (let file of files) {
+                    const path =
+                        await uploadImage(
+                            file,
+                            "gallery"
+                        );
+
+                    uploadedPaths.push(
+                        path
+                    );
+
+                    previews.push(
+                        URL.createObjectURL(
+                            file
+                        )
+                    );
+                }
+
+                formik.setFieldValue(
+                    "galleryImages",
+                    [
+                        ...formik.values
+                            .galleryImages,
+                        ...uploadedPaths,
+                    ]
+                );
+
+                setGalleryPreview(
+                    (prev) => [
+                        ...prev,
+                        ...previews,
+                    ]
+                );
+            } catch (err) {
+                toast.error(
+                    "Gallery upload failed"
                 );
             }
-
-            formik.setFieldValue(
-                "galleryImages",
-                [
-                    ...formik.values
-                        .galleryImages,
-                    ...uploadedPaths,
-                ]
-            );
-
-            setGalleryPreview((prev) => [
-                ...prev,
-                ...previews,
-            ]);
-        } catch (err) {
-            toast.error(
-                "Gallery upload failed"
-            );
-        }
-    };
+        };
 
     // REMOVE GALLERY IMAGE
     const removeGalleryImage = (
@@ -261,12 +330,14 @@ const PropertyDetails = ({
     ) => {
         const updatedImages =
             formik.values.galleryImages.filter(
-                (_, i) => i !== index
+                (_, i) =>
+                    i !== index
             );
 
         const updatedPreview =
             galleryPreview.filter(
-                (_, i) => i !== index
+                (_, i) =>
+                    i !== index
             );
 
         formik.setFieldValue(
@@ -279,7 +350,7 @@ const PropertyDetails = ({
         );
     };
 
-    // FETCH HIGHLIGHT OPTIONS
+    // FETCH HIGHLIGHTS
     const fetchHighlightsOpts =
         async () => {
             try {
@@ -290,14 +361,30 @@ const PropertyDetails = ({
                 setHighlightsOptions(
                     res.data
                 );
+
                 if (
                     existData?.step1
-                        ?.aboutProperty?.highlights
+                        ?.aboutProperty
+                        ?.highlights
                 ) {
-                    let data = res.data.filter((option) =>
-                        existData.step1.aboutProperty.highlights.includes(option._id)
+                    let data =
+                        res.data.filter(
+                            (
+                                option
+                            ) =>
+                                existData.step1.aboutProperty.highlights.includes(
+                                    option._id
+                                )
+                        );
+
+                    setHighlights(
+                        data
                     );
-                    setHighlights(data);
+
+                    formik.setFieldValue(
+                        "aboutProperty.highlights",
+                        data
+                    );
                 }
             } catch (err) {
                 toast.error(
@@ -320,8 +407,10 @@ const PropertyDetails = ({
                     className="p-6 space-y-8 max-w-4xl mx-auto"
                 >
                     <div className="border p-4 rounded bg-white flex flex-col gap-5 border-white">
+
                         {/* TITLE + MAIN IMAGE */}
                         <div className="grid grid-cols-2 gap-4">
+
                             {/* TITLE */}
                             <div>
                                 <label>
@@ -334,12 +423,30 @@ const PropertyDetails = ({
                                     onChange={
                                         formik.handleChange
                                     }
+                                    onBlur={
+                                        formik.handleBlur
+                                    }
                                     value={
                                         formik
                                             .values
                                             .title
                                     }
                                 />
+
+                                {formik
+                                    .touched
+                                    .title &&
+                                    formik
+                                        .errors
+                                        .title && (
+                                        <p className="text-red-500 text-sm mt-1">
+                                            {
+                                                formik
+                                                    .errors
+                                                    .title
+                                            }
+                                        </p>
+                                    )}
                             </div>
 
                             {/* MAIN IMAGE */}
@@ -349,7 +456,8 @@ const PropertyDetails = ({
                                     Image
                                 </label>
 
-                                {formik.values
+                                {formik
+                                    .values
                                     .mainImage ? (
                                     <div className="relative w-fit">
                                         <img
@@ -404,6 +512,11 @@ const PropertyDetails = ({
                                                 uploadedPath
                                             );
 
+                                            formik.setFieldTouched(
+                                                "mainImage",
+                                                true
+                                            );
+
                                             setMainImagePreview(
                                                 URL.createObjectURL(
                                                     file
@@ -412,6 +525,21 @@ const PropertyDetails = ({
                                         }}
                                     />
                                 )}
+
+                                {formik
+                                    .touched
+                                    .mainImage &&
+                                    formik
+                                        .errors
+                                        .mainImage && (
+                                        <p className="text-red-500 text-sm mt-1">
+                                            {
+                                                formik
+                                                    .errors
+                                                    .mainImage
+                                            }
+                                        </p>
+                                    )}
                             </div>
 
                             {/* LOCATION LINK */}
@@ -427,12 +555,30 @@ const PropertyDetails = ({
                                     onChange={
                                         formik.handleChange
                                     }
+                                    onBlur={
+                                        formik.handleBlur
+                                    }
                                     value={
                                         formik
                                             .values
                                             .locationLink
                                     }
                                 />
+
+                                {formik
+                                    .touched
+                                    .locationLink &&
+                                    formik
+                                        .errors
+                                        .locationLink && (
+                                        <p className="text-red-500 text-sm mt-1">
+                                            {
+                                                formik
+                                                    .errors
+                                                    .locationLink
+                                            }
+                                        </p>
+                                    )}
                             </div>
                         </div>
 
@@ -443,8 +589,9 @@ const PropertyDetails = ({
                         </h2>
 
                         <div className="border p-4 rounded border-gray-300">
+
+                            {/* ABOUT IMAGE */}
                             <div className="grid grid-cols-2 gap-4">
-                                {/* ABOUT IMAGE */}
                                 <div>
                                     <label>
                                         About
@@ -508,6 +655,11 @@ const PropertyDetails = ({
                                                     uploadedPath
                                                 );
 
+                                                formik.setFieldTouched(
+                                                    "aboutProperty.image",
+                                                    true
+                                                );
+
                                                 setAboutImagePreview(
                                                     URL.createObjectURL(
                                                         file
@@ -516,6 +668,24 @@ const PropertyDetails = ({
                                             }}
                                         />
                                     )}
+
+                                    {formik
+                                        .touched
+                                        .aboutProperty
+                                        ?.image &&
+                                        formik
+                                            .errors
+                                            .aboutProperty
+                                            ?.image && (
+                                            <p className="text-red-500 text-sm mt-1">
+                                                {
+                                                    formik
+                                                        .errors
+                                                        .aboutProperty
+                                                        .image
+                                                }
+                                            </p>
+                                        )}
                                 </div>
                             </div>
 
@@ -530,13 +700,36 @@ const PropertyDetails = ({
                                     }
                                     onChange={(
                                         val
-                                    ) =>
+                                    ) => {
                                         formik.setFieldValue(
                                             "aboutProperty.description",
                                             val
-                                        )
-                                    }
+                                        );
+
+                                        formik.setFieldTouched(
+                                            "aboutProperty.description",
+                                            true
+                                        );
+                                    }}
                                 />
+
+                                {formik
+                                    .touched
+                                    .aboutProperty
+                                    ?.description &&
+                                    formik
+                                        .errors
+                                        .aboutProperty
+                                        ?.description && (
+                                        <p className="text-red-500 text-sm mt-1">
+                                            {
+                                                formik
+                                                    .errors
+                                                    .aboutProperty
+                                                    .description
+                                            }
+                                        </p>
+                                    )}
                             </div>
 
                             {/* HIGHLIGHTS */}
@@ -559,95 +752,157 @@ const PropertyDetails = ({
                                         >
                                             <Autocomplete
                                                 className="w-full"
-                                                value={item.name || null}
-                                                onChange={async (event, newValue) => {
-                                                    let updated = [...highlights];
+                                                value={
+                                                    item ||
+                                                    null
+                                                }
+                                                onChange={async (
+                                                    event,
+                                                    newValue
+                                                ) => {
+                                                    let updated =
+                                                        [
+                                                            ...highlights,
+                                                        ];
 
-                                                    // CASE 1: user typed raw string
-                                                    if (typeof newValue === "string") {
-                                                        updated[index] = {
-                                                            name: newValue,
-                                                        };
-                                                    }
-
-                                                    // CASE 2: user clicked "Add new"
-                                                    else if (newValue?.inputValue) {
-                                                        const newItem = {
+                                                    if (
+                                                        typeof newValue ===
+                                                        "string"
+                                                    ) {
+                                                        updated[
+                                                            index
+                                                        ] =
+                                                            {
+                                                                name: newValue,
+                                                            };
+                                                    } else if (
+                                                        newValue?.inputValue
+                                                    ) {
+                                                        const newItem =
+                                                        {
                                                             name: newValue.inputValue,
                                                         };
 
                                                         try {
-                                                            const res = await post(
-                                                                "common/property-highlights",
-                                                                newItem
+                                                            const res =
+                                                                await post(
+                                                                    "common/property-highlights",
+                                                                    newItem
+                                                                );
+
+                                                            const savedItem =
+                                                                res?.data;
+
+                                                            setHighlightsOptions(
+                                                                (
+                                                                    prev
+                                                                ) => [
+                                                                        ...prev,
+                                                                        savedItem,
+                                                                    ]
                                                             );
 
-                                                            const savedItem = res?.data;
-                                                            // MUST contain {_id, name}
-
-                                                            if (!savedItem?._id) {
-                                                                throw new Error(
-                                                                    "Backend did not return _id"
-                                                                );
-                                                            }
-
-                                                            // update dropdown options
-                                                            setHighlightsOptions((prev) => [
-                                                                ...prev,
-                                                                savedItem,
-                                                            ]);
-
-                                                            // store FULL object
-                                                            updated[index] = savedItem;
-                                                        } catch (err) {
+                                                            updated[
+                                                                index
+                                                            ] =
+                                                                savedItem;
+                                                        } catch (
+                                                            err
+                                                        ) {
                                                             toast.error(
                                                                 "Failed to create highlight"
                                                             );
                                                             return;
                                                         }
+                                                    } else {
+                                                        updated[
+                                                            index
+                                                        ] =
+                                                            newValue;
                                                     }
 
-                                                    // CASE 3: existing selection
-                                                    else {
-                                                        updated[index] = newValue;
-                                                    }
-
-                                                    setHighlights(updated);
-                                                }}
-                                                filterOptions={(options, params) => {
-                                                    const filtered = filter(options, params);
-
-                                                    const { inputValue } = params;
-
-                                                    const isExisting = options.some(
-                                                        (o) =>
-                                                            o.name.toLowerCase() ===
-                                                            inputValue.toLowerCase()
+                                                    setHighlights(
+                                                        updated
                                                     );
 
-                                                    if (inputValue !== "" && !isExisting) {
-                                                        filtered.push({
-                                                            inputValue,
-                                                            name: `Add "${inputValue}"`,
-                                                        });
+                                                    formik.setFieldValue(
+                                                        "aboutProperty.highlights",
+                                                        updated
+                                                    );
+
+                                                    formik.setFieldTouched(
+                                                        "aboutProperty.highlights",
+                                                        true
+                                                    );
+                                                }}
+                                                filterOptions={(
+                                                    options,
+                                                    params
+                                                ) => {
+                                                    const filtered =
+                                                        filter(
+                                                            options,
+                                                            params
+                                                        );
+
+                                                    const {
+                                                        inputValue,
+                                                    } =
+                                                        params;
+
+                                                    const isExisting =
+                                                        options.some(
+                                                            (
+                                                                o
+                                                            ) =>
+                                                                o.name.toLowerCase() ===
+                                                                inputValue.toLowerCase()
+                                                        );
+
+                                                    if (
+                                                        inputValue !==
+                                                        "" &&
+                                                        !isExisting
+                                                    ) {
+                                                        filtered.push(
+                                                            {
+                                                                inputValue,
+                                                                name: `Add "${inputValue}"`,
+                                                            }
+                                                        );
                                                     }
 
                                                     return filtered;
                                                 }}
-                                                options={highlightsOptions}
-                                                getOptionLabel={(option) => {
-                                                    if (typeof option === "string")
+                                                options={
+                                                    highlightsOptions
+                                                }
+                                                getOptionLabel={(
+                                                    option
+                                                ) => {
+                                                    if (
+                                                        typeof option ===
+                                                        "string"
+                                                    )
                                                         return option;
 
-                                                    if (option?.inputValue)
+                                                    if (
+                                                        option?.inputValue
+                                                    )
                                                         return option.inputValue;
 
                                                     return option?.name || "";
                                                 }}
-                                                isOptionEqualToValue={(option, value) =>
-                                                    option?._id === value?._id
+                                                isOptionEqualToValue={(
+                                                    option,
+                                                    value
+                                                ) =>
+                                                    option?._id ===
+                                                    value?._id
                                                 }
-                                                renderInput={(params) => (
+                                                renderInput={(
+                                                    params
+                                                ) => (
                                                     <TextField
                                                         {...params}
                                                         label="Highlight"
@@ -675,6 +930,20 @@ const PropertyDetails = ({
                                 )}
                             </div>
 
+                            {formik
+                                .errors
+                                .aboutProperty
+                                ?.highlights && (
+                                <p className="text-red-500 text-sm mt-2">
+                                    {
+                                        formik
+                                            .errors
+                                            .aboutProperty
+                                            .highlights
+                                    }
+                                </p>
+                            )}
+
                             <Button
                                 type="button"
                                 onClick={
@@ -682,7 +951,8 @@ const PropertyDetails = ({
                                 }
                                 className="mt-2"
                             >
-                                + Add
+                                +
+                                Add
                                 Highlight
                             </Button>
                         </div>

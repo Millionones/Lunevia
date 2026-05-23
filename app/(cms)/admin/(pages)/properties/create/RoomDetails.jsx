@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useFormik } from "formik";
+import * as Yup from "yup";
 
 import {
     Accordion,
@@ -40,17 +41,11 @@ const filter = createFilterOptions();
 
 const defaultRoom = {
     title: "",
-
     image: "",
-
     description: "",
-
     price: "",
-
     availableFeatures: "",
-
     resortAmenities: "",
-
     completed: false,
 
     features: [
@@ -60,6 +55,43 @@ const defaultRoom = {
         },
     ],
 };
+
+// VALIDATION SCHEMA
+const validationSchema = Yup.object({
+    rooms: Yup.array().of(
+        Yup.object({
+            title: Yup.string()
+                .trim()
+                .required("Title is required"),
+
+            image: Yup.string()
+                .required("Room image is required"),
+
+            description: Yup.string()
+                .required("Description is required"),
+
+            price: Yup.number()
+                .typeError("Price must be a number")
+                .required("Price is required"),
+
+            availableFeatures: Yup.string()
+                .required("Available facilities are required"),
+
+            resortAmenities: Yup.string()
+                .required("Resort amenities are required"),
+
+            features: Yup.array().of(
+                Yup.object({
+                    label: Yup.string()
+                        .required("Feature name is required"),
+
+                    answer: Yup.string()
+                        .required("Feature value is required"),
+                })
+            ),
+        })
+    ),
+});
 
 const RoomDetails = ({
     updateData,
@@ -89,9 +121,10 @@ const RoomDetails = ({
                 ],
         },
 
+        validationSchema,
+
         onSubmit: async (values) => {
             try {
-                // console.log(values);
                 updateData(values);
 
                 toast.success(
@@ -186,9 +219,39 @@ const RoomDetails = ({
     };
 
     // SAVE ROOM
-    const saveRoom = (
+    const saveRoom = async (
         roomIndex
     ) => {
+        await formik.validateForm();
+
+        formik.setTouched({
+            rooms:
+                formik.values.rooms.map(
+                    () => ({
+                        title: true,
+                        image: true,
+                        description: true,
+                        price: true,
+                        availableFeatures: true,
+                        resortAmenities: true,
+                        features: true,
+                    })
+                ),
+        });
+
+        const roomErrors =
+            formik.errors.rooms?.[
+                roomIndex
+            ];
+
+        if (roomErrors) {
+            toast.error(
+                "Please fill all required fields"
+            );
+
+            return;
+        }
+
         const updated = [
             ...formik.values.rooms,
         ];
@@ -320,8 +383,6 @@ const RoomDetails = ({
                                 >
                                     <div className="w-full flex justify-between items-center">
                                         <div className="flex gap-4 items-center">
-
-                                            {/* DETAILS */}
                                             <div>
                                                 <h2 className="font-bold text-lg">
                                                     {room.title ||
@@ -374,8 +435,10 @@ const RoomDetails = ({
                                 {/* DETAILS */}
                                 <AccordionDetails>
                                     <div className="flex flex-col gap-5">
+
                                         {/* TITLE + IMAGE + PRICE */}
                                         <div className="grid grid-cols-2 gap-4">
+
                                             {/* TITLE */}
                                             <div>
                                                 <label>
@@ -387,29 +450,45 @@ const RoomDetails = ({
                                                         room.title
                                                     }
                                                     placeholder="Title"
+                                                    name={`rooms.${roomIndex}.title`}
+                                                    onBlur={
+                                                        formik.handleBlur
+                                                    }
                                                     onChange={(
                                                         e
                                                     ) => {
-                                                        const updated =
-                                                            [
-                                                                ...formik
-                                                                    .values
-                                                                    .rooms,
-                                                            ];
-
-                                                        updated[
-                                                            roomIndex
-                                                        ].title =
+                                                        formik.setFieldValue(
+                                                            `rooms.${roomIndex}.title`,
                                                             e
                                                                 .target
-                                                                .value;
-
-                                                        formik.setFieldValue(
-                                                            "rooms",
-                                                            updated
+                                                                .value
                                                         );
                                                     }}
                                                 />
+
+                                                {formik
+                                                    .touched
+                                                    .rooms?.[
+                                                    roomIndex
+                                                ]
+                                                    ?.title &&
+                                                    formik
+                                                        .errors
+                                                        .rooms?.[
+                                                        roomIndex
+                                                    ]
+                                                        ?.title && (
+                                                        <p className="text-red-500 text-sm mt-1">
+                                                            {
+                                                                formik
+                                                                    .errors
+                                                                    .rooms[
+                                                                    roomIndex
+                                                                ]
+                                                                    .title
+                                                            }
+                                                        </p>
+                                                    )}
                                             </div>
 
                                             {/* IMAGE */}
@@ -430,21 +509,9 @@ const RoomDetails = ({
                                                         <button
                                                             type="button"
                                                             onClick={() => {
-                                                                const updated =
-                                                                    [
-                                                                        ...formik
-                                                                            .values
-                                                                            .rooms,
-                                                                    ];
-
-                                                                updated[
-                                                                    roomIndex
-                                                                ].image =
-                                                                    "";
-
                                                                 formik.setFieldValue(
-                                                                    "rooms",
-                                                                    updated
+                                                                    `rooms.${roomIndex}.image`,
+                                                                    ""
                                                                 );
                                                             }}
                                                             className="absolute top-0 right-0 bg-red-500 text-white text-xs px-1 rounded"
@@ -474,25 +541,37 @@ const RoomDetails = ({
                                                                     "rooms"
                                                                 );
 
-                                                            const updated =
-                                                                [
-                                                                    ...formik
-                                                                        .values
-                                                                        .rooms,
-                                                                ];
-
-                                                            updated[
-                                                                roomIndex
-                                                            ].image =
-                                                                uploadedPath;
-
                                                             formik.setFieldValue(
-                                                                "rooms",
-                                                                updated
+                                                                `rooms.${roomIndex}.image`,
+                                                                uploadedPath
                                                             );
                                                         }}
                                                     />
                                                 )}
+
+                                                {formik
+                                                    .touched
+                                                    .rooms?.[
+                                                    roomIndex
+                                                ]
+                                                    ?.image &&
+                                                    formik
+                                                        .errors
+                                                        .rooms?.[
+                                                        roomIndex
+                                                    ]
+                                                        ?.image && (
+                                                        <p className="text-red-500 text-sm mt-1">
+                                                            {
+                                                                formik
+                                                                    .errors
+                                                                    .rooms[
+                                                                    roomIndex
+                                                                ]
+                                                                    .image
+                                                            }
+                                                        </p>
+                                                    )}
                                             </div>
 
                                             {/* PRICE */}
@@ -506,29 +585,45 @@ const RoomDetails = ({
                                                         room.price
                                                     }
                                                     placeholder="Price"
+                                                    name={`rooms.${roomIndex}.price`}
+                                                    onBlur={
+                                                        formik.handleBlur
+                                                    }
                                                     onChange={(
                                                         e
                                                     ) => {
-                                                        const updated =
-                                                            [
-                                                                ...formik
-                                                                    .values
-                                                                    .rooms,
-                                                            ];
-
-                                                        updated[
-                                                            roomIndex
-                                                        ].price =
+                                                        formik.setFieldValue(
+                                                            `rooms.${roomIndex}.price`,
                                                             e
                                                                 .target
-                                                                .value;
-
-                                                        formik.setFieldValue(
-                                                            "rooms",
-                                                            updated
+                                                                .value
                                                         );
                                                     }}
                                                 />
+
+                                                {formik
+                                                    .touched
+                                                    .rooms?.[
+                                                    roomIndex
+                                                ]
+                                                    ?.price &&
+                                                    formik
+                                                        .errors
+                                                        .rooms?.[
+                                                        roomIndex
+                                                    ]
+                                                        ?.price && (
+                                                        <p className="text-red-500 text-sm mt-1">
+                                                            {
+                                                                formik
+                                                                    .errors
+                                                                    .rooms[
+                                                                    roomIndex
+                                                                ]
+                                                                    .price
+                                                            }
+                                                        </p>
+                                                    )}
                                             </div>
                                         </div>
 
@@ -545,24 +640,36 @@ const RoomDetails = ({
                                                 onChange={(
                                                     val
                                                 ) => {
-                                                    const updated =
-                                                        [
-                                                            ...formik
-                                                                .values
-                                                                .rooms,
-                                                        ];
-
-                                                    updated[
-                                                        roomIndex
-                                                    ].description =
-                                                        val;
-
                                                     formik.setFieldValue(
-                                                        "rooms",
-                                                        updated
+                                                        `rooms.${roomIndex}.description`,
+                                                        val
                                                     );
                                                 }}
                                             />
+
+                                            {formik
+                                                .touched
+                                                .rooms?.[
+                                                roomIndex
+                                            ]
+                                                ?.description &&
+                                                formik
+                                                    .errors
+                                                    .rooms?.[
+                                                    roomIndex
+                                                ]
+                                                    ?.description && (
+                                                    <p className="text-red-500 text-sm mt-1">
+                                                        {
+                                                            formik
+                                                                .errors
+                                                                .rooms[
+                                                                roomIndex
+                                                            ]
+                                                                .description
+                                                        }
+                                                    </p>
+                                                )}
                                         </div>
 
                                         {/* FEATURES */}
@@ -580,179 +687,198 @@ const RoomDetails = ({
                                                         key={
                                                             featureIndex
                                                         }
-                                                        className="flex gap-4 mt-3 items-center"
+                                                        className="flex gap-4 mt-3 items-start"
                                                     >
                                                         {/* FEATURE */}
-                                                        <Autocomplete
-                                                            className="w-1/2"
-                                                            value={
-                                                                feature.label
-                                                            }
-                                                            onChange={async (
-                                                                event,
-                                                                newValue
-                                                            ) => {
-                                                                const updated =
-                                                                    [
-                                                                        ...formik
-                                                                            .values
-                                                                            .rooms,
-                                                                    ];
-
-                                                                if (
-                                                                    typeof newValue ===
-                                                                    "string"
-                                                                ) {
-                                                                    updated[
-                                                                        roomIndex
-                                                                    ].features[
-                                                                        featureIndex
-                                                                    ].label =
-                                                                        newValue;
-                                                                } else if (
-                                                                    newValue?.inputValue
-                                                                ) {
-                                                                    const newItem =
-                                                                    {
-                                                                        name: newValue.inputValue,
-                                                                    };
-
-                                                                    await post(
-                                                                        "common/feature-options",
-                                                                        newItem
-                                                                    );
-
-                                                                    setRoomFeaturesOptions(
-                                                                        (
-                                                                            prev
-                                                                        ) => [
-                                                                                ...prev,
-                                                                                newItem,
-                                                                            ]
-                                                                    );
-
-                                                                    updated[
-                                                                        roomIndex
-                                                                    ].features[
-                                                                        featureIndex
-                                                                    ].label =
-                                                                        newValue.inputValue;
-                                                                } else {
-                                                                    updated[
-                                                                        roomIndex
-                                                                    ].features[
-                                                                        featureIndex
-                                                                    ].label =
-                                                                        newValue?.name ||
-                                                                        "";
+                                                        <div className="w-1/2">
+                                                            <Autocomplete
+                                                                value={
+                                                                    feature.label
                                                                 }
-
-                                                                formik.setFieldValue(
-                                                                    "rooms",
-                                                                    updated
-                                                                );
-                                                            }}
-                                                            filterOptions={(
-                                                                options,
-                                                                params
-                                                            ) => {
-                                                                const filtered =
-                                                                    filter(
-                                                                        options,
-                                                                        params
-                                                                    );
-
-                                                                const {
-                                                                    inputValue,
-                                                                } =
-                                                                    params;
-
-                                                                const isExisting =
-                                                                    options.some(
-                                                                        (
-                                                                            o
-                                                                        ) =>
-                                                                            o.name.toLowerCase() ===
-                                                                            inputValue.toLowerCase()
-                                                                    );
-
-                                                                if (
-                                                                    inputValue !==
-                                                                    "" &&
-                                                                    !isExisting
-                                                                ) {
-                                                                    filtered.push(
+                                                                onChange={async (
+                                                                    event,
+                                                                    newValue
+                                                                ) => {
+                                                                    if (
+                                                                        typeof newValue ===
+                                                                        "string"
+                                                                    ) {
+                                                                        formik.setFieldValue(
+                                                                            `rooms.${roomIndex}.features.${featureIndex}.label`,
+                                                                            newValue
+                                                                        );
+                                                                    } else if (
+                                                                        newValue?.inputValue
+                                                                    ) {
+                                                                        const newItem =
                                                                         {
-                                                                            inputValue,
-                                                                            name: `Add "${inputValue}"`,
-                                                                        }
-                                                                    );
+                                                                            name: newValue.inputValue,
+                                                                        };
+
+                                                                        await post(
+                                                                            "common/feature-options",
+                                                                            newItem
+                                                                        );
+
+                                                                        setRoomFeaturesOptions(
+                                                                            (
+                                                                                prev
+                                                                            ) => [
+                                                                                    ...prev,
+                                                                                    newItem,
+                                                                                ]
+                                                                        );
+
+                                                                        formik.setFieldValue(
+                                                                            `rooms.${roomIndex}.features.${featureIndex}.label`,
+                                                                            newValue.inputValue
+                                                                        );
+                                                                    } else {
+                                                                        formik.setFieldValue(
+                                                                            `rooms.${roomIndex}.features.${featureIndex}.label`,
+                                                                            newValue?.name ||
+                                                                            ""
+                                                                        );
+                                                                    }
+                                                                }}
+                                                                filterOptions={(
+                                                                    options,
+                                                                    params
+                                                                ) => {
+                                                                    const filtered =
+                                                                        filter(
+                                                                            options,
+                                                                            params
+                                                                        );
+
+                                                                    const {
+                                                                        inputValue,
+                                                                    } =
+                                                                        params;
+
+                                                                    const isExisting =
+                                                                        options.some(
+                                                                            (
+                                                                                o
+                                                                            ) =>
+                                                                                o.name.toLowerCase() ===
+                                                                                inputValue.toLowerCase()
+                                                                        );
+
+                                                                    if (
+                                                                        inputValue !==
+                                                                        "" &&
+                                                                        !isExisting
+                                                                    ) {
+                                                                        filtered.push(
+                                                                            {
+                                                                                inputValue,
+                                                                                name: `Add "${inputValue}"`,
+                                                                            }
+                                                                        );
+                                                                    }
+
+                                                                    return filtered;
+                                                                }}
+                                                                options={
+                                                                    roomFeaturesOptions
                                                                 }
+                                                                getOptionLabel={(
+                                                                    option
+                                                                ) => {
+                                                                    if (
+                                                                        typeof option ===
+                                                                        "string"
+                                                                    )
+                                                                        return option;
 
-                                                                return filtered;
-                                                            }}
-                                                            options={
-                                                                roomFeaturesOptions
-                                                            }
-                                                            getOptionLabel={(
-                                                                option
-                                                            ) => {
-                                                                if (
-                                                                    typeof option ===
-                                                                    "string"
-                                                                )
-                                                                    return option;
+                                                                    if (
+                                                                        option.inputValue
+                                                                    )
+                                                                        return option.inputValue;
 
-                                                                if (
-                                                                    option.inputValue
-                                                                )
-                                                                    return option.inputValue;
+                                                                    return option.name;
+                                                                }}
+                                                                renderInput={(
+                                                                    params
+                                                                ) => (
+                                                                    <TextField
+                                                                        {...params}
+                                                                        label="Feature"
+                                                                    />
+                                                                )}
+                                                                freeSolo
+                                                            />
 
-                                                                return option.name;
-                                                            }}
-                                                            renderInput={(
-                                                                params
-                                                            ) => (
-                                                                <TextField
-                                                                    {...params}
-                                                                    label="Feature"
-                                                                />
-                                                            )}
-                                                            freeSolo
-                                                        />
+                                                            {formik
+                                                                .errors
+                                                                .rooms?.[
+                                                                roomIndex
+                                                            ]
+                                                                ?.features?.[
+                                                                featureIndex
+                                                            ]
+                                                                ?.label && (
+                                                                    <p className="text-red-500 text-sm mt-1">
+                                                                        {
+                                                                            formik
+                                                                                .errors
+                                                                                .rooms[
+                                                                                roomIndex
+                                                                            ]
+                                                                                .features[
+                                                                                featureIndex
+                                                                            ]
+                                                                                .label
+                                                                        }
+                                                                    </p>
+                                                                )}
+                                                        </div>
 
                                                         {/* VALUE */}
-                                                        <TextField
-                                                            className="w-1/2"
-                                                            label="Value"
-                                                            value={
-                                                                feature.answer
-                                                            }
-                                                            onChange={(
-                                                                e
-                                                            ) => {
-                                                                const updated =
-                                                                    [
-                                                                        ...formik
-                                                                            .values
-                                                                            .rooms,
-                                                                    ];
-
-                                                                updated[
-                                                                    roomIndex
-                                                                ].features[
-                                                                    featureIndex
-                                                                ].answer =
+                                                        <div className="w-1/2">
+                                                            <TextField
+                                                                fullWidth
+                                                                label="Value"
+                                                                value={
+                                                                    feature.answer
+                                                                }
+                                                                onChange={(
                                                                     e
-                                                                        .target
-                                                                        .value;
+                                                                ) => {
+                                                                    formik.setFieldValue(
+                                                                        `rooms.${roomIndex}.features.${featureIndex}.answer`,
+                                                                        e
+                                                                            .target
+                                                                            .value
+                                                                    );
+                                                                }}
+                                                            />
 
-                                                                formik.setFieldValue(
-                                                                    "rooms",
-                                                                    updated
-                                                                );
-                                                            }}
-                                                        />
+                                                            {formik
+                                                                .errors
+                                                                .rooms?.[
+                                                                roomIndex
+                                                            ]
+                                                                ?.features?.[
+                                                                featureIndex
+                                                            ]
+                                                                ?.answer && (
+                                                                    <p className="text-red-500 text-sm mt-1">
+                                                                        {
+                                                                            formik
+                                                                                .errors
+                                                                                .rooms[
+                                                                                roomIndex
+                                                                            ]
+                                                                                .features[
+                                                                                featureIndex
+                                                                            ]
+                                                                                .answer
+                                                                        }
+                                                                    </p>
+                                                                )}
+                                                        </div>
 
                                                         {/* DELETE */}
                                                         {room
@@ -804,30 +930,37 @@ const RoomDetails = ({
                                                 onChange={(
                                                     val
                                                 ) => {
-                                                    const updated =
-                                                        [
-                                                            ...formik
-                                                                .values
-                                                                .rooms,
-                                                        ];
-
-                                                    updated[
-                                                        roomIndex
-                                                    ].availableFeatures =
-                                                        val;
-
                                                     formik.setFieldValue(
-                                                        "rooms",
-                                                        updated
+                                                        `rooms.${roomIndex}.availableFeatures`,
+                                                        val
                                                     );
                                                 }}
                                             />
+
+                                            {formik
+                                                .errors
+                                                .rooms?.[
+                                                roomIndex
+                                            ]
+                                                ?.availableFeatures && (
+                                                    <p className="text-red-500 text-sm mt-1">
+                                                        {
+                                                            formik
+                                                                .errors
+                                                                .rooms[
+                                                                roomIndex
+                                                            ]
+                                                                .availableFeatures
+                                                        }
+                                                    </p>
+                                                )}
                                         </div>
 
-                                        {/* Resort Amenities */}
+                                        {/* RESORT AMENITIES */}
                                         <div>
                                             <h3 className="font-bold mb-2">
-                                                Resort Amenities
+                                                Resort
+                                                Amenities
                                             </h3>
 
                                             <QuillEditor
@@ -837,24 +970,30 @@ const RoomDetails = ({
                                                 onChange={(
                                                     val
                                                 ) => {
-                                                    const updated =
-                                                        [
-                                                            ...formik
-                                                                .values
-                                                                .rooms,
-                                                        ];
-
-                                                    updated[
-                                                        roomIndex
-                                                    ].resortAmenities =
-                                                        val;
-
                                                     formik.setFieldValue(
-                                                        "rooms",
-                                                        updated
+                                                        `rooms.${roomIndex}.resortAmenities`,
+                                                        val
                                                     );
                                                 }}
                                             />
+
+                                            {formik
+                                                .errors
+                                                .rooms?.[
+                                                roomIndex
+                                            ]
+                                                ?.resortAmenities && (
+                                                    <p className="text-red-500 text-sm mt-1">
+                                                        {
+                                                            formik
+                                                                .errors
+                                                                .rooms[
+                                                                roomIndex
+                                                            ]
+                                                                .resortAmenities
+                                                        }
+                                                    </p>
+                                                )}
                                         </div>
 
                                         {/* SAVE ROOM */}

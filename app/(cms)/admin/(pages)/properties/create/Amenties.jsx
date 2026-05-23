@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useFormik } from "formik";
+import * as Yup from "yup";
 
 import {
     Accordion,
@@ -32,13 +33,30 @@ import { BASE_URL } from "../../../../../../config";
 
 const defaultAmenity = {
     title: "",
-
     image: "",
-
     description: "",
-
     completed: false,
 };
+
+// VALIDATION
+const validationSchema = Yup.object({
+    amenities: Yup.array().of(
+        Yup.object({
+            title: Yup.string()
+                .trim()
+                .required("Title is required"),
+
+            image: Yup.string()
+                .required("Image is required"),
+
+            description: Yup.string()
+                .trim()
+                .required(
+                    "Description is required"
+                ),
+        })
+    ),
+});
 
 const Amenties = ({
     updateData,
@@ -64,7 +82,11 @@ const Amenties = ({
                 ],
         },
 
-        onSubmit: async (values) => {
+        validationSchema,
+
+        onSubmit: async (
+            values
+        ) => {
             try {
                 updateData(values);
 
@@ -72,7 +94,9 @@ const Amenties = ({
                     "Amenities saved successfully"
                 );
             } catch (err) {
-                toast.error(err.message);
+                toast.error(
+                    err.message
+                );
             }
         },
     });
@@ -164,29 +188,59 @@ const Amenties = ({
     };
 
     // SAVE AMENITY
-    const saveAmenity = (
-        amenityIndex
-    ) => {
-        const updated = [
-            ...formik.values
-                .amenities,
-        ];
-
-        updated[
+    const saveAmenity =
+        async (
             amenityIndex
-        ].completed = true;
+        ) => {
+            await formik.validateForm();
 
-        formik.setFieldValue(
-            "amenities",
-            updated
-        );
+            formik.setTouched({
+                amenities:
+                    formik.values.amenities.map(
+                        () => ({
+                            title: true,
+                            image: true,
+                            description: true,
+                        })
+                    ),
+            });
 
-        setExpandedAmenity(null);
+            const errors =
+                formik.errors
+                    .amenities?.[
+                    amenityIndex
+                ];
 
-        toast.success(
-            "Amenity saved"
-        );
-    };
+            if (errors) {
+                toast.error(
+                    "Please fill all required fields"
+                );
+
+                return;
+            }
+
+            const updated = [
+                ...formik.values
+                    .amenities,
+            ];
+
+            updated[
+                amenityIndex
+            ].completed = true;
+
+            formik.setFieldValue(
+                "amenities",
+                updated
+            );
+
+            setExpandedAmenity(
+                null
+            );
+
+            toast.success(
+                "Amenity saved"
+            );
+        };
 
     return (
         <>
@@ -231,15 +285,11 @@ const Amenties = ({
                                 >
                                     <div className="w-full flex justify-between items-center pr-5">
                                         <div className="flex gap-4 items-center">
-                                           
-
-                                            {/* DETAILS */}
                                             <div>
                                                 <h2 className="font-bold text-lg">
                                                     {amenity.title ||
                                                         `Amenity ${amenityIndex + 1}`}
                                                 </h2>
-
                                             </div>
                                         </div>
 
@@ -291,8 +341,10 @@ const Amenties = ({
                                 {/* DETAILS */}
                                 <AccordionDetails>
                                     <div className="flex flex-col gap-5">
+
                                         {/* TITLE + IMAGE */}
                                         <div className="grid grid-cols-2 gap-4">
+
                                             {/* TITLE */}
                                             <div>
                                                 <label>
@@ -303,29 +355,45 @@ const Amenties = ({
                                                     value={
                                                         amenity.title
                                                     }
+                                                    name={`amenities.${amenityIndex}.title`}
+                                                    onBlur={
+                                                        formik.handleBlur
+                                                    }
                                                     onChange={(
                                                         e
                                                     ) => {
-                                                        const updated =
-                                                            [
-                                                                ...formik
-                                                                    .values
-                                                                    .amenities,
-                                                            ];
-
-                                                        updated[
-                                                            amenityIndex
-                                                        ].title =
+                                                        formik.setFieldValue(
+                                                            `amenities.${amenityIndex}.title`,
                                                             e
                                                                 .target
-                                                                .value;
-
-                                                        formik.setFieldValue(
-                                                            "amenities",
-                                                            updated
+                                                                .value
                                                         );
                                                     }}
                                                 />
+
+                                                {formik
+                                                    .touched
+                                                    .amenities?.[
+                                                    amenityIndex
+                                                ]
+                                                    ?.title &&
+                                                    formik
+                                                        .errors
+                                                        .amenities?.[
+                                                        amenityIndex
+                                                    ]
+                                                        ?.title && (
+                                                        <p className="text-red-500 text-sm mt-1">
+                                                            {
+                                                                formik
+                                                                    .errors
+                                                                    .amenities[
+                                                                    amenityIndex
+                                                                ]
+                                                                    .title
+                                                            }
+                                                        </p>
+                                                    )}
                                             </div>
 
                                             {/* IMAGE */}
@@ -345,21 +413,9 @@ const Amenties = ({
                                                         <button
                                                             type="button"
                                                             onClick={() => {
-                                                                const updated =
-                                                                    [
-                                                                        ...formik
-                                                                            .values
-                                                                            .amenities,
-                                                                    ];
-
-                                                                updated[
-                                                                    amenityIndex
-                                                                ].image =
-                                                                    "";
-
                                                                 formik.setFieldValue(
-                                                                    "amenities",
-                                                                    updated
+                                                                    `amenities.${amenityIndex}.image`,
+                                                                    ""
                                                                 );
                                                             }}
                                                             className="absolute top-0 right-0 bg-red-500 text-white text-xs px-1 rounded"
@@ -389,25 +445,42 @@ const Amenties = ({
                                                                     "amenities"
                                                                 );
 
-                                                            const updated =
-                                                                [
-                                                                    ...formik
-                                                                        .values
-                                                                        .amenities,
-                                                                ];
-
-                                                            updated[
-                                                                amenityIndex
-                                                            ].image =
-                                                                uploadedPath;
-
                                                             formik.setFieldValue(
-                                                                "amenities",
-                                                                updated
+                                                                `amenities.${amenityIndex}.image`,
+                                                                uploadedPath
+                                                            );
+
+                                                            formik.setFieldTouched(
+                                                                `amenities.${amenityIndex}.image`,
+                                                                true
                                                             );
                                                         }}
                                                     />
                                                 )}
+
+                                                {formik
+                                                    .touched
+                                                    .amenities?.[
+                                                    amenityIndex
+                                                ]
+                                                    ?.image &&
+                                                    formik
+                                                        .errors
+                                                        .amenities?.[
+                                                        amenityIndex
+                                                    ]
+                                                        ?.image && (
+                                                        <p className="text-red-500 text-sm mt-1">
+                                                            {
+                                                                formik
+                                                                    .errors
+                                                                    .amenities[
+                                                                    amenityIndex
+                                                                ]
+                                                                    .image
+                                                            }
+                                                        </p>
+                                                    )}
                                             </div>
                                         </div>
 
@@ -421,30 +494,46 @@ const Amenties = ({
                                                 value={
                                                     amenity.description
                                                 }
+                                                name={`amenities.${amenityIndex}.description`}
+                                                onBlur={
+                                                    formik.handleBlur
+                                                }
                                                 onChange={(
                                                     e
                                                 ) => {
-                                                    const updated =
-                                                        [
-                                                            ...formik
-                                                                .values
-                                                                .amenities,
-                                                        ];
-
-                                                    updated[
-                                                        amenityIndex
-                                                    ].description =
+                                                    formik.setFieldValue(
+                                                        `amenities.${amenityIndex}.description`,
                                                         e
                                                             .target
-                                                            .value;
-
-                                                    formik.setFieldValue(
-                                                        "amenities",
-                                                        updated
+                                                            .value
                                                     );
                                                 }}
                                                 placeholder="Description"
                                             />
+
+                                            {formik
+                                                .touched
+                                                .amenities?.[
+                                                amenityIndex
+                                            ]
+                                                ?.description &&
+                                                formik
+                                                    .errors
+                                                    .amenities?.[
+                                                    amenityIndex
+                                                ]
+                                                    ?.description && (
+                                                    <p className="text-red-500 text-sm mt-1">
+                                                        {
+                                                            formik
+                                                                .errors
+                                                                .amenities[
+                                                                amenityIndex
+                                                            ]
+                                                                .description
+                                                        }
+                                                    </p>
+                                                )}
                                         </div>
 
                                         {/* SAVE */}

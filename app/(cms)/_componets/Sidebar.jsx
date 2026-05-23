@@ -1,29 +1,28 @@
-import { Hammer, Menu, Newspaper, PhoneCall, Swords, Users, Quote, UserRoundSearch, Blocks, Factory } from "lucide-react";
+"use client";
+
+import {
+  Hammer,
+  Menu,
+  PhoneCall,
+  Users,
+  Quote,
+  Factory,
+} from "lucide-react";
+
 import Link from "next/link";
 import React from "react";
 
+import { usePathname } from "next/navigation";
+
 const Sidebar = () => {
+  const pathname = usePathname();
+
   const menus = [
-    // {
-    //   name: "Insight",
-    //   link: "/insight",
-    //   icon: <Newspaper size={20} />,
-    // },
-    // {
-    //   name: "Works",
-    //   link: "/works",
-    //   icon: <Swords size={20} />,
-    // },
     {
       name: "Careers",
       link: "/careers",
       icon: <Users size={20} />,
     },
-    // {
-    //   name: "Job Applications",
-    //   link: "/job-applications",
-    //   icon: <UserRoundSearch size={20} />,
-    // },
     {
       name: "Services",
       link: "/services",
@@ -44,37 +43,52 @@ const Sidebar = () => {
       link: "/properties",
       icon: <Factory size={20} />,
     },
-    // {
-    //   name: "Category",
-    //   link: "/category",
-    //   icon: <Blocks size={20} />,
-    // },
   ];
 
   return (
-    <nav className="border-r shadow min-w-56 h-full py-3 px-4">
+    <nav className="border-r shadow min-w-56 h-full py-3 px-4 bg-white">
       {/* Logo section */}
       <div className="flex justify-between items-center">
         <Link href={"/admin"}>
-          {/* <span className="logo font-bold text-xl">Horatio</span> */}
-          <img src="/logo-black.png" alt="" className="max-w-[120px]"/>
+          <img
+            src="/logo-black.png"
+            alt=""
+            className="max-w-[120px]"
+          />
         </Link>
+
         <span className="cursor-pointer">
           <Menu />
         </span>
       </div>
 
       {/* Navigation */}
+      <ul className="mt-5 flex flex-col gap-y-3 text-base">
+        {menus.map((menu) => {
+          const isActive = (pathname === `/admin${menu.link}` || pathname.includes(menu.link)) ;
 
-      <ul className="mt-5 flex flex-col gap-y-5 text-base">
-        {menus.map((menu) => (
-          <li key={menu.name}>
-            <Link className="flex gap-2" href={`/admin${menu.link}`}>
-              {menu.icon}
-              <span>{menu.name}</span>
-            </Link>
-          </li>
-        ))}
+          return (
+            <li key={menu.name}>
+              <Link
+                href={`/admin${menu.link}`}
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
+                  
+                  ${
+                    isActive
+                      ? "bg-black text-white shadow-md"
+                      : "text-gray-700 hover:bg-gray-100"
+                  }
+                `}
+              >
+                {menu.icon}
+
+                <span className="font-medium">
+                  {menu.name}
+                </span>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );

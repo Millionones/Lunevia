@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useFormik } from "formik";
+import * as Yup from "yup";
 
 import {
     Accordion,
@@ -37,6 +38,30 @@ const defaultLocation = {
     completed: false,
 };
 
+// VALIDATION SCHEMA
+const validationSchema = Yup.object({
+    locations: Yup.array().of(
+        Yup.object().shape({
+            title: Yup.string()
+                .trim()
+                .required(
+                    "Title is required"
+                ),
+
+            image: Yup.string().required(
+                "Image is required"
+            ),
+
+            description:
+                Yup.string()
+                    .trim()
+                    .required(
+                        "Description is required"
+                    ),
+        })
+    ),
+});
+
 const Locations = ({
     updateData,
     existData,
@@ -60,15 +85,23 @@ const Locations = ({
                 ],
         },
 
-        onSubmit: async (values) => {
+        validationSchema,
+
+        onSubmit: async (
+            values
+        ) => {
             try {
+                await formik.validateForm();
+
                 updateData(values);
 
                 toast.success(
                     "Locations saved successfully"
                 );
             } catch (err) {
-                toast.error(err.message);
+                toast.error(
+                    err.message
+                );
             }
         },
     });
@@ -111,6 +144,7 @@ const Locations = ({
             toast.error(
                 "Image upload failed"
             );
+
             throw err;
         }
     };
@@ -139,7 +173,8 @@ const Locations = ({
     ) => {
         const updated =
             formik.values.locations.filter(
-                (_, i) => i !== index
+                (_, i) =>
+                    i !== index
             );
 
         formik.setFieldValue(
@@ -158,29 +193,55 @@ const Locations = ({
     };
 
     // SAVE LOCATION
-    const saveLocation = (
-        index
-    ) => {
-        const updated = [
-            ...formik.values
-                .locations,
-        ];
+    const saveLocation =
+        async (index) => {
+            await formik.validateForm();
 
-        updated[
-            index
-        ].completed = true;
+            formik.setTouched({
+                locations:
+                    formik.values.locations.map(
+                        () => ({
+                            title: true,
+                            image: true,
+                            description: true,
+                        })
+                    ),
+            });
 
-        formik.setFieldValue(
-            "locations",
-            updated
-        );
+            const errors =
+                formik.errors
+                    .locations?.[index];
 
-        setExpandedLocation(null);
+            if (errors) {
+                toast.error(
+                    "Please fill all required fields"
+                );
 
-        toast.success(
-            "Location saved"
-        );
-    };
+                return;
+            }
+
+            const updated = [
+                ...formik.values
+                    .locations,
+            ];
+
+            updated[
+                index
+            ].completed = true;
+
+            formik.setFieldValue(
+                "locations",
+                updated
+            );
+
+            setExpandedLocation(
+                null
+            );
+
+            toast.success(
+                "Location saved"
+            );
+        };
 
     return (
         <>
@@ -223,13 +284,11 @@ const Locations = ({
                                 >
                                     <div className="w-full flex justify-between items-center pr-5">
                                         <div className="flex gap-4 items-center">
-
                                             <div>
                                                 <h2 className="font-bold text-lg">
                                                     {location.title ||
                                                         `Location ${index + 1}`}
                                                 </h2>
-
                                             </div>
                                         </div>
 
@@ -241,6 +300,7 @@ const Locations = ({
                                                     e
                                                 ) => {
                                                     e.stopPropagation();
+
                                                     setExpandedLocation(
                                                         index
                                                     );
@@ -260,6 +320,7 @@ const Locations = ({
                                                     e
                                                 ) => {
                                                     e.stopPropagation();
+
                                                     removeLocation(
                                                         index
                                                     );
@@ -279,8 +340,10 @@ const Locations = ({
                                 {/* DETAILS */}
                                 <AccordionDetails>
                                     <div className="flex flex-col gap-5">
+
                                         {/* TITLE + IMAGE */}
                                         <div className="grid grid-cols-2 gap-4">
+
                                             {/* TITLE */}
                                             <div>
                                                 <label>
@@ -288,32 +351,48 @@ const Locations = ({
                                                 </label>
 
                                                 <Input
+                                                    name={`locations.${index}.title`}
                                                     value={
                                                         location.title
+                                                    }
+                                                    onBlur={
+                                                        formik.handleBlur
                                                     }
                                                     onChange={(
                                                         e
                                                     ) => {
-                                                        const updated =
-                                                            [
-                                                                ...formik
-                                                                    .values
-                                                                    .locations,
-                                                            ];
-
-                                                        updated[
-                                                            index
-                                                        ].title =
+                                                        formik.setFieldValue(
+                                                            `locations.${index}.title`,
                                                             e
                                                                 .target
-                                                                .value;
-
-                                                        formik.setFieldValue(
-                                                            "locations",
-                                                            updated
+                                                                .value
                                                         );
                                                     }}
                                                 />
+
+                                                {formik
+                                                    .touched
+                                                    .locations?.[
+                                                    index
+                                                ]
+                                                    ?.title &&
+                                                    formik
+                                                        .errors
+                                                        .locations?.[
+                                                        index
+                                                    ]
+                                                        ?.title && (
+                                                        <p className="text-red-500 text-sm mt-1">
+                                                            {
+                                                                formik
+                                                                    .errors
+                                                                    .locations[
+                                                                    index
+                                                                ]
+                                                                    .title
+                                                            }
+                                                        </p>
+                                                    )}
                                             </div>
 
                                             {/* IMAGE */}
@@ -332,21 +411,9 @@ const Locations = ({
                                                         <button
                                                             type="button"
                                                             onClick={() => {
-                                                                const updated =
-                                                                    [
-                                                                        ...formik
-                                                                            .values
-                                                                            .locations,
-                                                                    ];
-
-                                                                updated[
-                                                                    index
-                                                                ].image =
-                                                                    "";
-
                                                                 formik.setFieldValue(
-                                                                    "locations",
-                                                                    updated
+                                                                    `locations.${index}.image`,
+                                                                    ""
                                                                 );
                                                             }}
                                                             className="absolute top-0 right-0 bg-red-500 text-white text-xs px-1 rounded"
@@ -376,25 +443,42 @@ const Locations = ({
                                                                     "locations"
                                                                 );
 
-                                                            const updated =
-                                                                [
-                                                                    ...formik
-                                                                        .values
-                                                                        .locations,
-                                                                ];
-
-                                                            updated[
-                                                                index
-                                                            ].image =
-                                                                uploaded;
-
                                                             formik.setFieldValue(
-                                                                "locations",
-                                                                updated
+                                                                `locations.${index}.image`,
+                                                                uploaded
+                                                            );
+
+                                                            formik.setFieldTouched(
+                                                                `locations.${index}.image`,
+                                                                true
                                                             );
                                                         }}
                                                     />
                                                 )}
+
+                                                {formik
+                                                    .touched
+                                                    .locations?.[
+                                                    index
+                                                ]
+                                                    ?.image &&
+                                                    formik
+                                                        .errors
+                                                        .locations?.[
+                                                        index
+                                                    ]
+                                                        ?.image && (
+                                                        <p className="text-red-500 text-sm mt-1">
+                                                            {
+                                                                formik
+                                                                    .errors
+                                                                    .locations[
+                                                                    index
+                                                                ]
+                                                                    .image
+                                                            }
+                                                        </p>
+                                                    )}
                                             </div>
                                         </div>
 
@@ -405,32 +489,48 @@ const Locations = ({
                                             </label>
 
                                             <Textarea
+                                                name={`locations.${index}.description`}
                                                 value={
                                                     location.description
+                                                }
+                                                onBlur={
+                                                    formik.handleBlur
                                                 }
                                                 onChange={(
                                                     e
                                                 ) => {
-                                                    const updated =
-                                                        [
-                                                            ...formik
-                                                                .values
-                                                                .locations,
-                                                        ];
-
-                                                    updated[
-                                                        index
-                                                    ].description =
+                                                    formik.setFieldValue(
+                                                        `locations.${index}.description`,
                                                         e
                                                             .target
-                                                            .value;
-
-                                                    formik.setFieldValue(
-                                                        "locations",
-                                                        updated
+                                                            .value
                                                     );
                                                 }}
                                             />
+
+                                            {formik
+                                                .touched
+                                                .locations?.[
+                                                index
+                                            ]
+                                                ?.description &&
+                                                formik
+                                                    .errors
+                                                    .locations?.[
+                                                    index
+                                                ]
+                                                    ?.description && (
+                                                    <p className="text-red-500 text-sm mt-1">
+                                                        {
+                                                            formik
+                                                                .errors
+                                                                .locations[
+                                                                index
+                                                            ]
+                                                                .description
+                                                        }
+                                                    </p>
+                                                )}
                                         </div>
 
                                         {/* SAVE */}
@@ -468,7 +568,9 @@ const Locations = ({
                     <div className="flex justify-between">
                         <Button
                             type="button"
-                            onClick={addLocation}
+                            onClick={
+                                addLocation
+                            }
                         >
                             + Add Location
                         </Button>
