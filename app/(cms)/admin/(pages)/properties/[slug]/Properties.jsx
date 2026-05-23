@@ -14,47 +14,52 @@ import RoomDetails from "./RoomDetails";
 import Amenties from "./Amenties";
 import Locations from "./Locations";
 
-import { get, post } from "@/helpers/api";
+import { get, post, put } from "@/helpers/api";
 import { useRouter } from "next/navigation";
 
 
 const STORAGE_KEY = "propertyForm";
 
-const Properties = () => {
+const Properties = ({ slug }) => {
     const router = useRouter();
     const [value, setValue] = useState("1");
 
     const [formData, setFormData] = useState({});
 
-    // GET DATA FROM LOCAL STORAGE
-    const getFromLocalStorage = () => {
-        if (typeof window === "undefined") return null;
 
-        return localStorage.getItem(STORAGE_KEY);
-    };
+    const fetchPropertyDetails = async () => {
+        const res = await get(`destination/${slug}`);
+
+        let data = res.data;
+
+        let formattedData = {
+            step1: {
+                title: data.title,
+                mainImage: data.mainImage,
+                locationLink: data.locationLink,
+                aboutProperty: {
+                    image: data.aboutProperty?.image,
+                    description: data.aboutProperty?.description,
+                    highlights: data.aboutProperty?.highlights,
+                },
+                galleryImages: data.galleryImages
+            },
+            step2: {
+                rooms: data.roomDetails || []
+            },
+            step3: {
+                amenities: data.amenties || []
+            },
+            step4: {
+                locations: data.locations || []
+            }
+        };
+        setFormData(formattedData);
+    }
 
     // LOAD DATA ON PAGE REFRESH
     useEffect(() => {
-        const data = getFromLocalStorage();
-
-        if (data) {
-            const parsed = JSON.parse(data);
-
-            setFormData(parsed);
-
-            // OPTIONAL:
-            // Automatically move to last completed step
-
-            if (parsed.step4) {
-                setValue("4");
-            } else if (parsed.step3) {
-                setValue("3");
-            } else if (parsed.step2) {
-                setValue("2");
-            } else if (parsed.step1) {
-                setValue("1");
-            }
-        }
+        fetchPropertyDetails()
     }, []);
 
     // HANDLE TAB CHANGE
@@ -64,14 +69,9 @@ const Properties = () => {
 
     // UPDATE STEP DATA
     const updateData = (data) => {
-        const existing = getFromLocalStorage();
-
-        let parsedData = existing
-            ? JSON.parse(existing)
-            : {};
 
         let updatedData = {
-            ...parsedData,
+            ...formData,
         };
 
         // STEP 1
@@ -98,47 +98,27 @@ const Properties = () => {
         // STEP 4
         if (value === "4") {
             updatedData.step4 = data;
-            addProperty(updatedData);
+            updateProperty(updatedData);
         }
 
         // UPDATE STATE
         setFormData(updatedData);
 
-        // SAVE TO STORAGE
-        localStorage.setItem(
-            STORAGE_KEY,
-            JSON.stringify(updatedData)
-        );
     };
 
-    // CLEAR ALL DATA
-    const clearForm = () => {
-        localStorage.removeItem(STORAGE_KEY);
-
-        setFormData({});
-
-        setValue("1");
-    };
-
-    console.log(formData, "FORM DATA");
-
-    const addProperty = async (data) => {
-        // API CALL TO ADD PROPERTY
+    const updateProperty = async (data) => {
+        // API CALL TO UPDATE PROPERTY
         // Use formData to get all the details from different steps
 
         let req = {
             ...data?.step1,
-             roomDetails:[...data?.step2?.rooms],
-            amenties:[...data?.step3?.amenities],
-            locations:[...data?.step4?.locations],
+            roomDetails: [...data?.step2?.rooms],
+            amenties: [...data?.step3?.amenities],
+            locations: [...data?.step4?.locations],
         }
 
-        const res = await post("destination", req);
-        console.log(res, "PROPERTY ADDED");
-
-        localStorage.removeItem(
-            STORAGE_KEY
-        );
+        const res = await put(`destination/${slug}`, req);
+        console.log(res, "PROPERTY UPDATED");
 
         router.push("/admin/properties");
     }

@@ -21,7 +21,7 @@ const List = () => {
         fetchProperties()
     }, [])
 
-    const handleDelete = (id) => {
+    const handleDelete = (slug) => {
         Swal.fire({
             title: "Are you sure?",
             text: "This will permanently delete the entry.",
@@ -31,7 +31,7 @@ const List = () => {
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
-                del(`service/${id}`).then((res) => {
+                del(`destination/${slug}`).then((res) => {
                     toast.success(res.message);
                     getAllservice();
                 });
@@ -80,10 +80,12 @@ const List = () => {
                                 </td>
                                 <td className="px-4 py-2">
                                     <div className='flex gap-2'>
-                                        <span className="cursor-pointer" onClick={() => handleEdit(row)}>
-                                            <Pencil size={18} />
-                                        </span>
-                                        <span className="cursor-pointer" onClick={() => handleDelete(row._id)}>
+                                        <Link href={`/admin/properties/${row.slug}`}>
+                                            <span className="cursor-pointer">
+                                                <Pencil size={18} />
+                                            </span>
+                                        </Link>
+                                        <span className="cursor-pointer" onClick={() => handleDelete(row.slug)}>
                                             <Trash2 size={18} />
                                         </span>
                                     </div>
