@@ -30,7 +30,7 @@ const Header = () => {
                         <a href="/">
                             <img src="/logo-white.png" alt="logo" className='max-w-[100px] sm:max-w-[140px]' />
                         </a>
-                        <div className='hidden sm:flex flex-col justify-center items-center gap-2.5'>
+                        <div className='hidden lg:flex flex-col justify-center items-center gap-2.5'>
                             <ul className='flex gap-5 header-menu'>
                                 <li>
                                     <a href="/About-LUNEVIA">
@@ -59,7 +59,7 @@ const Header = () => {
                                 </li> */}
                             </ul>
                         </div>
-                        <div className='hidden sm:flex items-center gap-3'>
+                        <div className='hidden lg:flex items-center gap-3'>
                             <Link href="/destinations" className='head-btn'>
                                 <p>Book Now</p>
                             </Link>
@@ -72,7 +72,7 @@ const Header = () => {
                             <img src="/whatsapp.png" alt="" />
                         </Link>
                         {/* Mobile menu button */}
-                        <div className="menu flex sm:hidden" ref={dropdownRef}>
+                        <div className="menu flex lg:hidden" ref={dropdownRef}>
                             <button
                                 type="button"
                                 className={`icon-btn ${menuOpen ? "icon-btn--active" : ""}  mobile-menu-btn inline-flex items-center justify-center w-9 h-9 rounded-md`}
