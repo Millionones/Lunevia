@@ -14,12 +14,12 @@ const Gallery = () => {
     "/client-resort-img2.jpeg",
     "/client-resort-img3.jpeg",
     "/client-resort-img4.jpeg",
-    "/client-resort-img5.webp",
     "/client-resort-img6.jpeg",
     "/client-resort-img7.jpeg",
     // "/client-resort-img8.avif",
     "/client-resort-img9.webp",
     "/client-resort-img11.jpeg",
+    "/client-resort-img5.webp",
     "/client-resort-img12.jpeg",
     "/client-resort-img13.webp",
   ])

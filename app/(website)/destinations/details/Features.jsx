@@ -4,7 +4,7 @@ const Features = () => {
 
     const [data, setData] = useState([
         {
-            img: "/restaurent.jpg",
+            img: "/client-resort-img5.webp",
             title: "Restaurent",
             desc: "Enjoy a delightful dining experience at our in-house restaurant, offering a variety of multi-cuisine dishes prepared with fresh ingredients. Whether it's a hearty breakfast, a relaxed lunch, or a cozy dinner, our restaurant provides the perfect ambiance to satisfy your cravings."
         },

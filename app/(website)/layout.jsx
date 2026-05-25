@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono, Lato } from "next/font/google";
+import { Geist, Geist_Mono, Lato, Courgette } from "next/font/google";
 import Header from './Components/Header'
 import Footer from './Components/Footer'
 
@@ -18,12 +18,16 @@ const latoSans = Lato({
     weight: ["100", "300", "400", "700", "900"], // required
 });
 
+const courgette = Courgette({
+  subsets: ["latin"],
+  weight: ["400"],
+});
 
 export default function HomeLayout({ children }) {
     return (
         <html lang="en">
             <body
-                className={`${latoSans.variable} ${latoSans.variable} antialiased`}
+                className={`${latoSans.variable} ${latoSans.variable} ${courgette.variable} antialiased`}
             >
                 <Header />
                 {children}

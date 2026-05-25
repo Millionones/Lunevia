@@ -6,8 +6,8 @@ const Hero = () => {
         <section>
             <div className='hero'>
                 {/* <img src="/Banner_Image_Lunevia.webp" alt="" /> */}
-                <img src="/Banner-Image-Lunevia-1.jpg" alt="" />
-                {/* <h1>Crown woods Munnar By Lunevia</h1> */}
+                <img src="/Banner-Image-Lunevia-2.jpg" alt="" />
+                <h1>Crown Woods Munnar</h1>
             </div>
             <div className='hero-support-badge'>
                 <ul>
