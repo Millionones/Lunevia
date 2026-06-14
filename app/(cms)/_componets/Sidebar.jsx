@@ -7,6 +7,7 @@ import {
   Users,
   Quote,
   Factory,
+  Newspaper
 } from "lucide-react";
 
 import Link from "next/link";
@@ -18,16 +19,21 @@ const Sidebar = () => {
   const pathname = usePathname();
 
   const menus = [
-    {
-      name: "Careers",
-      link: "/careers",
-      icon: <Users size={20} />,
-    },
-    {
-      name: "Services",
-      link: "/services",
-      icon: <Hammer size={20} />,
-    },
+    // {
+    //   name: "Careers",
+    //   link: "/careers",
+    //   icon: <Users size={20} />,
+    // },
+    // {
+    //   name: "Services",
+    //   link: "/services",
+    //   icon: <Hammer size={20} />,
+    // },
+    // {
+    //   name: "Insight",
+    //   link: "/insight",
+    //   icon: <Newspaper size={20} />,
+    // },
     {
       name: "Contact",
       link: "/contact",
@@ -65,7 +71,7 @@ const Sidebar = () => {
       {/* Navigation */}
       <ul className="mt-5 flex flex-col gap-y-3 text-base">
         {menus.map((menu) => {
-          const isActive = (pathname === `/admin${menu.link}` || pathname.includes(menu.link)) ;
+          const isActive = (pathname === `/admin${menu.link}` || pathname.includes(menu.link));
 
           return (
             <li key={menu.name}>
@@ -73,10 +79,9 @@ const Sidebar = () => {
                 href={`/admin${menu.link}`}
                 className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
                   
-                  ${
-                    isActive
-                      ? "bg-black text-white shadow-md"
-                      : "text-gray-700 hover:bg-gray-100"
+                  ${isActive
+                    ? "bg-black text-white shadow-md"
+                    : "text-gray-700 hover:bg-gray-100"
                   }
                 `}
               >
