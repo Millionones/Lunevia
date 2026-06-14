@@ -86,7 +86,7 @@ const DestinationList = () => {
                                                 </li>
                                             </ul>
                                             <button className='destination-card-button'>
-                                                <p>BOOK ROOM</p>
+                                                <p>BOOK NOW</p>
                                             </button>
                                         </div>
                                     </Link>

@@ -123,7 +123,7 @@ const Header = () => {
                                         <Link href="">Careers</Link>
                                     </li> */}
                                         <li>
-                                            <Link href="/faq">Faq</Link>
+                                            <Link href="/faq">FAQ</Link>
                                         </li>
                                         <li>
                                             <Link href="/blog">Blogs</Link>

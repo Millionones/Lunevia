@@ -60,7 +60,7 @@ const Rooms = () => {
                                                 </li>
                                             </ul>
                                             <button className='rooms-card-button'>
-                                                <p>BOOK ROOM</p>
+                                                <p>BOOK NOW</p>
                                             </button>
                                         </div>
                                     </Link>
