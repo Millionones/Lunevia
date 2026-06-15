@@ -133,8 +133,7 @@ const Amenties = ({
                 formData
             );
 
-            return res.data
-                .new_filename;
+            return res.data.url;
         } catch (err) {
             toast.error(
                 "Image upload failed"
@@ -405,7 +404,7 @@ const Amenties = ({
                                                 {amenity.image ? (
                                                     <div className="relative w-fit">
                                                         <img
-                                                            src={`${BASE_URL}/${amenity.image}`}
+                                                            src={`${amenity.image}`}
                                                             alt=""
                                                             className="w-40 h-40 object-cover rounded"
                                                         />

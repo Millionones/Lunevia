@@ -168,8 +168,7 @@ const RoomDetails = ({
                 formData
             );
 
-            return res.data
-                .new_filename;
+            return res.data.url;
         } catch (err) {
             toast.error(
                 "Image upload failed"
@@ -501,7 +500,7 @@ const RoomDetails = ({
                                                 {room.image ? (
                                                     <div className="relative w-fit">
                                                         <img
-                                                            src={`${BASE_URL}/${room.image}`}
+                                                            src={`${room.image}`}
                                                             alt=""
                                                             className="w-40 h-40 object-cover rounded"
                                                         />

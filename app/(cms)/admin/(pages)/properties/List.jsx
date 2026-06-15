@@ -68,7 +68,7 @@ const List = () => {
                                     <p className='text-black text-sm'>{row.title}</p>
                                 </td>
                                 <td className="px-4 py-2">
-                                    <img className='max-w-[50px]' src={`${BASE_URL}/${row.mainImage}`} alt="" />
+                                    <img className='max-w-[50px]' src={`${row.mainImage}`} alt="" />
                                 </td>
                                 <td className="px-4 py-2">
                                     <p className='text-black text-sm'></p>

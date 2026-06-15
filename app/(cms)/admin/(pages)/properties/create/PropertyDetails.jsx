@@ -176,7 +176,7 @@ const PropertyDetails = ({
                     ?.mainImage
             ) {
                 setMainImagePreview(
-                    `${BASE_URL}/${existData.step1.mainImage}`
+                    `${existData.step1.mainImage}`
                 );
             }
 
@@ -187,7 +187,7 @@ const PropertyDetails = ({
                     ?.image
             ) {
                 setAboutImagePreview(
-                    `${BASE_URL}/${existData.step1.aboutProperty.image}`
+                    `${existData.step1.aboutProperty.image}`
                 );
             }
 
@@ -202,7 +202,7 @@ const PropertyDetails = ({
                         (
                             item
                         ) =>
-                            `${BASE_URL}/${item}`
+                            `${item}`
                     );
 
                 setGalleryPreview(
@@ -259,8 +259,7 @@ const PropertyDetails = ({
                 formData
             );
 
-            return res.data
-                .new_filename;
+            return res.data.url;
         } catch (err) {
             toast.error(
                 "Image upload failed"
@@ -506,7 +505,7 @@ const PropertyDetails = ({
                                                     file,
                                                     "destination"
                                                 );
-
+                                                console.log(uploadedPath, "UPLOADED PATH");
                                             formik.setFieldValue(
                                                 "mainImage",
                                                 uploadedPath
