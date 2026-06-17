@@ -1,12 +1,25 @@
 "use client"
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { blogs } from './blogs'
+import { get } from "@/helpers/api";
+import { BASE_URL } from '../../../config';
 
 const List = () => {
 
     const [data, setData] = React.useState(blogs)
+    const fetchBlogs = async () => {
+        try {
+            const response = await get('website/blogs?limit=6');
+            setData(response.data);
+        } catch (error) {
+            console.error('Error fetching blogs:', error);
+        }
+    };
 
+    useEffect(() => {
+        fetchBlogs();
+    }, []);
     return (
         <section className='blog-list-section'>
             <div className='cmpad'>
@@ -19,10 +32,10 @@ const List = () => {
                     <div>
                         <ul className='blog-list-grid'>
                             {data.map((blog) => (
-                                <li className='blog-grid-card' key={blog.id}>
-                                    <Link href={`/blog/${blog.id}`}>
+                                <li className='blog-grid-card' key={blog._id}>
+                                    <Link href={`/blog/${blog.slug}`}>
                                         <div className='blog-card-media'>
-                                            <img src={blog.img} alt="" />
+                                            <img src={blog.image} alt="" />
                                         </div>
                                         <div className='blog-card-detail'>
                                             <div className='blog-card-meta'>
