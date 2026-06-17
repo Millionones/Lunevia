@@ -29,11 +29,11 @@ const Sidebar = () => {
     //   link: "/services",
     //   icon: <Hammer size={20} />,
     // },
-    // {
-    //   name: "Insight",
-    //   link: "/insight",
-    //   icon: <Newspaper size={20} />,
-    // },
+    {
+      name: "Blogs",
+      link: "/blogs",
+      icon: <Newspaper size={20} />,
+    },
     {
       name: "Contact",
       link: "/contact",

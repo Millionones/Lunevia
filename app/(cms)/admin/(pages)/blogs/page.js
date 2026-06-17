@@ -23,14 +23,12 @@ const Blogs = () => {
 
   const formik = useFormik({
     initialValues: {
-      id: null,
-      readMin: "",
+      slug: "",
+      title: "",
+      description: "",
       writer: "",
-      name: "",
-      desc: "",
-      type: "",
-      content: "",
-      image: null,
+      category: "",
+      image: "",
     },
     onSubmit: (values) => {
       const formData = new FormData();
@@ -38,9 +36,10 @@ const Blogs = () => {
       Object.keys(values).map((item) => {
         formData.append(item, values[item]);
       });
+      console.log(values, "FORM VALUES");
 
-      if (formik.values.id) {
-        put("insight", formData)
+      if (formik.values.slug) {
+        put(`blogs/${formik.values.slug}`, values)
           .then((res) => {
             fetchData();
             toast.success(res.message);
@@ -50,7 +49,7 @@ const Blogs = () => {
             toast.error(err?.response?.data?.message || err?.message);
           });
       } else {
-        post("insight", formData)
+        post("blogs", values)
           .then((res) => {
             fetchData();
             toast.success(res.message);
@@ -75,22 +74,19 @@ const Blogs = () => {
   // };
 
   const fetchData = () => {
-    get("insight").then((res) => {
+    get("blogs").then((res) => {
       setRows(res.data);
     });
   };
 
   const handleEdit = (blog) => {
-    formik.setFieldValue("id", blog._id);
-    formik.setFieldValue("readMin", blog.readMin);
+    formik.setFieldValue("slug", blog.slug);
+    formik.setFieldValue("title", blog.title);
+    formik.setFieldValue("description", blog.description);
     formik.setFieldValue("writer", blog.writer);
-    formik.setFieldValue("name", blog.name);
-    formik.setFieldValue("desc", blog.desc);
-    formik.setFieldValue("content", blog.content);
-    formik.setFieldValue("type", blog.type);
+    formik.setFieldValue("category", blog.category);
     formik.setFieldValue("image", blog.image);
-    setImagePreview(BASE_URL + blog.image);
-    setSelectedType({ label: blog.type, value: blog.type });
+    setImagePreview(blog.image);
     toTop();
   };
 
@@ -149,6 +145,7 @@ const Blogs = () => {
     formik.resetForm();
     setSelectedType(null);
     setImagePreview(null);
+    
   }
 
   function handleDelete(id) {
@@ -161,7 +158,7 @@ const Blogs = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        del(`insight/${id}`)
+        del(`blogs/${id}`)
           .then((res) => {
             toast.success(res.message);
             fetchData();
@@ -173,16 +170,46 @@ const Blogs = () => {
     });
   }
 
+  const uploadImage = async (
+    file,
+    path
+  ) => {
+    try {
+      const formData =
+        new FormData();
+
+      formData.append(
+        "file",
+        file
+      );
+
+      const url = `common/image/${path}`;
+
+      const res = await post(
+        url,
+        formData
+      );
+
+      return res.data.url;
+    } catch (err) {
+      toast.error(
+        "Image upload failed"
+      );
+
+      throw err;
+    }
+  };
+
   return (
     <div className="p-4">
       <form onSubmit={formik.handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <div>
           <label className="block mb-1 text-sm font-medium">Title</label>
           <Input
-            name="name"
+            name="title"
             type="text"
-            placeholder="Enter name"
-            value={formik.values.name}
+            placeholder="Enter title"
+            value={formik.values.title}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
@@ -203,10 +230,10 @@ const Blogs = () => {
         <div>
           <label className="block mb-1 text-sm font-medium">Category</label>
           <Input
-            name="readMin"
-            type="number"
-            placeholder="10"
-            value={formik.values.readMin}
+            name="category"
+            type="text"
+            placeholder="Enter category"
+            value={formik.values.category}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
@@ -220,7 +247,7 @@ const Blogs = () => {
               <button
                 onClick={() => {
                   setImagePreview(null);
-                  formik.setFieldValue("image", null);
+                  formik.setFieldValue("image", "");
                 }}
                 className="text-center w-24 bg-gray-300 hover:bg-gray-400 rounded-ee-lg rounded-es-lg ">
                 <div className="p-1 flex justify-center">
@@ -235,11 +262,15 @@ const Blogs = () => {
                 name="image"
                 type="file"
                 accept="image/*"
-                onChange={(event) => {
+                onChange={async(event) => {
                   const file = event.currentTarget.files?.[0];
-                  formik.setFieldValue("image", file || null);
+                  if (!file) return;
+                  const uploadedPath = await uploadImage(file, "destination");
+                  formik.setFieldValue("image",uploadedPath);
+
+                  formik.setFieldTouched("image",true);
                   if (file) {
-                    setImagePreview(URL.createObjectURL(file));
+                    setImagePreview(uploadedPath);
                   }
                 }}
               />
@@ -250,10 +281,10 @@ const Blogs = () => {
         <div className="col-span-full">
           <div>
             <QuillEditor
-              value={formik.values.content}
+              value={formik.values.description}
               onChange={(val) => {
-                formik.setFieldValue("content", val);
-                formik.setFieldTouched("content", true);
+                formik.setFieldValue("description", val);
+                formik.setFieldTouched("description", true);
               }}
             />
           </div>
@@ -262,9 +293,9 @@ const Blogs = () => {
         <div className="col-span-full">
           <button
             type="submit"
-            className={`px-4 py-1 rounded-md text-white transition ${formik.values.id ? "bg-yellow-600 hover:bg-yellow-700" : "bg-blue-600 hover:bg-blue-700"
+            className={`px-4 py-1 rounded-md text-white transition ${formik.values.slug ? "bg-yellow-600 hover:bg-yellow-700" : "bg-blue-600 hover:bg-blue-700"
               }`}>
-            {formik.values.id ? "Update" : "Submit"}
+            {formik.values.slug ? "Update" : "Submit"}
           </button>
 
           <button onClick={handleReset} type="button" className={`ml-3 px-4 py-1 rounded-md text-white transition ${"bg-red-600 hover:bg-red-700"}`}>
@@ -279,10 +310,9 @@ const Blogs = () => {
             <thead className="bg-gray-100 text-gray-700 uppercase text-xs">
               <tr>
                 <th className="px-4 py-2">Image</th>
-                <th className="px-4 py-2">Name</th>
-                <th className="px-4 py-2">Type</th>
+                <th className="px-4 py-2">Title</th>
                 <th className="px-4 py-2">Written By</th>
-                <th className="px-4 py-2">Read Min</th>
+                <th className="px-4 py-2">Category</th>
                 <th className="px-4 py-2">Date</th>
                 <th className="px-4 py-2">Time</th>
                 <th className="px-4 py-2">Action</th>
@@ -292,16 +322,17 @@ const Blogs = () => {
               {rows.map((row) => (
                 <tr key={row._id} className="hover:bg-gray-50 transition-colors">
                   <td className="px-4 py-2">
-                    <Link href={`${BASE_URL}${row.image}`} target="_blank">
+                    <Link href={`${row.image}`} target="_blank">
                       {" "}
-                      <img src={`${BASE_URL}${row.image}`} alt="insight" className="w-14 h-14 object-cover rounded-md" />
+                      <img src={`${row.image}`} alt="insight" className="w-14 h-14 object-cover rounded-md" />
                     </Link>
                     {/* <img src={blog.image.replace(/\\/g, "/")} alt="blog" className="w-14 h-14 object-cover rounded-md" /> */}
                   </td>
-                  <td className="px-4 py-2 font-medium">{row.name}</td>
-                  <td className="px-4 py-2">{row?.type}</td>
+                  <td className="px-4 py-2 font-medium overflow-hidden text-ellipsis whitespace-nowrap" title={row.title}>
+                    {row.title}
+                  </td>
                   <td className="px-4 py-2">{row.writer}</td>
-                  <td className="px-4 py-2">{row.readMin} min</td>
+                  <td className="px-4 py-2">{row.category}</td>
                   <td className="px-4 py-2">{dateConverter(row.date)}</td>
                   <td className="px-4 py-2">{timeConverter(row.time)}</td>
                   <td>

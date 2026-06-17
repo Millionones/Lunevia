@@ -505,7 +505,6 @@ const PropertyDetails = ({
                                                     file,
                                                     "destination"
                                                 );
-                                                console.log(uploadedPath, "UPLOADED PATH");
                                             formik.setFieldValue(
                                                 "mainImage",
                                                 uploadedPath

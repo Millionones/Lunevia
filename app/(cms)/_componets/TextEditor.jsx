@@ -8,37 +8,43 @@ export default function QuillEditor({ value, onChange }) {
   const editorRef = useRef(null);
   const quillRef = useRef(null);
 
+  // Initialize Quill
   useEffect(() => {
-    if (!editorRef.current) return;
+    if (!editorRef.current || quillRef.current) return;
 
-    // Initialize only once
-    if (!quillRef.current) {
-      quillRef.current = new Quill(editorRef.current, {
-        theme: "snow",
-        placeholder: "Write your description...",
-        modules: {
-          toolbar: [
-            [{ header: [1, 2, false] }],
-            ["bold", "italic", "underline"],
-            [{ list: "ordered" }, { list: "bullet" }],
-            ["link"],
-            ["clean"],
-          ],
-        },
-      });
+    quillRef.current = new Quill(editorRef.current, {
+      theme: "snow",
+      placeholder: "Write your description...",
+      modules: {
+        toolbar: [
+          [{ header: [1, 2, false] }],
+          ["bold", "italic", "underline"],
+          [{ list: "ordered" }, { list: "bullet" }],
+          ["link"],
+          ["clean"],
+        ],
+      },
+    });
 
-      // Set initial value
-      if (value) {
-        quillRef.current.root.innerHTML = value;
-      }
+    quillRef.current.on("text-change", () => {
+      const html = quillRef.current.root.innerHTML;
 
-      // Listen changes
-      quillRef.current.on("text-change", () => {
-        const html = quillRef.current.root.innerHTML;
-        onChange && onChange(html);
-      });
-    }
+      onChange?.(
+        html === "<p><br></p>" ? "" : html
+      );
+    });
   }, []);
+
+  // Sync external value with Quill
+  useEffect(() => {
+    if (!quillRef.current) return;
+
+    const currentHtml = quillRef.current.root.innerHTML;
+
+    if (value !== currentHtml) {
+      quillRef.current.root.innerHTML = value || "";
+    }
+  }, [value]);
 
   return (
     <div className="border rounded-xl overflow-hidden">
