@@ -28,8 +28,8 @@ const Contact = () => {
               <th className="px-4 py-2">Name</th>
               <th className="px-4 py-2">Mobile</th>
               <th className="px-4 py-2">Email</th>
-              <th className="px-4 py-2">Remarks</th>
-              <th className="px-4 py-2">Service</th>
+              <th className="px-4 py-2">Subject</th>
+              <th className="px-4 py-2">Comments / Questions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
@@ -47,8 +47,8 @@ const Contact = () => {
                 <td className="px-4 py-2">
                   <a href={`mailto:${row?.email}`}>{row?.email}</a>
                 </td>
-                <td className="px-4 py-2 max-w-48 text-wrap">{row?.remarks || "---"}</td>
-                <td className="px-4 py-2 max-w-48 text-wrap">{row?.additional?.service || "---"}</td>
+                <td className="px-4 py-2 max-w-48 text-wrap">{row?.subject || "---"}</td>
+                <td className="px-4 py-2 max-w-48 text-wrap">{row?.comments || "---"}</td>
               </tr>
             ))}
           </tbody>
