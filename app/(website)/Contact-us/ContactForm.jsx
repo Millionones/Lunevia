@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { facebookSvg, instagramSvg, mailSvg, phoneSvg, twitterSvg } from '../../styles/icons'
 import toast from 'react-hot-toast';
 import { validateEmail, validateMobile } from '../../../helpers/functions';
-
+import { post } from '../../../helpers/api'
 const ContactForm = () => {
 
     const [formData, setFormData] = useState({
@@ -15,6 +15,8 @@ const ContactForm = () => {
         comments: "",
     });
 
+    const [submit, setSubmit] = useState(false);
+
     const handleChange = (e) => {
         console.log(e.target.name, "_", e.target.value)
         setFormData({
@@ -25,37 +27,30 @@ const ContactForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        setSubmit(true);
         try {
             if (formData.firstName.length == 0) {
+                setSubmit(false);
                 return toast.error("Please Fill the First Name")
             }
             if (formData.lastName.length == 0) {
+                setSubmit(false);
                 return toast.error("Please Fill the Last Name")
             }
             if (!validateEmail(formData.email)) {
+                setSubmit(false);
                 return toast.error("Please Enter Valid Email")
             }
             if (!validateMobile(formData.mobile)) {
+                setSubmit(false);
                 return toast.error("Please Enter Valid Mobile Number")
             }
             if (formData.subject.length == 0) {
+                setSubmit(false);
                 return toast.error("Please Fill the Subject")
             }
-            const response = await fetch("/api/contact", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formData),
-            });
-
-            const data = await response.json();
-
-            if (data.success) {
-
-                alert("Message Sent Successfully");
-
+            const response = await post("contact/", formData)
+            if (response.success) {
                 setFormData({
                     firstName: "",
                     lastName: "",
@@ -64,10 +59,15 @@ const ContactForm = () => {
                     subject: "",
                     comments: "",
                 });
+
+                toast.success(response.message);
             }
+            setSubmit(false);
 
         } catch (error) {
             console.log(error);
+            toast.error(err?.response?.data?.message || err?.message);
+            setSubmit(false);
         }
     };
     return (
@@ -166,7 +166,12 @@ const ContactForm = () => {
                                 </div>
                             </div>
                             <div >
-                                <button type="submit" className='send-btn'>SEND MESSAGE</button>
+                                {submit == false ?
+                                    <button type="submit" className='send-btn'>SEND MESSAGE</button>
+                                    : <button className='send-btn loader-btn'>
+                                        <img src="/loader.svg" alt="" />
+                                    </button>
+                                }
                             </div>
                         </form>
                     </div>

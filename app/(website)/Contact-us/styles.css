@@ -227,6 +227,19 @@
     background: #f9c893;
 }
 
+.loader-btn {
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        height: 100%;
+        width: 40px;
+        min-height: 20px;
+    }
+}
+
 @media screen and (max-width:640px) {
     .contact-hero-inner h1 {
         font-size: 40px;
@@ -258,7 +271,7 @@
         margin-top: 20px;
     }
 
-    .contact-input-grid{
+    .contact-input-grid {
         grid-template-columns: repeat(1, 1fr);
     }
 }
