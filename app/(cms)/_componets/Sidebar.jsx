@@ -24,11 +24,7 @@ const Sidebar = () => {
     //   link: "/careers",
     //   icon: <Users size={20} />,
     // },
-    // {
-    //   name: "Services",
-    //   link: "/services",
-    //   icon: <Hammer size={20} />,
-    // },
+
     {
       name: "Blogs",
       link: "/blogs",
@@ -48,6 +44,11 @@ const Sidebar = () => {
       name: "Properties",
       link: "/properties",
       icon: <Factory size={20} />,
+    },
+    {
+      name: "Bookings",
+      link: "/bookings",
+      icon: <Users size={20} />,
     },
   ];
 
