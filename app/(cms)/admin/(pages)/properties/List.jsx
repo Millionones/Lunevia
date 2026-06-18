@@ -40,7 +40,6 @@ const List = () => {
     };
 
     const handleEdit = (item) => {
-        console.log(item, "item");
 
     };
     return (

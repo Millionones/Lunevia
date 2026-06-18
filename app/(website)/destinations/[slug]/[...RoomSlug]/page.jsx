@@ -7,7 +7,6 @@ import { API_URL } from '../../../../../config'
 
 const page = async ({ params }) => {
     const { slug, RoomSlug } = await params
-    console.log(slug, RoomSlug)
 
     const fetchRoomDetails = async () => {
         try {
@@ -27,7 +26,6 @@ const page = async ({ params }) => {
     let data = await fetchRoomDetails();
     let roomData = await data.json();
     roomData = roomData.data
-    console.log('roomData', roomData)
 
     const heroData = { title: roomData.title, mainImage: roomData.mainImage }
     const roomDetails = roomData.roomDetails[0]

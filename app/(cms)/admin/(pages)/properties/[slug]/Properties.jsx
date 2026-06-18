@@ -118,7 +118,6 @@ const Properties = ({ slug }) => {
         }
 
         const res = await put(`destination/${slug}`, req);
-        console.log(res, "PROPERTY UPDATED");
 
         router.push("/admin/properties");
     }

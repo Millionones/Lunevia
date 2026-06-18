@@ -120,8 +120,6 @@ const Properties = () => {
         setValue("1");
     };
 
-    console.log(formData, "FORM DATA");
-
     const addProperty = async (data) => {
         // API CALL TO ADD PROPERTY
         // Use formData to get all the details from different steps
@@ -134,7 +132,6 @@ const Properties = () => {
         }
 
         const res = await post("destination", req);
-        console.log(res, "PROPERTY ADDED");
 
         localStorage.removeItem(
             STORAGE_KEY

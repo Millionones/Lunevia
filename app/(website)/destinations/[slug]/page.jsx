@@ -35,7 +35,6 @@ const page = async ({ params }) => {
   const about = destinationData.aboutProperty
   const rooms = destinationData.roomDetails
   const gallery = destinationData.galleryImages
-  console.log(rooms)
 
   const heroData = { title: destinationData.title, mainImage: destinationData.mainImage }
   const aboutData = { description: about.description, title: destinationData.title, image: about.image }

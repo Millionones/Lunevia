@@ -142,7 +142,6 @@ export default function FixedSeoForm() {
   };
 
   const handleEdit = (item) => {
-    console.log(item, "item");
 
   };
 

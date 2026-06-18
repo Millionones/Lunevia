@@ -36,7 +36,6 @@ const Blogs = () => {
       Object.keys(values).map((item) => {
         formData.append(item, values[item]);
       });
-      console.log(values, "FORM VALUES");
 
       if (formik.values.slug) {
         put(`blogs/${formik.values.slug}`, values)

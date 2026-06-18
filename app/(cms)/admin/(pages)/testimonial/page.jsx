@@ -137,10 +137,6 @@ const Testimonial = () => {
     }
   };
 
-  console.log(formik.values, "testimonial value");
-
-  console.log(imagePreview, "image preview");
-
   return (
     <div className="p-4">
       <form onSubmit={formik.handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

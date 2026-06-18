@@ -8,7 +8,6 @@ import { get } from '../../../../helpers/api'
 const Details = ({ slug, data }) => {
    
     const [others, setOthers] = useState([])
-    console.log(data, "BLOG DATA IN DETAILS")
 
     const fetchOtherBlogs = async () => {
         const response = await get(`website/blogs?limit=6&exclude=${slug}`);

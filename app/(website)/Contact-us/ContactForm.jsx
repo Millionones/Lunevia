@@ -18,7 +18,6 @@ const ContactForm = () => {
     const [submit, setSubmit] = useState(false);
 
     const handleChange = (e) => {
-        console.log(e.target.name, "_", e.target.value)
         setFormData({
             ...formData,
             [e.target.name]: e.target.value,
