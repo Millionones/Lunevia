@@ -1,13 +1,14 @@
 import React from 'react'
 import { locationIcon, mailSvg, phoneSvg } from '../../../styles/icons'
 
-const Hero = () => {
+const Hero = ({ data }) => {
+
     return (
         <section>
             <div className='hero'>
                 {/* <img src="/Banner_Image_Lunevia.webp" alt="" /> */}
-                <img src="/Banner-Image-Lunevia-2.jpg" alt="" />
-                <h1>Crown Woods Munnar</h1>
+                <img src={data.mainImage} alt="" />
+                <h1>{data.title}</h1>
             </div>
             <div className='hero-support-badge'>
                 <ul>

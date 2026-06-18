@@ -1,17 +1,17 @@
 "use client"
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import React, { useState } from 'react'
-
+import React, { useEffect, useState } from 'react'
+import { get } from "../../../helpers/api"
 const Destinations = () => {
 
   const [data, setData] = useState([
-    {
-      img: '/Banner-Image-Lunevia-1.jpg',
-      // img: '/Crown_woods_Munnar1.jpeg',
-      title: 'Crown woods Munnar By Lunevia',
-      description: 'Crown woods Munnar, provides a perfect ambience for a relaxed stay. Surrounded by beautiful tea estates, valleys and waterfalls, the hotel is sure to attract hordes of tourists. Well furnished rooms with balcony, quality services and a comfortable setting are the key features of this resort.'
-    },
+    // {
+    //   img: '/Banner-Image-Lunevia-1.jpg',
+    //   // img: '/Crown_woods_Munnar1.jpeg',
+    //   title: 'Crown woods Munnar By Lunevia',
+    //   description: 'Crown woods Munnar, provides a perfect ambience for a relaxed stay. Surrounded by beautiful tea estates, valleys and waterfalls, the hotel is sure to attract hordes of tourists. Well furnished rooms with balcony, quality services and a comfortable setting are the key features of this resort.'
+    // },
     // {
     //   img: '/destination2.png',
     //   title: 'LUNEVIA Cliffside Kovalam',
@@ -48,6 +48,18 @@ const Destinations = () => {
     //   description: 'A private beach sanctuary inspired by Kerala’s fishing villages, Coastal Haven combines understated design with barefoot elegance and uninterrupted ocean horizons.'
     // },
   ])
+
+  const fetchDestinations = async () => {
+    let response = await get('website/destination?limit=6')
+    if(response.data){
+      setData(response.data)
+    }
+  }
+  useEffect(() => {
+    fetchDestinations()
+  }, [])
+
+
   return (
     <section className='destination'>
       <div className='cmpad'>
@@ -67,10 +79,10 @@ const Destinations = () => {
                 data.map((item, index) => {
                   return (
                     <li>
-                      <Link href='/destinations/details'>
+                      <Link href={`/destinations/${item.slug}`}>
                         <div className='destination-grid'>
                           <div className="image-wrapper">
-                            <img src={item.img} alt="" />
+                            <img src={item.mainImage} alt="" />
                           </div>
                           <div className='grid-details'>
                             <h5>{item.title}</h5>
@@ -85,7 +97,7 @@ const Destinations = () => {
             </ul>
           </div>
           <div className='flex sm:hidden justify-center'>
-             <Link href="/destinations">
+            <Link href="/destinations">
               <Button>Show More</Button>
             </Link>
           </div>

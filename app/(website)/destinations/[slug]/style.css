@@ -17,7 +17,7 @@
         z-index: 1;
         /* left: 0; */
 
-        font-size: 100px;
+        font-size: 80px;
         color: #1D2221;
         line-height: 48px;
         letter-spacing: 2px;
@@ -192,6 +192,110 @@
     font-weight: 400;
     line-height: 1.5em;
     color: #3B3B3B;
+}
+
+.about-inner-features-div {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    p {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.5em;
+        color: #3B3B3B;
+    }
+
+    ul,
+    ol {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px 24px;
+        width: 100%;
+        flex-flow: wrap;
+
+        li {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            width: calc(50% - 12px);
+
+            color: #3B3B3B;
+            font-size: 16px;
+            line-height: 1.5em;
+
+            .about-inner-features-list-icon {
+                width: 17.5px;
+                height: 14px;
+
+                svg {
+                    fill: #D4BBA2;
+                }
+            }
+        }
+
+        li:before {
+            content: "";
+            width: 17.5px;
+            height: 14px;
+            background-image: url("/tick.svg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    }
+}
+
+.about-property-features-div {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    p {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.5em;
+        color: #3B3B3B;
+    }
+
+    ul,
+    ol {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px 24px;
+        width: 100%;
+        flex-flow: wrap;
+
+        li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: calc(50% - 12px);
+
+            color: #3B3B3B;
+            font-size: 16px;
+            line-height: 1.5em;
+
+            .about-property-features-list-icon {
+                width: 17.5px;
+                height: 14px;
+
+                svg {
+                    fill: #D4BBA2;
+                }
+            }
+        }
+
+         li:before {
+            content: "";
+            width: 17.5px;
+            height: 14px;
+            background-image: url("/tick.svg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    }
 }
 
 .about-inner-features-list {

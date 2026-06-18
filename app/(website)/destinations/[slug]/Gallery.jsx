@@ -7,22 +7,22 @@ import 'lightgallery/css/lg-zoom.css';
 import 'lightgallery/css/lg-thumbnail.css';
 import Drawer from '@mui/material/Drawer';
 import { closeIconSvg } from '../../../styles/icons';
-const Gallery = () => {
-
-  const [data, setData] = useState([
-    "/client-resort-img1.webp",
-    "/client-resort-img2.jpeg",
-    "/client-resort-img3.jpeg",
-    "/client-resort-img4.jpeg",
-    "/client-resort-img6.jpeg",
-    "/client-resort-img7.jpeg",
-    // "/client-resort-img8.avif",
-    "/client-resort-img9.webp",
-    "/client-resort-img11.jpeg",
-    "/client-resort-img5.webp",
-    "/client-resort-img12.jpeg",
-    "/client-resort-img13.webp",
-  ])
+const Gallery = ({ data }) => {
+  
+  // const [data, setData] = useState([
+  //   "/client-resort-img1.webp",
+  //   "/client-resort-img2.jpeg",
+  //   "/client-resort-img3.jpeg",
+  //   "/client-resort-img4.jpeg",
+  //   "/client-resort-img6.jpeg",
+  //   "/client-resort-img7.jpeg",
+  //   // "/client-resort-img8.avif",
+  //   "/client-resort-img9.webp",
+  //   "/client-resort-img11.jpeg",
+  //   "/client-resort-img5.webp",
+  //   "/client-resort-img12.jpeg",
+  //   "/client-resort-img13.webp",
+  // ])
   const [state, setState] = React.useState({
     top: false,
     left: false,

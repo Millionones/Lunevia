@@ -1,6 +1,7 @@
 "use client"
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { get } from "../../../helpers/api"
 
 const DestinationList = () => {
     const [data, setData] = useState([
@@ -46,6 +47,16 @@ const DestinationList = () => {
         //     description: 'A private beach sanctuary inspired by Kerala’s fishing villages, Coastal Haven combines understated design with barefoot elegance and uninterrupted ocean horizons.'
         // },
     ])
+
+    const fetchDestinations = async () => {
+        let response = await get('website/destination?limit=6')
+        if (response.data) {
+            setData(response.data)
+        }
+    }
+    useEffect(() => {
+        fetchDestinations()
+    }, [])
     return (
         <section className='destination-list-section'>
             <div className='cmpad'>
@@ -58,9 +69,9 @@ const DestinationList = () => {
                         {
                             data.map((item) => (
                                 <li className='destination-grid-card'>
-                                    <Link href="/destinations/details">
+                                    <Link href={`/destinations/${item.slug}`}>
                                         <div className='destination-card-media'>
-                                            <img src={item.img} alt="" />
+                                            <img src={item.mainImage} alt="" />
                                         </div>
                                         <div className='destination-card-detail'>
                                             <div className='destination-card-header'>

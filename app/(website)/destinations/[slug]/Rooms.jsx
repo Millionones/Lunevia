@@ -2,28 +2,28 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
 
-const Rooms = () => {
+const Rooms = ({ data, slug }) => {
 
-    const [data, setData] = useState([
-        {
-            id:"superior_room",
-            img: '/Superior_Room.jpeg',
-            title: 'Superior Room',
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio libero maiores quo dicta odit voluptas. Qui nulla dolorum excepturi, amet doloribus expedita quam exercitationem ab necessitatibus fuga velit reiciendis totam.'
-        },
-        {
-            id:"deluxe_room",
-            img: '/Deluxe_Room.jpeg',
-            title: 'Deluxe Room ',
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio libero maiores quo dicta odit voluptas. Qui nulla dolorum excepturi, amet doloribus expedita quam exercitationem ab necessitatibus fuga velit reiciendis totam.'
-        },
-        {
-            id:"suite_room",
-            img: '/Suite_Room.jpeg',
-            title: 'Suite Room',
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio libero maiores quo dicta odit voluptas. Qui nulla dolorum excepturi, amet doloribus expedita quam exercitationem ab necessitatibus fuga velit reiciendis totam.'
-        },
-    ])
+    // const [data, setData] = useState([
+    //     {
+    //         id:"superior_room",
+    //         img: '/Superior_Room.jpeg',
+    //         title: 'Superior Room',
+    //         description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio libero maiores quo dicta odit voluptas. Qui nulla dolorum excepturi, amet doloribus expedita quam exercitationem ab necessitatibus fuga velit reiciendis totam.'
+    //     },
+    //     {
+    //         id:"deluxe_room",
+    //         img: '/Deluxe_Room.jpeg',
+    //         title: 'Deluxe Room ',
+    //         description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio libero maiores quo dicta odit voluptas. Qui nulla dolorum excepturi, amet doloribus expedita quam exercitationem ab necessitatibus fuga velit reiciendis totam.'
+    //     },
+    //     {
+    //         id:"suite_room",
+    //         img: '/Suite_Room.jpeg',
+    //         title: 'Suite Room',
+    //         description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio libero maiores quo dicta odit voluptas. Qui nulla dolorum excepturi, amet doloribus expedita quam exercitationem ab necessitatibus fuga velit reiciendis totam.'
+    //     },
+    // ])
     return (
         <section className='rooms-section'>
             <div className='cmpad'>
@@ -32,9 +32,9 @@ const Rooms = () => {
                         {
                             data.map((item) => (
                                 <li className='rooms-grid-card'>
-                                    <Link href={`/destinations/details/${item.id}#detail`}>
+                                    <Link href={`/destinations/${slug}/${item.slug}#detail`}>
                                         <div className='rooms-card-media'>
-                                            <img src={item.img} alt="" />
+                                            <img src={item.image} alt="" />
                                         </div>
                                         <div className='rooms-card-detail'>
                                             <div className='rooms-card-header'>
