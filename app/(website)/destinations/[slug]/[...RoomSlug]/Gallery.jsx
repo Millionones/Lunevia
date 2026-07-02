@@ -7,41 +7,64 @@ import 'lightgallery/css/lg-zoom.css';
 import 'lightgallery/css/lg-thumbnail.css';
 import Drawer from '@mui/material/Drawer';
 import { closeIconSvg } from '../../../../styles/icons';
-const Gallery = ({slug}) => {
+const Gallery = ({ slug }) => {
 
   const roomsGallery = {
-    superior_room:[
-      "/Superior_Room.jpeg",
-      "/Superior_Room_2.jpeg",
-      "/Superior_Room_3.jpeg",
-      "/Lobby.jpeg",
-      "/Balcony_view_2.jpeg",
-      "/Coffee_Shop.jpeg",
-      "/Wash_Room.jpeg",
-      "/Wash_Room_1.jpeg",
+    "superior-room": [
+      "/client-room-gallery/LBM04630.jpg",
+      "/client-room-gallery/LBM04665.jpg",
+      "/client-room-gallery/LBM04692.jpg",
+      "/client-room-gallery/LBM05528.jpg",
+      "/client-room-gallery/LBM05544.jpg",
     ],
-    deluxe_room:[
-      "/Deluxe_Room.jpeg",
-      "/Deluxe_Room_1.jpeg",
-      "/Lobby.jpeg",
-      "/Balcony_view_2.jpeg",
-      "/Coffee_Shop.jpeg",
-      "/Wash_Room.jpeg",
-      "/Wash_Room_1.jpeg",
+    "deluxe-room": [
+      "/client-room-gallery/LBM04695.jpg",
+      "/client-room-gallery/LBM04668.jpg",
+      "/client-room-gallery/LBM04890.jpg",
+      "/client-room-gallery/LBM04856.jpg",
+      "/client-room-gallery/LBM04855.jpg",
+      "/client-room-gallery/LBM05556.jpg",
+      "/client-room-gallery/LBM05562.jpg",
     ],
-    suite_room:[
-      "/Suite_Room.jpeg",
-      "/Suite_Room_2.jpeg",
-      "/Suite_Room_Balcony.jpeg",
-      "/Lobby.jpeg",
-      "/Balcony_view_2.jpeg",
-      "/Coffee_Shop.jpeg",
-      "/Wash_Room.jpeg",
-      "/Wash_Room_1.jpeg",
+    "suite-room": [
+      "/client-room-gallery/LBM04460.jpg",
+      "/client-room-gallery/LBM04409.jpg",
+      "/client-room-gallery/LBM04543.jpg",
+      "/client-room-gallery/LBM04601.jpg",
+      "/client-room-gallery/LBM05580.jpg",
+      "/client-room-gallery/LBM05581.jpg",
     ],
   }
 
-  const [data, setData] = useState(roomsGallery[slug])
+  const images = [
+    "/client-room-gallery/LBM04282.jpg",
+    "/client-room-gallery/LBM04368.jpg",
+    "/client-room-gallery/LBM04609.jpg",
+    "/client-room-gallery/LBM04928.jpg",
+    "/client-room-gallery/LBM04935.jpg",
+    "/client-room-gallery/LBM04960.jpg",
+    "/client-room-gallery/LBM04967.jpg",
+    "/client-room-gallery/LBM04998.jpg",
+    "/client-room-gallery/LBM05062.jpg",
+    "/client-room-gallery/LBM05071.jpg",
+    "/client-room-gallery/LBM05080.jpg",
+    "/client-room-gallery/LBM05112.jpg",
+    "/client-room-gallery/LBM05140.jpg",
+    "/client-room-gallery/LBM05163.jpg",
+    "/client-room-gallery/LBM05237.jpg",
+    "/client-room-gallery/LBM05343.jpg",
+    "/client-room-gallery/LBM05356.jpg",
+    "/client-room-gallery/LBM05365.jpg",
+    "/client-room-gallery/LBM05383.jpg",
+    "/client-room-gallery/LBM05418.jpg",
+    "/client-room-gallery/LBM05474.jpg",
+    "/client-room-gallery/LBM05518.jpg",
+    "/client-room-gallery/LBM05526.jpg",
+    "/client-room-gallery/LBM05636.jpg"]
+
+  let allImages = [...roomsGallery[slug], ...images]
+  
+  const [data, setData] = useState(allImages)
   const [state, setState] = React.useState({
     top: false,
     left: false,
