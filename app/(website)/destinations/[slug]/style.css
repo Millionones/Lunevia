@@ -457,7 +457,8 @@
     width: 100%;
     margin-top: 20px;
 
-    button {
+    button,
+    a {
         background: #F9DCBE;
         padding: 17px 28px 15px 28px;
         width: 100%;
@@ -470,7 +471,14 @@
         cursor: pointer;
     }
 
-    button:hover {
+    a {
+        display: inline-block;
+        justify-content: center;
+        text-align: center;
+    }
+
+    button:hover,
+    a:hover {
         background: #f9c893;
     }
 }

@@ -279,16 +279,14 @@ const Details = ({ slug, data }) => {
                                 <img src="/booking-creative.png" alt="" />
                             </div>
                             <div className='about-inner-right-form-submit'>
-                                <button>
-                                    <a
-                                        href="https://www.secure-booking-engine.com/accounts/irNf-cNuTdbCw-jo1dErsQ/properties/Q8K5oqMdhnRu9P_DKGkutw/booking-engine/web/source/4wsctBw6Oq6j-g9XuxeRzQ/"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="book-btn"
-                                    >
-                                        Book Now
-                                    </a>
-                                </button>
+                                <a
+                                    href="https://www.secure-booking-engine.com/accounts/irNf-cNuTdbCw-jo1dErsQ/properties/Q8K5oqMdhnRu9P_DKGkutw/booking-engine/web/source/4wsctBw6Oq6j-g9XuxeRzQ/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="book-btn"
+                                >
+                                    Book Now
+                                </a>
                             </div>
                         </div>
                     </div>
