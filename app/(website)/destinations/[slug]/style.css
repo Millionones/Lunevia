@@ -407,12 +407,20 @@
     }
 }
 
-.about-inner-right-form {
+.about-inner-right-form,
+.about-inner-right-booking {
     display: flex;
     flex-direction: column;
     gap: 16px;
     border: 1px solid #D4D8DB;
     padding: 24px;
+}
+
+.about-inner-right-booking-img {
+    img {
+        max-height: 450px;
+        width: 100%;
+    }
 }
 
 .about-inner-right-form-item {

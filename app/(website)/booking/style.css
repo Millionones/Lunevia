@@ -1,0 +1,158 @@
+.widget {
+    width: 100%;
+    height: max-content;
+    min-height: 300px;
+    position: relative;
+}
+
+.widget #book-now-widget {
+    width: 100%;
+    height: 100%;
+}
+
+.widget #book-now-widget #BEx4IDaY3bWD {
+    width: 100%;
+    height: 100%;
+}
+
+.modalModifyCancel__inner {
+    overflow: hidden !important;
+}
+
+.BEx4IDaY4cXE {
+    height: 38px !important;
+}
+
+#BEx4IDaY3bWD .BEx4ZXaY3bWR {
+    margin-top: 10px;
+}
+
+#BEx4IDaY3bWR .BEx4ZXaY3bOP>div {
+    margin-top: -24px !important;
+}
+
+#BEx4IDaY3bWD .BEx4ZXaY3bDPI {
+    top: 31px !important;
+    right: 31px !important;
+}
+
+.BEh8JJiwI1dPaBPrice {
+    margin-top: 3px !important;
+    width: 103px !important;
+    padding: 0px 0px 19px 3px !important;
+    text-transform: capitalize;
+}
+
+.BEh4IDsZ4eZE {
+    color: #005C93 !important;
+}
+
+.BEh4IDsZ4dZE {
+    color: #333 !important;
+}
+
+.divWidth {
+    color: #333 !important;
+}
+
+#BEx4IDaY3bWD select.BEx4ZXaY3bPC,
+#BEx4IDaY3bWD select.BEx4ZXaY3bPP {
+    background: #fff !important;
+    color: #000 !important;
+}
+
+#BEx4IDaY3bWD input.BEx4ZXaY3bQBT {
+    background: #6f3932 !important;
+    margin-bottom: 0px !important;
+    margin-top: 14px !important;
+}
+
+#BEx4IDaY3bWD .BEx4ZXaY3bWR a {
+    transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+}
+
+#BEx4IDaY3bWD .BEx4IDaY3bQBT:hover .BEx4ZXaY3bQBT,
+.BEx4ZXaY3bQBT:focus {
+    transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    background: #ffffff !important;
+    color: #ed8323 !important;
+}
+
+#BEx4IDaY3bWD .BEx4ZXaY3bWR {
+    /* width: 240px; */
+    width: 100% !important;
+    z-index: 999 !important;
+    /* position: absolute !important;
+    right: 0px !important;
+    top: 0px !important; */
+}
+
+.BEh4IDsZ4fZE {
+    color: #6f3932 !important;
+}
+
+.BEh8JJiwI1dPaBPrice {
+    background-color: #6f3932 !important;
+}
+
+.widget .BEh4IDsZ4fZE,
+.widget .BEh4IDsZ4eZE,
+.widget .BEh4IDsZ4dZE,
+.widget .BEh4IDsZdPr0ZE span {
+    color: #6f3932 !important;
+}
+
+.BEh4IDsZ4dZENP {
+    color: #6f3932 !important;
+}
+
+.widget #BEx4IDaY3bWD .BEx4ZXaY3bWR {
+    border-color: #6f3932 !important;
+    /*box-shadow: none;*/
+}
+
+.BExyz5i8narrowSingle-up {
+    border-bottom: 5px solid #6f3932 !important;
+}
+
+/*Booking Engine CSS Code End*/
+
+
+
+/*Media Query*/
+
+@media only screen and (min-device-width: 200px) and (max-device-width: 812px) {
+    #BEx4IDaY3bWD .BEx4ZXaY3bWR {
+        right: 32px !important;
+        top: 50px !important;
+    }
+}
+
+
+
+.booking-page {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.booking-page-inner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.booking-page-title {
+    line-height: 1.2em;
+    /* color: #FFFFFF; */
+    font-size: 64px;
+}

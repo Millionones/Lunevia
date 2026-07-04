@@ -214,7 +214,7 @@ const Details = ({ slug, data }) => {
                                 }
                             </ul>
                         </div>
-                        <form className='about-inner-right-form' onSubmit={handleSubmit}>
+                        {/* <form className='about-inner-right-form' onSubmit={handleSubmit}>
                             <div className='flex gap-4 flex-col sm:flex-row'>
                                 <div className='about-inner-right-form-item'>
                                     <label htmlFor="">Full Name</label>
@@ -253,11 +253,6 @@ const Details = ({ slug, data }) => {
                                 <div className='about-inner-right-form-item'>
                                     <label htmlFor="">Check In Time</label>
                                     <input type="time" name='checkInTime' value={formData.checkInTime} onChange={handleChange} disabled={formData.checkIn.length == 0} />
-                                    {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        <DemoContainer components={['TimePicker']}>
-                                            <TimePicker label="Select the time" name='checkInTime'value={formData.checkInTime}  onChange={handleChange} disabled={formData.checkIn.length == 0}/>
-                                        </DemoContainer>
-                                    </LocalizationProvider> */}
                                 </div>
                             </div>
                             <div className='flex gap-4 flex-col sm:flex-row'>
@@ -268,17 +263,34 @@ const Details = ({ slug, data }) => {
                                 <div className='about-inner-right-form-item'>
                                     <label htmlFor="">Check Out Time</label>
                                     <input type="time" name='checkOutTime' value={formData.checkOutTime} onChange={handleChange} disabled={formData.checkOut.length == 0} />
-                                    {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        <DemoContainer components={['TimePicker']}>
-                                            <TimePicker label="Select the time" name='checkOutTime'  onChange={handleChange} disabled={formData.checkOut.length == 0}/>
-                                        </DemoContainer>
-                                    </LocalizationProvider> */}
                                 </div>
                             </div>
-                            <div className='about-inner-right-form-submit'>
-                                <button type="submit">Book Now</button>
+                            <a
+                                href="https://www.secure-booking-engine.com/accounts/irNf-cNuTdbCw-jo1dErsQ/properties/Q8K5oqMdhnRu9P_DKGkutw/booking-engine/web/source/4wsctBw6Oq6j-g9XuxeRzQ/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="book-btn"
+                            >
+                                Book Now
+                            </a>
+                        </form> */}
+                        <div className='about-inner-right-booking'>
+                            <div className='about-inner-right-booking-img'>
+                                <img src="/booking-creative.png" alt="" />
                             </div>
-                        </form>
+                            <div className='about-inner-right-form-submit'>
+                                <button>
+                                    <a
+                                        href="https://www.secure-booking-engine.com/accounts/irNf-cNuTdbCw-jo1dErsQ/properties/Q8K5oqMdhnRu9P_DKGkutw/booking-engine/web/source/4wsctBw6Oq6j-g9XuxeRzQ/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="book-btn"
+                                    >
+                                        Book Now
+                                    </a>
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
