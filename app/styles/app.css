@@ -1024,3 +1024,14 @@
     }
   }
 }
+
+.loader-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+
+  img {
+    width: 100px;
+  }
+}

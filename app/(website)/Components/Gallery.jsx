@@ -14,6 +14,7 @@ import { closeIconSvg } from '../../styles/icons';
 const Gallery = () => {
 
     const [data, setData] = useState([])
+    const [loading, setLoading] = useState(true)
 
     const [state, setState] = useState({
         top: false,
@@ -48,6 +49,7 @@ const Gallery = () => {
         let response = await get('common/gallery-images')
         if (response.data) {
             setData(response.data)
+            setLoading(false)
         }
     }
     return (
@@ -96,24 +98,32 @@ const Gallery = () => {
                             DISCOVER MORE
                         </Button>
                     </div> */}
-                    <div className='common-gallery-grid'>
-                        <div className='common-gallery-grid-items'>
-                            <img src={data[0]} onClick={toggleDrawer('bottom', true)} alt="" className='common-gallery-grid-item-1' />
-                            <div className='common-gallery-grid-item-2'>
-                                <img src={data[1]} alt="" onClick={toggleDrawer('bottom', true)} />
-                                <img src={data[2]} alt="" onClick={toggleDrawer('bottom', true)} />
+                    {loading ?
+                        (
+                            <div className='loader-div'>
+                                <img src="/loader_black.svg" alt="" />
+                            </div>
+                        )
+                        :
+                        <div className='common-gallery-grid'>
+                            <div className='common-gallery-grid-items'>
+                                <img src={data[0]} onClick={toggleDrawer('bottom', true)} alt="" className='common-gallery-grid-item-1' />
+                                <div className='common-gallery-grid-item-2'>
+                                    <img src={data[1]} alt="" onClick={toggleDrawer('bottom', true)} />
+                                    <img src={data[2]} alt="" onClick={toggleDrawer('bottom', true)} />
+                                </div>
+                            </div>
+                            <div className='common-gallery-grid-items2 bottom-grid'>
+                                {
+                                    data.length > 3 ?
+                                        data.slice(3, 8).map((item) => (
+                                            <img src={item} alt="" onClick={toggleDrawer('bottom', true)} />
+                                        ))
+                                        : ''
+                                }
                             </div>
                         </div>
-                        <div className='common-gallery-grid-items2 bottom-grid'>
-                            {
-                                data.length > 3 ?
-                                    data.slice(3, 8).map((item) => (
-                                        <img src={item} alt="" onClick={toggleDrawer('bottom', true)} />
-                                    ))
-                                    : ''
-                            }
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
             <Drawer
