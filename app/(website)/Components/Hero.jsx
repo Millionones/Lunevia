@@ -21,7 +21,7 @@ const Hero = () => {
             >
                 <SwiperSlide>
                     <div className='hero-slide'>
-                        <img src="/lunevia_home_hero1.jpg" alt="" />
+                        <img src="/lunevia_home_hero3.jpg" alt="" />
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>

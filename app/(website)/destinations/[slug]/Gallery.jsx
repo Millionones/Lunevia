@@ -23,7 +23,7 @@ const Gallery = ({ data }) => {
   //   "/client-resort-img12.jpeg",
   //   "/client-resort-img13.webp",
   // ])
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     top: false,
     left: false,
     bottom: false,

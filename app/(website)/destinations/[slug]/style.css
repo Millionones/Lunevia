@@ -286,7 +286,7 @@
             }
         }
 
-         li:before {
+        li:before {
             content: "";
             width: 17.5px;
             height: 14px;
@@ -1067,6 +1067,7 @@
 
         img {
             height: 80vh;
+            object-fit: cover;
         }
 
         h1 {
@@ -1154,6 +1155,38 @@
 
         img {
             max-width: calc(50% - 7px);
+        }
+    }
+
+
+    .gallery-drawer-inner {
+        padding: 10px 15px;
+
+        .lg-react-element {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+
+    .gallery-drawer-inner-header {
+        h2 {
+            font-size: 24px;
+        }
+
+        .drawer-close-btn {
+
+            button {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                background: #ededed;
+                padding: 10px 12px;
+                border-radius: 50%;
+                cursor: pointer;
+
+                svg {
+                    max-width: 14px;
+                }
+            }
         }
     }
 
