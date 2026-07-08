@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react'
-import { facebookSvg, instagramSvg, mailSvg, phoneSvg, twitterSvg } from '../../styles/icons'
+import { facebookSvg, instagramSvg, locationIcon, mailSvg, phoneSvg, twitterSvg } from '../../styles/icons'
 import toast from 'react-hot-toast';
 import { validateEmail, validateMobile } from '../../../helpers/functions';
 import { post } from '../../../helpers/api'
@@ -80,29 +80,42 @@ const ContactForm = () => {
                             <p>Have questions or need assistance with your booking? Our team is here to help.
                                 Feel free to reach out to us anytime, and we’ll ensure your stay is smooth and memorable.</p>
                         </div>
-                        <div className='contact-links'>
-                            <div className='contact-link'>
-                                <div>
-                                    <h3>Phone</h3>
-                                    <a href="tel:+916238829339">
-                                        <span className="icon">{phoneSvg}</span>
-                                        <p>+91 6238829339</p>
-                                    </a>
-                                    <a href="tel:+916238899339">
-                                        <span className="icon">{phoneSvg}</span>
-                                        <p>+91 6238899339</p>
-                                    </a>
-                                </div>
-                                {/* <div>
+                        <div>
+                            <div className='contact-location'>
+                                <h3>Location</h3>
+                                <a >
+                                    <span className="icon">{locationIcon}</span>
+                                    <p>
+                                        LUNEVIA HOSPITALITY LLP, 
+                                        8-63/A, Karimannoor, <br />
+                                        Thodupuzha, Idukki - 685581,
+                                        Kerala, India
+                                    </p>
+                                </a>
+                            </div>
+                            <div className='contact-links'>
+                                <div className='contact-link'>
+                                    <div>
+                                        <h3>Phone</h3>
+                                        <a href="tel:+916238829339">
+                                            <span className="icon">{phoneSvg}</span>
+                                            <p>+91 6238829339</p>
+                                        </a>
+                                        <a href="tel:+916238899339">
+                                            <span className="icon">{phoneSvg}</span>
+                                            <p>+91 6238899339</p>
+                                        </a>
+                                    </div>
+                                    {/* <div>
                                     <h3>Email</h3>
                                     <a href="mailto:info@lunevia.in">
                                         <span>{mailSvg}</span>
                                         <p>info@lunevia.in</p>
                                     </a>
                                 </div> */}
-                            </div>
-                            <div className='contact-social'>
-                                {/* <h3>Social Media</h3>
+                                </div>
+                                <div className='contact-social'>
+                                    {/* <h3>Social Media</h3>
                                 <ul>
                                     <li>
                                         <a href="/https://www.facebook.com/profile.php?id=61574276712917">
@@ -123,11 +136,12 @@ const ContactForm = () => {
                                         </a>
                                     </li>
                                 </ul> */}
-                                <h3>Email</h3>
-                                <a href="mailto:info@lunevia.in">
-                                    <span>{mailSvg}</span>
-                                    <p>info@lunevia.in</p>
-                                </a>
+                                    <h3>Email</h3>
+                                    <a href="mailto:info@lunevia.in">
+                                        <span>{mailSvg}</span>
+                                        <p>info@lunevia.in</p>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

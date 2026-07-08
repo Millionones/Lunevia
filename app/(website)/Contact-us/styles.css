@@ -210,6 +210,44 @@
     }
 }
 
+.contact-location {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 20px;
+
+    h3 {
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 1.2em;
+        color: #272727;
+    }
+
+    a {
+        display: flex;
+        font-size: inherit;
+        align-items: center;
+
+        svg {
+            height: 18px;
+            width: 18px;
+            margin-right: 14px;
+            fill: #D4BBA2;
+
+            path {
+                fill: #D4BBA2;
+            }
+        }
+
+        p {
+            color: #3B3B3B;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.5em;
+        }
+    }
+}
+
 .send-btn {
     width: 100%;
     background: #F9DCBE;
