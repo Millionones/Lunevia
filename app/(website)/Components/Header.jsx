@@ -67,7 +67,7 @@ const Header = () => {
                                 <p>Enquire Now</p>
                             </Link>
                         </div>
-                        <Link href="https://wa.me/+918113027095"
+                        <Link href="https://wa.me/+916238899339"
                             target="_blank" className='wtsp-btn'>
                             <img src="/whatsapp.png" alt="" />
                         </Link>
