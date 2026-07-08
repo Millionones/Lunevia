@@ -435,6 +435,7 @@
         display: block;
         height: 400px;
         max-height: 450px;
+        object-fit: cover;
       }
 
       .grid-details {
