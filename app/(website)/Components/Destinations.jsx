@@ -55,6 +55,10 @@ const Destinations = () => {
                               <div className='grid-details'>
                                 <h5>{item.title}</h5>
                                 <p>{item.description}</p>
+                                <div className="line-separator"></div>
+                                <button className='destination-card-button'>
+                                  <p>BOOK NOW</p>
+                                </button>
                               </div>
                             </div>
                           </Link>

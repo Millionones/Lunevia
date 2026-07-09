@@ -60,7 +60,7 @@ const Faq = () => {
             <div className='cmpad'>
                 <div className='faq-inner'>
                     <div className='faq-left-header'>
-                        <h5>Faq</h5>
+                        <h5>FAQs</h5>
                         <h2>Frequently Asked <br /> Questions</h2>
                         <p>Everything you may wish to know before your stay.</p>
                     </div>

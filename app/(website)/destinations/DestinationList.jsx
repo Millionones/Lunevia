@@ -50,7 +50,7 @@ const DestinationList = () => {
                                                         <p>{item.description}</p>
                                                     </div>
                                                     <div className="line-separator"></div>
-                                                    <ul className='destination-card-features'>
+                                                    {/* <ul className='destination-card-features'>
                                                         <li>
                                                             <p>2 People</p>
                                                         </li>
@@ -63,7 +63,7 @@ const DestinationList = () => {
                                                         <li>
                                                             <p>Free Wifi</p>
                                                         </li>
-                                                    </ul>
+                                                    </ul> */}
                                                     <button className='destination-card-button'>
                                                         <p>BOOK NOW</p>
                                                     </button>

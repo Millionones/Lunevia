@@ -410,16 +410,32 @@
 
 .destination-grids {
   ul {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    /* display: grid;
+    grid-template-columns: repeat(3, 1fr); */
+    display: flex;
     gap: 30px;
+    justify-content: center;
+
+    li {
+      max-width: 33.3%;
+      background: #02010100;
+      border: 1px solid #d4d8db;
+    }
 
     @media screen and (max-width:640px) {
-      grid-template-columns: repeat(1, 1fr);
+
+      /* grid-template-columns: repeat(1, 1fr); */
+      li {
+        max-width: 100%;
+      }
     }
 
     @media screen and (min-width:641px) and (max-width:1024px) {
-      grid-template-columns: repeat(2, 1fr);
+
+      /* grid-template-columns: repeat(2, 1fr); */
+      li {
+        max-width: 50%;
+      }
     }
 
     .destination-grid {
@@ -439,8 +455,8 @@
       }
 
       .grid-details {
-        opacity: 0;
-        position: absolute;
+        /* opacity: 0;
+        position: absolute; */
         z-index: 5;
         bottom: 0;
         left: 0;
@@ -454,8 +470,19 @@
   }
 }
 
+.destination-card-button {
+  width: 100%;
+  background: #F9DCBE;
+  padding: 12px 30px 12px 30px;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #3B3B3B;
+  fill: #3B3B3B;
+}
+
 .image-wrapper::after {
-  content: "";
+  /* content: ""; */
   position: absolute;
   background: rgba(0, 0, 0, 0.6);
   width: 100%;
@@ -466,10 +493,10 @@
 }
 
 /* Hover Effect */
-.destination-grid:hover .image-wrapper::after {
+/* .destination-grid:hover .image-wrapper::after {
   bottom: 0;
   height: 100%;
-}
+} */
 
 .destination-grid:hover .grid-details {
   opacity: 1 !important;
@@ -477,14 +504,15 @@
 
 .destination-grid .grid-details {
   h5 {
-    color: white;
+    color: #272727;
     font-size: 24px;
     font-weight: 600;
     line-height: 24px;
+    padding-bottom: 10px;
   }
 
   p {
-    color: white;
+    color: #272727;
     font-size: 14px;
     line-height: 26px;
     font-weight: 400;
@@ -1022,6 +1050,36 @@
           max-width: 14px;
         }
       }
+    }
+  }
+}
+
+@media screen and (min-width:641px) and (max-width:1360px) {
+  .common-gallery-grid-item-1 {
+    max-width: calc(33.3% - 14px);
+  }
+
+  .common-gallery-grid-item-2 {
+    flex-direction: row;
+
+    img {
+      max-width: calc(50% - 7px);
+    }
+  }
+
+  .common-gallery-grid-items2.bottom-grid {
+    img {
+      height: 140px;
+    }
+  }
+}
+
+@media screen and (min-width:641px) and (max-width:1024px) {
+  .gallery-drawer-inner .lg-react-element {
+    grid-template-columns: repeat(3, 1fr);
+
+    a img {
+      max-height: 200px;
     }
   }
 }

@@ -45,7 +45,7 @@ const Rooms = ({ data, slug }) => {
                                                 <p>{item.description}</p>
                                             </div> */}
                                             <div className="line-separator"></div>
-                                            <ul className='rooms-card-features'>
+                                            {/* <ul className='rooms-card-features'>
                                                 <li>
                                                     <p>2 People</p>
                                                 </li>
@@ -58,7 +58,7 @@ const Rooms = ({ data, slug }) => {
                                                 <li>
                                                     <p>Free Wifi</p>
                                                 </li>
-                                            </ul>
+                                            </ul> */}
                                             <button className='rooms-card-button'>
                                                 <p>BOOK NOW</p>
                                             </button>

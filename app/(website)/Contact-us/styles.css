@@ -283,16 +283,6 @@
         font-size: 40px;
     }
 
-    .contact-inner {
-        padding: 0px;
-        flex-direction: column;
-
-        .contact-left,
-        .contact-right {
-            width: 100%;
-        }
-    }
-
 
     .contact-header {
         h2 {
@@ -309,6 +299,22 @@
         margin-top: 20px;
     }
 
+}
+
+@media screen and (max-width: 768px) {
+    .contact-inner {
+        padding: 0px;
+        flex-direction: column;
+
+        .contact-left,
+        .contact-right {
+            width: 100%;
+        }
+    }
+
+}
+
+@media screen and (max-width:1400px) {
     .contact-input-grid {
         grid-template-columns: repeat(1, 1fr);
     }
