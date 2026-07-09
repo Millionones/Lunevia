@@ -48,18 +48,29 @@ const ContactForm = () => {
                 setSubmit(false);
                 return toast.error("Please Fill the Subject")
             }
-            const response = await post("contact/", formData)
-            if (response.success) {
-                setFormData({
-                    firstName: "",
-                    lastName: "",
-                    email: "",
-                    mobile: "",
-                    subject: "",
-                    comments: "",
-                });
+            // const response = await post("contact/", formData)
+            const response = await fetch("/api/contact", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            })
+            let data = await response.json();
+            if (data.success) {
+                const response = await post("contact/", formData)
+                if (response.success) {
+                    setFormData({
+                        firstName: "",
+                        lastName: "",
+                        email: "",
+                        mobile: "",
+                        subject: "",
+                        comments: "",
+                    });
 
-                toast.success(response.message);
+                    toast.success(response.message);
+                }
             }
             setSubmit(false);
 
@@ -86,7 +97,7 @@ const ContactForm = () => {
                                 <a >
                                     <span className="icon">{locationIcon}</span>
                                     <p>
-                                        LUNEVIA HOSPITALITY LLP, 
+                                        LUNEVIA HOSPITALITY LLP,
                                         8-63/A, Karimannoor, <br />
                                         Thodupuzha, Idukki - 685581,
                                         Kerala, India

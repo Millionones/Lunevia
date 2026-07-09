@@ -11,10 +11,63 @@ import 'lightgallery/css/lg-thumbnail.css';
 import Drawer from '@mui/material/Drawer';
 import { closeIconSvg } from '../../styles/icons';
 
+const images = [
+    "/client-room-gallery/LBM04282.jpg",
+    // "/client-room-gallery/LBM04368.jpg",
+    "/client-room-gallery/LBM04609.jpg",
+    "/client-room-gallery/LBM04928.jpg",
+    "/client-room-gallery/LBM04935.jpg",
+    "/client-room-gallery/LBM04960.jpg",
+    "/client-room-gallery/LBM04967.jpg",
+    "/client-room-gallery/LBM04998.jpg",
+    "/client-room-gallery/LBM05062.jpg",
+    "/client-room-gallery/LBM05071.jpg",
+    "/client-room-gallery/LBM05080.jpg",
+    "/client-room-gallery/LBM05112.jpg",
+    "/client-room-gallery/LBM05140.jpg",
+    "/client-room-gallery/LBM05163.jpg",
+    "/client-room-gallery/LBM05237.jpg",
+    "/client-room-gallery/LBM05343.jpg",
+    "/client-room-gallery/LBM05356.jpg",
+    "/client-room-gallery/LBM05365.jpg",
+    "/client-room-gallery/LBM05383.jpg",
+    "/client-room-gallery/LBM05418.jpg",
+    "/client-room-gallery/LBM05474.jpg",
+    "/client-room-gallery/LBM05518.jpg",
+    "/client-room-gallery/LBM05526.jpg",
+    "/client-room-gallery/LBM05636.jpg"
+]
 const Gallery = () => {
 
-    const [data, setData] = useState([])
-    const [loading, setLoading] = useState(true)
+    const [data, setData] = useState([
+        "/client-room-gallery/LBM04282.jpg",
+        // "/client-room-gallery/LBM04368.jpg",
+        // "/client-room-gallery/LBM04609.jpg",
+        "/client-room-gallery/LBM04928.jpg",
+        "/client-room-gallery/LBM04960.jpg",
+        // "/client-room-gallery/LBM04967.jpg",
+        "/client-room-gallery/LBM04998.jpg",
+        // "/client-room-gallery/LBM05062.jpg",
+        // "/client-room-gallery/LBM05071.jpg",
+        // "/client-room-gallery/LBM05080.jpg",
+        // "/client-room-gallery/LBM04935.jpg",
+        // "/client-room-gallery/LBM05112.jpg",
+        // "/client-room-gallery/LBM05140.jpg",
+        "/client-room-gallery/LBM05163.jpg",
+        "/client-room-gallery/LBM05237.jpg",
+        "/client-room-gallery/LBM04630.jpg",
+        // "/client-room-gallery/LBM05343.jpg",
+        "/client-room-gallery/LBM05356.jpg",
+        // "/client-room-gallery/LBM05365.jpg",
+        "/client-room-gallery/LBM05383.jpg",
+        "/client-room-gallery/LBM05418.jpg",
+        // "/client-room-gallery/LBM05474.jpg",
+        "/client-room-gallery/LBM05518.jpg",
+        "/client-room-gallery/LBM05526.jpg",
+        "/client-room-gallery/LBM05562.jpg",
+        "/client-room-gallery/LBM05636.jpg"
+    ])
+    const [loading, setLoading] = useState(false)
 
     const [state, setState] = useState({
         top: false,
@@ -42,7 +95,7 @@ const Gallery = () => {
             };
 
     useEffect(() => {
-        fetchGallery()
+        // fetchGallery()
     }, [])
 
     const fetchGallery = async () => {
