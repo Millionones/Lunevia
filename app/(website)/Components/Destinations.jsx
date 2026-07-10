@@ -21,7 +21,7 @@ const Destinations = () => {
 
 
   return (
-    <section className='destination'>
+    <section className='destination bg-white'>
       <div className='cmpad'>
         <div className='destination-inner'>
           <div className='destination-header'>
