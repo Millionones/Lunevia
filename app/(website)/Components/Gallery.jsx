@@ -43,10 +43,12 @@ const Gallery = () => {
         "/client-room-gallery/LBM04282.jpg",
         // "/client-room-gallery/LBM04368.jpg",
         // "/client-room-gallery/LBM04609.jpg",
+        "/client-room-gallery/LBM05356.jpg",
+        "/client-room-gallery/LBM05383.jpg",
+        "/client-room-gallery/LBM04998.jpg",
         "/client-room-gallery/LBM04928.jpg",
         "/client-room-gallery/LBM04960.jpg",
         // "/client-room-gallery/LBM04967.jpg",
-        "/client-room-gallery/LBM04998.jpg",
         // "/client-room-gallery/LBM05062.jpg",
         // "/client-room-gallery/LBM05071.jpg",
         // "/client-room-gallery/LBM05080.jpg",
@@ -57,9 +59,7 @@ const Gallery = () => {
         "/client-room-gallery/LBM05237.jpg",
         "/client-room-gallery/LBM04630.jpg",
         // "/client-room-gallery/LBM05343.jpg",
-        "/client-room-gallery/LBM05356.jpg",
         // "/client-room-gallery/LBM05365.jpg",
-        "/client-room-gallery/LBM05383.jpg",
         "/client-room-gallery/LBM05418.jpg",
         // "/client-room-gallery/LBM05474.jpg",
         "/client-room-gallery/LBM05518.jpg",
@@ -109,74 +109,40 @@ const Gallery = () => {
         <section className='gallery'>
             <div className='cmpad'>
                 <div className='gallery-inner'>
-                    <div className='gallery-header'>
-                        <div className=''>
-                            <h6>GALLERY</h6>
-                            <h1>Moments of Refined <br />Resort Living</h1>
+                    <div className='max-w-[1200px] flex flex-col gap-[30px]'>
+                        <div className='gallery-header'>
+                            <div className=''>
+                                <h6>GALLERY</h6>
+                                <h1>Moments of Refined <br />Resort Living</h1>
+                            </div>
                         </div>
-                        {/* <Button>
-                            DISCOVER MORE
-                        </Button> */}
+                        {loading ?
+                            (
+                                <div className='loader-div'>
+                                    <img src="/loader_black.svg" alt="" />
+                                </div>
+                            )
+                            :
+                            <div className='common-gallery-grid'>
+                                <div className='common-gallery-grid-items'>
+                                    <img src={data[0]} onClick={toggleDrawer('bottom', true)} alt="" className='common-gallery-grid-item-1' />
+                                    <div className='common-gallery-grid-item-2'>
+                                        <img src={data[1]} alt="" onClick={toggleDrawer('bottom', true)} />
+                                        <img src={data[2]} alt="" onClick={toggleDrawer('bottom', true)} />
+                                    </div>
+                                </div>
+                                <div className='common-gallery-grid-items2 bottom-grid'>
+                                    {
+                                        data.length > 3 ?
+                                            data.slice(3, 8).map((item) => (
+                                                <img src={item} alt="" onClick={toggleDrawer('bottom', true)} />
+                                            ))
+                                            : ''
+                                    }
+                                </div>
+                            </div>
+                        }
                     </div>
-                    {/* <div className='gallery-grids'>
-                        <div className='gallery-grid-1'>
-                            <div className='flex flex-col sm:flex-row gap-5'>
-                                <div className='gallery-img-1'>
-                                    <img src="/client-resort-img13.webp" alt="" />
-                                </div>
-                                <div className='gallery-img-2-half'>
-                                    <div className="gallery-img-2">
-                                        <img src="/client-resort-img2.jpeg" alt="" />
-                                    </div>
-                                    <div className="gallery-img-3">
-                                        <img src="/client-resort-img3.jpeg" alt="" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="gallery-img-4">
-                                <img src="/client-resort-img11.jpeg" alt="" />
-                            </div>
-                        </div>
-                        <div className='gallery-grid-2'>
-                            <div className="gallery-img-5">
-                                <img src="/client-resort-img5.webp" alt="" />
-                            </div>
-                            <div className="gallery-img-6">
-                                <img src="/client-resort-img1.webp" alt="" />
-                            </div>
-                        </div>
-                    </div> */}
-                    {/* <div className='flex sm:hidden justify-center'>
-                        <Button>
-                            DISCOVER MORE
-                        </Button>
-                    </div> */}
-                    {loading ?
-                        (
-                            <div className='loader-div'>
-                                <img src="/loader_black.svg" alt="" />
-                            </div>
-                        )
-                        :
-                        <div className='common-gallery-grid'>
-                            <div className='common-gallery-grid-items'>
-                                <img src={data[0]} onClick={toggleDrawer('bottom', true)} alt="" className='common-gallery-grid-item-1' />
-                                <div className='common-gallery-grid-item-2'>
-                                    <img src={data[1]} alt="" onClick={toggleDrawer('bottom', true)} />
-                                    <img src={data[2]} alt="" onClick={toggleDrawer('bottom', true)} />
-                                </div>
-                            </div>
-                            <div className='common-gallery-grid-items2 bottom-grid'>
-                                {
-                                    data.length > 3 ?
-                                        data.slice(3, 8).map((item) => (
-                                            <img src={item} alt="" onClick={toggleDrawer('bottom', true)} />
-                                        ))
-                                        : ''
-                                }
-                            </div>
-                        </div>
-                    }
                 </div>
             </div>
             <Drawer
