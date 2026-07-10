@@ -276,7 +276,7 @@ const Details = ({ slug, data }) => {
                         </form> */}
                         <div className='about-inner-right-booking'>
                             <div className='about-inner-right-booking-img'>
-                                <img src="/booking-creative.png" alt="" />
+                                <img src="/booking-creative-1.jpeg" alt="" />
                             </div>
                             <div className='about-inner-right-form-submit'>
                                 <a
