@@ -46,7 +46,7 @@ const Gallery = () => {
         "/client-room-gallery/LBM05356.jpg",
         "/client-room-gallery/LBM05383.jpg",
         "/client-room-gallery/LBM04998.jpg",
-        "/client-room-gallery/LBM04928.jpg",
+        // "/client-room-gallery/LBM04928.jpg",
         "/client-room-gallery/LBM04960.jpg",
         // "/client-room-gallery/LBM04967.jpg",
         // "/client-room-gallery/LBM05062.jpg",
@@ -55,7 +55,7 @@ const Gallery = () => {
         // "/client-room-gallery/LBM04935.jpg",
         // "/client-room-gallery/LBM05112.jpg",
         // "/client-room-gallery/LBM05140.jpg",
-        "/client-room-gallery/LBM05163.jpg",
+        // "/client-room-gallery/LBM05163.jpg",
         "/client-room-gallery/LBM05237.jpg",
         "/client-room-gallery/LBM04630.jpg",
         // "/client-room-gallery/LBM05343.jpg",
@@ -65,7 +65,7 @@ const Gallery = () => {
         "/client-room-gallery/LBM05518.jpg",
         "/client-room-gallery/LBM05526.jpg",
         "/client-room-gallery/LBM05562.jpg",
-        "/client-room-gallery/LBM05636.jpg"
+        // "/client-room-gallery/LBM05636.jpg"
     ])
     const [loading, setLoading] = useState(false)
 
