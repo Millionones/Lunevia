@@ -33,7 +33,7 @@ const page = async ({ params }) => {
         <>
             <Hero data={heroData}/>
             <Details slug={slug} data={roomDetails}/>
-            <Gallery slug={RoomSlug[0]}/>
+            <Gallery slug={RoomSlug[0]} title={roomData.title}/>
         </>
     )
 }

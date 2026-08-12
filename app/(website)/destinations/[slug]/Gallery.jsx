@@ -7,7 +7,7 @@ import 'lightgallery/css/lg-zoom.css';
 import 'lightgallery/css/lg-thumbnail.css';
 import Drawer from '@mui/material/Drawer';
 import { closeIconSvg } from '../../../styles/icons';
-const Gallery = ({ data }) => {
+const Gallery = ({ data , title }) => {
   
   // const [data, setData] = useState([
   //   "/client-resort-img1.webp",
@@ -83,7 +83,7 @@ const Gallery = ({ data }) => {
       >
         <div className='gallery-drawer-inner'>
           <div className='gallery-drawer-inner-header'>
-            <h2>LUNEVIA Backwater Reserve – Alleppey</h2>
+            <h2>{title}</h2>
             <div className='drawer-close-btn'>
               <button onClick={toggleDrawer('bottom', false)}>
                 <span>{closeIconSvg}</span>

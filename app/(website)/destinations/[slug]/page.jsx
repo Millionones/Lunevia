@@ -57,7 +57,7 @@ const page = async ({ params }) => {
             <About data={aboutData} />
             <Rooms data={rooms} slug={slug} />
             {/* <BookNow /> */}
-            <Gallery data={gallery} />
+            <Gallery data={gallery} title={destinationData.title} />
             <Features data={destinationData.amenties} />
             <Locations data={destinationData.locations} />
             <Highlights data={destinationData.aboutProperty.highlights} />
