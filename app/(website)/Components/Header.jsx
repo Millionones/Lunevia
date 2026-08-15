@@ -3,12 +3,15 @@ import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { closeIconSvg } from '../../styles/icons';
 import { Toaster } from 'react-hot-toast';
+import { usePathname } from 'next/navigation';
 const Header = () => {
 
     const [menuOpen, setMenuOpen] = useState(false);
 
     const dropdownRef = useRef(null);
     const mobileNavRef = useRef(null);
+    const pathname = usePathname();
+    let isDestinationPage = pathname == "destinations/crown-woods-munnar-by-lunevia"
 
     useEffect(() => {
         if (menuOpen == true) {
@@ -17,6 +20,8 @@ const Header = () => {
             document.body.style.overflow = "auto";
         }
     }, [menuOpen])
+
+    
 
     return (
         <>
@@ -60,9 +65,11 @@ const Header = () => {
                             </ul>
                         </div>
                         <div className='hidden lg:flex items-center gap-3'>
-                            <Link href="/destinations" className='head-btn'>
-                                <p>Book Now</p>
-                            </Link>
+                            {isDestinationPage && (
+                                <Link href="/destinations/crown-woods-munnar-by-lunevia" className='head-btn'>
+                                    <p>Book Now</p>
+                                </Link>
+                            )}
                             <Link href="/Contact-us" className='head-btn'>
                                 <p>Enquire Now</p>
                             </Link>
@@ -143,9 +150,11 @@ const Header = () => {
                                     </ul>
                                 </div>
                                 <div className='flex items-center justify-center gap-2.5 '>
-                                    <Link href="/destinations" className='head-btn' style={{ borderColor: "#000000", color: "#000000" }}>
-                                        <p>Book Now</p>
-                                    </Link>
+                                    {isDestinationPage && (
+                                        <Link href="/destinations/crown-woods-munnar-by-lunevia" className='head-btn' style={{ borderColor: "#000000", color: "#000000" }}>
+                                            <p>Book Now</p>
+                                        </Link>
+                                    )}
                                     <Link href="/Contact-us" className='head-btn' style={{ borderColor: "#000000", color: "#000000" }}>
                                         <p>Enquire Now</p>
                                     </Link>

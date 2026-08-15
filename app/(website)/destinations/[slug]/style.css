@@ -83,6 +83,7 @@
     }
 
     img {
+        width: 100%;
         max-width: 600px;
         min-height: 570px;
     }
@@ -371,7 +372,8 @@
     gap: 16px;
     border: 1px solid #D4D8DB;
     padding: 24px;
-
+    position: relative;
+    
     .about-inner-right-room-title {
         font-weight: 400;
         font-size: 28px;
@@ -414,6 +416,11 @@
     gap: 16px;
     border: 1px solid #D4D8DB;
     padding: 24px;
+}
+
+.about-inner-right-booking {
+    position: sticky;
+    top: 10px;
 }
 
 .about-inner-right-booking-img {
@@ -1206,7 +1213,9 @@
             }
         }
     }
+}
 
+@media screen and (max-width:800px) {
     .amenteties-inner h2 {
         font-size: 32px;
         /* text-align: left; */
@@ -1238,7 +1247,6 @@
         grid-template-columns: repeat(2, 1fr);
     }
 
-
     .destination-about .about-inner {
         padding-block: 30px;
         flex-direction: column;
@@ -1265,5 +1273,68 @@
 
     .about-inner-right {
         width: 100%;
+    }
+}
+
+@media screen and (min-width:641px) and (max-width:1220px) {
+    .rooms-list-inner {
+        padding: 0;
+    }
+
+    .rooms-list-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .destination-about .about-inner-content {
+        flex-direction: column;
+        padding-block: 20px;
+
+        .inner-para,
+        .inner-media {
+            max-width: 100%;
+        }
+
+        h5 {
+            font-size: 24px;
+        }
+
+        .inner-media {
+            img {
+                max-width: 100%;
+                min-height: 420px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width:641px) and (max-width:1360px) {
+    .destination-gallery-grid-item-1 {
+        max-width: calc(33.3% - 14px);
+    }
+
+    .destination-gallery-grid-item-2 {
+        flex-direction: row;
+
+        img {
+            max-width: calc(50% - 7px);
+        }
+    }
+
+    .destination-gallery-grid-items2.bottom-grid {
+        img {
+            height: 140px;
+        }
+    }
+}
+
+@media screen and (min-width:641px) and (max-width:1024px) {
+    .gallery-drawer-inner .lg-react-element {
+        grid-template-columns: repeat(3, 1fr);
+
+        a img {
+            max-height: 200px;
+        }
     }
 }
