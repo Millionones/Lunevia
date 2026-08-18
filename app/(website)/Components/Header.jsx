@@ -11,7 +11,7 @@ const Header = () => {
     const dropdownRef = useRef(null);
     const mobileNavRef = useRef(null);
     const pathname = usePathname();
-    let isDestinationPage = pathname == "destinations/crown-woods-munnar-by-lunevia"
+    let isDestinationPage = pathname == "/destinations/crown-woods-munnar-by-lunevia"
 
     useEffect(() => {
         if (menuOpen == true) {
@@ -65,7 +65,7 @@ const Header = () => {
                             </ul>
                         </div>
                         <div className='hidden lg:flex items-center gap-3'>
-                            {isDestinationPage && (
+                            {!isDestinationPage && (
                                 <Link href="/destinations/crown-woods-munnar-by-lunevia" className='head-btn'>
                                     <p>Book Now</p>
                                 </Link>
@@ -150,7 +150,7 @@ const Header = () => {
                                     </ul>
                                 </div>
                                 <div className='flex items-center justify-center gap-2.5 '>
-                                    {isDestinationPage && (
+                                    {!isDestinationPage && (
                                         <Link href="/destinations/crown-woods-munnar-by-lunevia" className='head-btn' style={{ borderColor: "#000000", color: "#000000" }}>
                                             <p>Book Now</p>
                                         </Link>
