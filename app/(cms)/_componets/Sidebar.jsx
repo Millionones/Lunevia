@@ -45,11 +45,11 @@ const Sidebar = () => {
       link: "/properties",
       icon: <Factory size={20} />,
     },
-    {
-      name: "Bookings",
-      link: "/bookings",
-      icon: <Users size={20} />,
-    },
+    // {
+    //   name: "Bookings",
+    //   link: "/bookings",
+    //   icon: <Users size={20} />,
+    // },
   ];
 
   return (

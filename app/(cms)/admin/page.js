@@ -39,7 +39,7 @@ function AdminLogin() {
     post("auth/login", data)
       .then((res) => {
         localStorage.setItem("user", JSON.stringify({ email: res.email, name: res.name }));
-        router.push("/admin/dashboard")
+        router.push("/admin/blogs")
       })
       .catch((err) => {
         toast.error(err.message);

@@ -21,7 +21,7 @@ export default function AdminLayout({ children }) {
         localStorage.setItem("user", JSON.stringify({ email: res.email, name: res.name }));
 
         if (!localStorage.getItem("user") || pathname === "/admin") {
-          router.push("/admin/dashboard");
+          router.push("/admin/blogs");
         }
       })
       .catch((err) => {
