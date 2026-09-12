@@ -33,7 +33,7 @@ const List = () => {
             if (result.isConfirmed) {
                 del(`destination/${slug}`).then((res) => {
                     toast.success(res.message);
-                    getAllservice();
+                    fetchProperties();
                 });
             }
         });

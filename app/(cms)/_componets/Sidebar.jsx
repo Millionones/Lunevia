@@ -58,7 +58,7 @@ const Sidebar = () => {
       <div className="flex justify-between items-center">
         <Link href={"/admin"}>
           <img
-            src="/logo-black.png"
+            src="/logo-official-black.png"
             alt=""
             className="max-w-[120px]"
           />

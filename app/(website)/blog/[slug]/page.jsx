@@ -1,34 +1,27 @@
 import React from 'react'
+import { notFound } from 'next/navigation'
 import Hero from './Hero'
 
 import '../styles.css'
 import Details from './Details'
-import { API_URL } from '../../../../config'
+import { serverGet } from '@/helpers/serverApi'
+
+export const revalidate = 3600
 
 const page = async ({ params }) => {
     const { slug } = await params
 
-    const fetchBlog = async () => {
-        try {
-            const response = await fetch(`${API_URL}website/blogs/${slug}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            return response;
-        } catch (error) {
-            console.error('Error fetching blog:', error);
-            return null;
-        }
-    };
+    const res = await serverGet(`website/blogs/${slug}`)
+    const blogData = res?.data
 
-    let data = await fetchBlog();
-    const blogData = await data.json();
+    if (!blogData) {
+        notFound()
+    }
+
     return (
         <>
-            <Hero slug={slug} data={blogData.data} />
-            <Details slug={slug} data={blogData.data} />
+            <Hero slug={slug} data={blogData} />
+            <Details slug={slug} data={blogData} />
         </>
     )
 }

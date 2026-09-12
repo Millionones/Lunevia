@@ -13,7 +13,6 @@ export function get(url, config) {
         resolve(response.data);
       })
       .catch((err) => {
-        console.log(err);
         reject(err);
       });
   });

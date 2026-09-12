@@ -1,11 +1,19 @@
 "use client"
 import React, { useState } from 'react'
-import { facebookSvg, instagramSvg, locationIcon, mailSvg, phoneSvg, twitterSvg } from '../../styles/icons'
 import toast from 'react-hot-toast';
+import { MapPin, Phone, Mail } from 'lucide-react'
 import { validateEmail, validateMobile } from '../../../helpers/functions';
 import { post } from '../../../helpers/api'
-const ContactForm = () => {
+import { DotPattern } from '@/components/ui/dot-pattern'
+import { LiquidButton } from '@/components/ui/liquid-glass-button'
+import Reveal from '../Components/Reveal'
 
+const inputClass =
+    "w-full rounded-xl border border-neutral-300/70 bg-white/70 px-4 py-3 text-sm text-neutral-900 outline-none transition placeholder:text-neutral-400 focus:border-neutral-500 focus:ring-2 focus:ring-neutral-900/10 dark:border-neutral-700 dark:bg-neutral-900/60 dark:text-white dark:placeholder:text-neutral-500 dark:focus:border-neutral-400 dark:focus:ring-white/10"
+const labelClass =
+    "mb-1.5 block text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400"
+
+const ContactForm = () => {
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -48,7 +56,6 @@ const ContactForm = () => {
                 setSubmit(false);
                 return toast.error("Please Fill the Subject")
             }
-            // const response = await post("contact/", formData)
             const response = await fetch("/api/contact", {
                 method: "POST",
                 headers: {
@@ -73,132 +80,114 @@ const ContactForm = () => {
                 }
             }
             setSubmit(false);
-
         } catch (error) {
-            console.log(error);
-            toast.error(err?.response?.data?.message || err?.message);
+            toast.error(error?.response?.data?.message || error?.message);
             setSubmit(false);
         }
     };
-    return (
-        <section className='contact-section'>
-            <div className='cmpad'>
-                <div className='contact-inner'>
-                    <div className='contact-left'>
-                        <div className='contact-header'>
-                            <h5>Contact Us</h5>
-                            <h2>Get in Touch with Our Hospitality Team</h2>
-                            <p>Have questions or need assistance with your booking? Our team is here to help.
-                                Feel free to reach out to us anytime, and we’ll ensure your stay is smooth and memorable.</p>
-                        </div>
-                        <div>
-                            <div className='contact-location'>
-                                <h3>Location</h3>
-                                <a >
-                                    <span className="icon">{locationIcon}</span>
-                                    <p>
-                                        LUNEVIA HOSPITALITY LLP,
-                                        8-63/A, Karimannoor, <br />
-                                        Thodupuzha, Idukki - 685581,
-                                        Kerala, India
-                                    </p>
-                                </a>
-                            </div>
-                            <div className='contact-links'>
-                                <div className='contact-link'>
-                                    <div>
-                                        <h3>Phone</h3>
-                                        <a href="tel:+916238829339">
-                                            <span className="icon">{phoneSvg}</span>
-                                            <p>+91 6238829339</p>
-                                        </a>
-                                        <a href="tel:+916238899339">
-                                            <span className="icon">{phoneSvg}</span>
-                                            <p>+91 6238899339</p>
-                                        </a>
-                                    </div>
-                                    {/* <div>
-                                    <h3>Email</h3>
-                                    <a href="mailto:info@lunevia.in">
-                                        <span>{mailSvg}</span>
-                                        <p>info@lunevia.in</p>
-                                    </a>
-                                </div> */}
-                                </div>
-                                <div className='contact-social'>
-                                    {/* <h3>Social Media</h3>
-                                <ul>
-                                    <li>
-                                        <a href="/https://www.facebook.com/profile.php?id=61574276712917">
-                                            <span>{facebookSvg}</span>
-                                            <p>Facebook</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/https://x.com/luneviaresorts">
-                                            <span>{twitterSvg}</span>
-                                            <p>X Twitter</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/https://www.instagram.com/luneviaresorts/">
-                                            <span>{instagramSvg}</span>
-                                            <p>Instagram</p>
-                                        </a>
-                                    </li>
-                                </ul> */}
-                                    <h3>Email</h3>
-                                    <a href="mailto:info@lunevia.in">
-                                        <span>{mailSvg}</span>
-                                        <p>info@lunevia.in</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div className='contact-right'>
-                        <form className='contact-form' onSubmit={handleSubmit}>
-                            <div className='contact-input-grid'>
-                                <div className='input-row'>
-                                    <label htmlFor="">First Name</label>
-                                    <input type="text" placeholder='First Name' name='firstName' value={formData.firstName} onChange={handleChange} />
-                                </div>
-                                <div className='input-row'>
-                                    <label htmlFor="">Last Name</label>
-                                    <input type="text" placeholder='Last Name' name='lastName' value={formData.lastName} onChange={handleChange} />
-                                </div>
-                                <div className='input-row'>
-                                    <label htmlFor="">Email Address</label>
-                                    <input type="text" placeholder='Email Address' name='email' value={formData.email} onChange={handleChange} />
-                                </div>
-                                <div className='input-row'>
-                                    <label htmlFor="">Mobile Number</label>
-                                    <input type="number" placeholder='Mobile Number' name='mobile' value={formData.mobile} onChange={handleChange} />
+    return (
+        <section className="relative overflow-hidden bg-transparent py-20 md:py-28">
+            <DotPattern className="pointer-events-none absolute inset-0 -z-10 h-full w-full fill-neutral-300/40 dark:fill-neutral-700/40 [mask-image:radial-gradient(70%_60%_at_50%_10%,black,transparent)]" />
+            <div className="cmpad">
+                <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+                    {/* Left — contact info */}
+                    <Reveal>
+                        <span className="text-xs font-semibold uppercase tracking-[0.35em] text-neutral-500 dark:text-neutral-400">
+                            Contact Us
+                        </span>
+                        <h2 className="mt-4 text-3xl font-bold tracking-tight text-neutral-900 dark:text-white md:text-4xl">
+                            Get in Touch with Our Hospitality Team
+                        </h2>
+                        <p className="mt-5 max-w-md leading-relaxed text-neutral-600 dark:text-neutral-400">
+                            Have questions or need assistance with your booking? Our team is here to help —
+                            reach out anytime and we’ll ensure your stay is smooth and memorable.
+                        </p>
+
+                        <div className="mt-10 space-y-6">
+                            <div className="flex items-start gap-4">
+                                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-neutral-900/5 text-neutral-800 dark:bg-white/10 dark:text-neutral-100">
+                                    <MapPin className="h-5 w-5" />
+                                </span>
+                                <div>
+                                    <h3 className="text-sm font-bold tracking-tight text-neutral-900 dark:text-white">Location</h3>
+                                    <p className="mt-1 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+                                        LUNEVIA HOSPITALITY LLP, 8-63/A, Karimannoor,<br />
+                                        Thodupuzha, Idukki - 685581, Kerala, India
+                                    </p>
                                 </div>
                             </div>
-                            <div className='contact-input-section'>
-                                <div className='input-row'>
-                                    <label htmlFor="">Subject</label>
-                                    <input type="text" placeholder='Subject' name='subject' value={formData.subject} onChange={handleChange} />
+
+                            <div className="flex items-start gap-4">
+                                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-neutral-900/5 text-neutral-800 dark:bg-white/10 dark:text-neutral-100">
+                                    <Phone className="h-5 w-5" />
+                                </span>
+                                <div>
+                                    <h3 className="text-sm font-bold tracking-tight text-neutral-900 dark:text-white">Phone</h3>
+                                    <div className="mt-1 flex flex-col text-sm text-neutral-600 dark:text-neutral-400">
+                                        <a href="tel:+916238829339" className="transition-colors hover:text-neutral-900 dark:hover:text-white">+91 6238829339</a>
+                                        <a href="tel:+916238899339" className="transition-colors hover:text-neutral-900 dark:hover:text-white">+91 6238899339</a>
+                                    </div>
                                 </div>
                             </div>
-                            <div className='contact-input-section'>
-                                <div className='input-row'>
-                                    <label htmlFor="">Comments / Questions</label>
-                                    <textarea name="" id="" placeholder='Comments' cols={30} rows={10} name='comments' value={formData.comments} onChange={handleChange}></textarea>
+
+                            <div className="flex items-start gap-4">
+                                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-neutral-900/5 text-neutral-800 dark:bg-white/10 dark:text-neutral-100">
+                                    <Mail className="h-5 w-5" />
+                                </span>
+                                <div>
+                                    <h3 className="text-sm font-bold tracking-tight text-neutral-900 dark:text-white">Email</h3>
+                                    <a href="mailto:info@lunevia.in" className="mt-1 block text-sm text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white">
+                                        info@lunevia.in
+                                    </a>
                                 </div>
                             </div>
-                            <div >
-                                {submit == false ?
-                                    <button type="submit" className='send-btn'>SEND MESSAGE</button>
-                                    : <button className='send-btn loader-btn'>
+                        </div>
+                    </Reveal>
+
+                    {/* Right — form */}
+                    <Reveal delay={0.12}>
+                        <form
+                            onSubmit={handleSubmit}
+                            className="rounded-3xl border border-neutral-200/80 bg-white/80 p-6 shadow-lg shadow-black/5 backdrop-blur-sm dark:border-neutral-800 dark:bg-neutral-900/80 md:p-8"
+                        >
+                            <div className="grid gap-5 sm:grid-cols-2">
+                                <div>
+                                    <label className={labelClass}>First Name</label>
+                                    <input type="text" placeholder="First Name" name="firstName" value={formData.firstName} onChange={handleChange} className={inputClass} />
+                                </div>
+                                <div>
+                                    <label className={labelClass}>Last Name</label>
+                                    <input type="text" placeholder="Last Name" name="lastName" value={formData.lastName} onChange={handleChange} className={inputClass} />
+                                </div>
+                                <div>
+                                    <label className={labelClass}>Email Address</label>
+                                    <input type="text" placeholder="Email Address" name="email" value={formData.email} onChange={handleChange} className={inputClass} />
+                                </div>
+                                <div>
+                                    <label className={labelClass}>Mobile Number</label>
+                                    <input type="tel" placeholder="Mobile Number" name="mobile" value={formData.mobile} onChange={handleChange} className={inputClass} />
+                                </div>
+                            </div>
+                            <div className="mt-5">
+                                <label className={labelClass}>Subject</label>
+                                <input type="text" placeholder="Subject" name="subject" value={formData.subject} onChange={handleChange} className={inputClass} />
+                            </div>
+                            <div className="mt-5">
+                                <label className={labelClass}>Comments / Questions</label>
+                                <textarea placeholder="Comments" rows={6} name="comments" value={formData.comments} onChange={handleChange} className={`${inputClass} resize-none`}></textarea>
+                            </div>
+                            <div className="mt-7">
+                                {submit === false ? (
+                                    <LiquidButton type="submit" className="px-10">SEND MESSAGE</LiquidButton>
+                                ) : (
+                                    <button type="button" className="send-btn loader-btn" aria-label="Sending">
                                         <img src="/loader.svg" alt="" />
                                     </button>
-                                }
+                                )}
                             </div>
                         </form>
-                    </div>
+                    </Reveal>
                 </div>
             </div>
         </section>

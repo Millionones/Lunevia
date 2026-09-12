@@ -1,17 +1,14 @@
 import React from 'react'
+import PageHero from '../Components/PageHero'
 
 const Hero = () => {
     return (
-        <section className='destination-hero'>
-            <div className='destination-hero-inner'>
-                <h1>Destinations</h1>
-                <ul>
-                    <li><p>Home</p></li>
-                    <li className='separator'><p>»</p></li>
-                    <li><p>Destinations</p></li>
-                </ul>
-            </div>
-        </section>
+        <PageHero
+            eyebrow="Where We Are"
+            title="Destinations"
+            breadcrumbs={['Home', 'Destinations']}
+            image="/gallery-4.webp"
+        />
     )
 }
 

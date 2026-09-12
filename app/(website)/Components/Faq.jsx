@@ -67,7 +67,7 @@ const Faq = () => {
                     <div className='faqs'>
                         {
                             data.map((item, idx) => (
-                                <Collapsible open={open == idx} onOpenChange={() => handleOpen(idx)} className='Collapsible'>
+                                <Collapsible key={idx} open={open == idx} onOpenChange={() => handleOpen(idx)} className='Collapsible'>
                                     <CollapsibleTrigger>
                                         <p>{item.qus}</p>
                                         <span className={`faq-icon ${open == idx ? 'faq-open' : ''}`}>{arrowIconSvg}</span>

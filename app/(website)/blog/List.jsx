@@ -1,55 +1,72 @@
-"use client"
 import Link from 'next/link'
-import React, { useEffect } from 'react'
+import React from 'react'
+import Reveal from '../Components/Reveal'
 import { blogs } from './blogs'
-import { get } from "@/helpers/api";
-import { BASE_URL } from '../../../config';
 
-const List = () => {
+// Rich-text descriptions are HTML; strip tags to a short plain-text excerpt.
+const excerpt = (html = '', n = 140) => {
+    const text = String(html).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
+    return text.length > n ? text.slice(0, n).trimEnd() + '…' : text
+}
 
-    const [data, setData] = React.useState(blogs)
-    const fetchBlogs = async () => {
-        try {
-            const response = await get('website/blogs?limit=6');
-            setData(response.data);
-        } catch (error) {
-            console.error('Error fetching blogs:', error);
-        }
-    };
-
-    useEffect(() => {
-        fetchBlogs();
-    }, []);
+const List = ({ data }) => {
+    const items = data && data.length ? data : blogs
     return (
-        <section className='blog-list-section'>
-            <div className='cmpad'>
-                <div className='blog-list-inner'>
-                    <div className='blog-list-header'>
-                        <h5>Blog</h5>
-                        <h2>Insights on Luxury <br /> Resort Living</h2>
-                    </div>
+        <section className="bg-transparent py-20 md:py-28">
+            <div className="cmpad">
+                <div className="mx-auto mb-14 max-w-2xl text-center">
+                    <span className="text-xs font-semibold uppercase tracking-[0.35em] text-neutral-500 dark:text-neutral-400">
+                        The Journal
+                    </span>
+                    <h2 className="mt-4 text-3xl font-bold tracking-tight text-neutral-900 dark:text-white md:text-5xl">
+                        Insights on Luxury Resort Living
+                    </h2>
+                    <p className="mx-auto mt-5 max-w-xl leading-relaxed text-neutral-600 dark:text-neutral-400">
+                        Stories, guides, and inspiration from across the Lunevia collection.
+                    </p>
+                </div>
 
-                    <div>
-                        <ul className='blog-list-grid'>
-                            {data.map((blog) => (
-                                <li className='blog-grid-card' key={blog._id}>
-                                    <Link href={`/blog/${blog.slug}`}>
-                                        <div className='blog-card-media'>
-                                            <img src={blog.image} alt="" />
-                                        </div>
-                                        <div className='blog-card-detail'>
-                                            <div className='blog-card-meta'>
-                                                <p>{blog.date}</p>
-                                                <p>{blog.category}</p>
-                                            </div>
-                                            <h4>{blog.title}</h4>
-                                            {/* <p className='blog-desc'>{blog.description}</p>  */}
-                                        </div>
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    {items.map((blog, index) => (
+                        <Reveal key={blog._id || blog.slug || blog.id || index} delay={(index % 3) * 0.08}>
+                            <Link
+                                href={`/blog/${blog.slug || ''}`}
+                                className="group block h-full overflow-hidden rounded-3xl border border-neutral-200/80 bg-white/80 shadow-lg shadow-black/5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-neutral-800 dark:bg-neutral-900/80"
+                            >
+                                <div className="relative aspect-[16/10] overflow-hidden">
+                                    {/* Raw <img> to match the site's CMS/Supabase image handling
+                                        (the next/image optimizer rejects these remote URLs). */}
+                                    <img
+                                        src={blog.image || blog.img}
+                                        alt={blog.title || ''}
+                                        loading="lazy"
+                                        decoding="async"
+                                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                    />
+                                </div>
+                                <div className="p-6">
+                                    <div className="mb-3 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500 dark:text-neutral-400">
+                                        <span>{blog.date}</span>
+                                        {blog.category ? (
+                                            <>
+                                                <span className="text-neutral-300 dark:text-neutral-600">•</span>
+                                                <span>{blog.category}</span>
+                                            </>
+                                        ) : null}
+                                    </div>
+                                    <h3 className="mb-2 line-clamp-2 text-lg font-bold leading-snug tracking-tight text-neutral-900 dark:text-white">
+                                        {blog.title}
+                                    </h3>
+                                    <p className="line-clamp-3 text-[14px] leading-relaxed text-neutral-600 dark:text-neutral-400">
+                                        {excerpt(blog.description)}
+                                    </p>
+                                    <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-neutral-900 transition-all group-hover:gap-2.5 dark:text-white">
+                                        Read more <span aria-hidden>→</span>
+                                    </span>
+                                </div>
+                            </Link>
+                        </Reveal>
+                    ))}
                 </div>
             </div>
         </section>

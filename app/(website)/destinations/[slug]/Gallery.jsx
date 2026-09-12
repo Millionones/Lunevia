@@ -7,7 +7,7 @@ import 'lightgallery/css/lg-zoom.css';
 import 'lightgallery/css/lg-thumbnail.css';
 import Drawer from '@mui/material/Drawer';
 import { closeIconSvg } from '../../../styles/icons';
-const Gallery = ({ data , title }) => {
+const Gallery = ({ data = [], title }) => {
   
   // const [data, setData] = useState([
   //   "/client-resort-img1.webp",
@@ -30,9 +30,7 @@ const Gallery = ({ data , title }) => {
     right: false,
   });
 
-  const onInit = () => {
-    console.log('lightGallery has been initialized');
-  };
+  const onInit = () => {};
 
   const toggleDrawer =
     (anchor, open) =>
@@ -66,8 +64,8 @@ const Gallery = ({ data , title }) => {
             <div className='destination-gallery-grid-items2 bottom-grid'>
               {
                 data.length > 3 ?
-                  data.slice(3, 8).map((item) => (
-                    <img src={item} alt="" onClick={toggleDrawer('bottom', true)} />
+                  data.slice(3, 8).map((item, index) => (
+                    <img key={index} src={item} alt="" onClick={toggleDrawer('bottom', true)} />
                   ))
                   : ''
               }

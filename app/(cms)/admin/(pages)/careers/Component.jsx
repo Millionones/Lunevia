@@ -10,7 +10,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { del, get, post, put } from "@/helpers/api";
-import { dateConverter, timeConverter } from "@/helpers/functions";
+import { dateConverter, timeConverter, toTop } from "@/helpers/functions";
 import { Modal } from "@mui/material";
 import { useFormik } from "formik";
 import { Pencil, Plus, Trash2 } from "lucide-react";
@@ -287,7 +287,7 @@ const Component = () => {
                                         <td className="px-4 py-2">{row?.jobType}</td>
                                         <td className="px-4 py-2 max-w-56 text-wrap">
                                             <ul className="list-disc ">
-                                                {row?.requirements.map((item, idx) => (
+                                                {row?.requirements?.map((item, idx) => (
                                                     <li key={idx}>{item}</li>
                                                 ))}
                                             </ul>

@@ -1,48 +1,37 @@
 "use client"
-import React, { useState } from 'react'
-const Features = ({ data }) => {
+import React from 'react'
+import Reveal from '../../Components/Reveal'
 
-    // const [data, setData] = useState([
-    //     {
-    //         img: "/client-resort-img5.webp",
-    //         title: "Restaurent",
-    //         desc: "Enjoy a delightful dining experience at our in-house restaurant, offering a variety of multi-cuisine dishes prepared with fresh ingredients. Whether it's a hearty breakfast, a relaxed lunch, or a cozy dinner, our restaurant provides the perfect ambiance to satisfy your cravings."
-    //     },
-    //     {
-    //         img:"/parking.jpg",
-    //         title:"Free parking",
-    //         desc:"The resort offers complimentary parking facilities for all guests, ensuring a hassle-free stay. With secure and spacious parking areas, guests can conveniently park their vehicles and enjoy their time without any worries."
-    //     },
-    //     // {
-    //     //     img:"/amenteties-3.jpg",
-    //     //     title:"WiFi access",
-    //     //     desc:"WiFi is available across the property to enable you to stay connected at work. However, we at CGH Earth think that a holiday with us is best enjoyed unplugged, or plugged minimally. Let nature lead your eyes and heart for a change!"
-    //     // }
-    // ])
+const Features = ({ data = [] }) => {
     return (
-        <section className='amenteties-section'>
-            <div className='cmpad'>
-                <div className='amenteties-inner'>
-                    <h2>
-                        Ameneties
+        <section className="relative bg-muted/30 py-20 md:py-28">
+            <div className="cmpad">
+                <Reveal className="mb-12 text-center" y={24}>
+                    <span className="text-xs font-semibold uppercase tracking-[0.35em] text-neutral-500 dark:text-neutral-400">
+                        Comforts
+                    </span>
+                    <h2 className="mt-3 text-3xl font-bold tracking-tight text-neutral-900 dark:text-white md:text-5xl">
+                        Amenities
                     </h2>
-                    <div className='amenteties-inner-content'>
-                        <ul className='amenteties-grid'>
-                            {
-                                data.map((item, idx) => (
-                                    <li >
-                                        <div>
-                                            <img src={item.image} alt="" />
-                                        </div>
-                                        <div className='amenteties-grid-content'>
-                                            <h6>{item.title}</h6>
-                                            <p>{item.description}</p>
-                                        </div>
-                                    </li>
-                                ))
-                            }
-                        </ul>
-                    </div>
+                </Reveal>
+
+                <div className="grid gap-6 md:grid-cols-2">
+                    {data.map((item, i) => (
+                        <Reveal as="div" key={i} delay={(i % 2) * 0.08} y={24}>
+                            <div className="flex h-full gap-5 rounded-2xl border border-border/60 bg-card p-5 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
+                                <img
+                                    src={item.image}
+                                    alt={item.title || ''}
+                                    loading="lazy"
+                                    className="h-28 w-28 shrink-0 rounded-xl object-cover"
+                                />
+                                <div className="flex flex-col justify-center">
+                                    <h3 className="text-lg font-bold tracking-tight text-foreground">{item.title}</h3>
+                                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.description}</p>
+                                </div>
+                            </div>
+                        </Reveal>
+                    ))}
                 </div>
             </div>
         </section>

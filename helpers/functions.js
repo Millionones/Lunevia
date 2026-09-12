@@ -1,7 +1,10 @@
-import moment from "moment";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+
+dayjs.extend(customParseFormat);
+
 export function getGreeting() {
-  const now = moment();
-  const hour = now.hour();
+  const hour = dayjs().hour();
 
   if (hour < 12) {
     return "Good Morning";
@@ -12,15 +15,15 @@ export function getGreeting() {
   }
 }
 export const dateConverter = (date) => {
-  const formats = [moment.ISO_8601, "YYYY-MM-DD HH:mm:ss"];
-  const isValidDate = moment(date, formats, true).isValid();
-  return isValidDate ? moment(date).format("DD-MM-YYYY") : "";
+  const formats = ["YYYY-MM-DDTHH:mm:ssZ", "YYYY-MM-DD HH:mm:ss", "YYYY-MM-DD"];
+  const parsed = dayjs(date, formats, true);
+  return parsed.isValid() ? parsed.format("DD-MM-YYYY") : dayjs(date).isValid() ? dayjs(date).format("DD-MM-YYYY") : "";
 };
 
 export const timeConverter = (time) => {
   const formats = ["HH:mm:ss", "HH:mm", "YYYY-MM-DD HH:mm:ss"];
-  const isValidTime = moment(time, formats, true).isValid();
-  return isValidTime ? moment(time, formats).format("hh:mm a") : "";
+  const parsed = dayjs(time, formats, true);
+  return parsed.isValid() ? parsed.format("hh:mm A") : "";
 };
 
 export const toTop = () => {

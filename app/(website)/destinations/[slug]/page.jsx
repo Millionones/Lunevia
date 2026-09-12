@@ -1,69 +1,46 @@
 import React from 'react'
+import { notFound } from 'next/navigation'
 import Hero from './Hero'
 import './style.css'
 import About from './About'
 import Features from './Features'
 import Gallery from './Gallery'
-import BookNow from './BookNow'
 import Rooms from './Rooms'
 import Locations from './Locations'
-import Suggested from './Suggested'
 import Highlights from './Highligts'
-import { API_URL } from '../../../../config'
+import BookNow from './BookNow'
+import { serverGet } from '@/helpers/serverApi'
+
+export const revalidate = 3600
+
 const page = async ({ params }) => {
   const { slug } = await params
-  let loading = true
 
-  const fetchDestination = async () => {
-    try {
-      const response = await fetch(`${API_URL}website/destination/${slug}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      return response;
-    } catch (error) {
-      console.error('Error fetching blog:', error);
-      return null;
-    }
-  };
+  const res = await serverGet(`website/destination/${slug}`)
+  const destinationData = res?.data
 
-  let data = await fetchDestination();
-  if (data) {
-    loading = false
+  if (!destinationData) {
+    notFound()
   }
-  let destinationData = await data.json();
-  destinationData = destinationData.data
 
-  const about = destinationData.aboutProperty
+  const about = destinationData.aboutProperty || {}
   const rooms = destinationData.roomDetails
   const gallery = destinationData.galleryImages
 
   const heroData = { title: destinationData.title, mainImage: destinationData.mainImage }
   const aboutData = { description: about.description, title: destinationData.title, image: about.image }
+
   return (
     <>
-      {
-        loading ?
-          (
-            <div className='loader-div'>
-              <img src="/loader_black.svg" alt="" />
-            </div>
-          )
-          :
-          <>
-            <Hero data={heroData} />
-            <About data={aboutData} />
-            <Rooms data={rooms} slug={slug} />
-            {/* <BookNow /> */}
-            <Gallery data={gallery} title={destinationData.title} />
-            <Features data={destinationData.amenties} />
-            <Locations data={destinationData.locations} />
-            <Highlights data={destinationData.aboutProperty.highlights} />
-            {/* <Suggested /> */}
-          </>
-      }
+      <Hero data={heroData} />
+      <About data={aboutData} />
+      <Rooms data={rooms} slug={slug} />
+      <BookNow data={{ title: destinationData.title, mainImage: destinationData.mainImage, description: about.description }} />
+      <Gallery data={gallery} title={destinationData.title} />
+      <Features data={destinationData.amenties} />
+      <Locations data={destinationData.locations} />
+      <Highlights data={about.highlights} />
+      {/* <Suggested /> */}
     </>
   )
 }

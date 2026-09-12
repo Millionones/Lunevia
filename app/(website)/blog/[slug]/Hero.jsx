@@ -1,22 +1,21 @@
 import React from 'react'
-import { blogs } from '../blogs'
+import PageHero from '../../Components/PageHero'
 
 const Hero = ({ slug, data }) => {
-
     const title = data?.title || 'Blogs'
     const date = data?.date || ''
     const category = data?.category || ''
+    // Use the article's own image as the hero backdrop when available.
+    const image = data?.image || '/About_us_banner.png'
+
     return (
-        <section className='testimonials-hero'>
-            <div className='testimonials-hero-inner'>
-                <h1>{title}</h1>
-                <ul>
-                    <li><p>{date}</p></li>
-                    {/* <li className='separator'><p>»</p></li> */}
-                    <li><p>{category}</p></li>
-                </ul>
-            </div>
-        </section>
+        <PageHero
+            eyebrow={category || 'The Journal'}
+            title={title}
+            subtitle={date || undefined}
+            image={image}
+            imageAlt={title}
+        />
     )
 }
 

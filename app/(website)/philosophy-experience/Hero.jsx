@@ -1,16 +1,14 @@
 import React from 'react'
+import PageHero from '../Components/PageHero'
 
 const Hero = () => {
     return (
-        <section className='hero-section'>
-            <div className='hero-inner'>
-                <h1>Travel With Intention</h1>
-                <h5>
-                    At LUNEVIA, every stay is thoughtfully curated to connect you  with place,<br /> culture, and moments
-                    that linger long after the journey ends.
-                </h5>
-            </div>
-        </section>
+        <PageHero
+            eyebrow="Our Philosophy"
+            title="Travel With Intention"
+            subtitle="At LUNEVIA, every stay is thoughtfully curated to connect you with place, culture, and moments that linger long after the journey ends."
+            image="/Experience_banner.png"
+        />
     )
 }
 

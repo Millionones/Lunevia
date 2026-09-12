@@ -64,7 +64,7 @@
         font-weight: 400;
         line-height: 1.2em;
         letter-spacing: 0px;
-        color: #272727;
+        color: var(--foreground);
     }
 
     .philosophy-para {
@@ -77,7 +77,7 @@
         font-size: 16px;
         font-weight: 400;
         line-height: 1.5em;
-        color: #3B3B3B;
+        color: var(--muted-foreground);
     }
 }
 
@@ -104,7 +104,7 @@
         font-weight: 400;
         line-height: 1.2em;
         letter-spacing: 0px;
-        color: #272727;
+        color: var(--foreground);
     }
 }
 
@@ -143,14 +143,14 @@
 
     h2 {
         font-size: 24px !important;
-        color: #1A2A3A;
+        color: var(--foreground);
     }
 
     p {
         font-size: 16px;
         font-weight: 400;
         line-height: 1.5em;
-        color: #5B6B7C;
+        color: var(--muted-foreground);
     }
 }
 
@@ -176,14 +176,14 @@
         font-weight: 400;
         line-height: 1.2em;
         letter-spacing: 0px;
-        color: #272727;
+        color: var(--foreground);
     }
 
     p {
         font-size: 16px;
         font-weight: 400;
         line-height: 1.5em;
-        color: #3B3B3B;
+        color: var(--muted-foreground);
     }
 }
 
@@ -256,7 +256,7 @@
     line-height: 35px;
     letter-spacing: 0%;
     vertical-align: middle;
-    color: #10171E;
+    color: var(--foreground);
 }
 
 .closing-stage-section {
@@ -283,14 +283,14 @@
         font-weight: 400;
         line-height: 1.2em;
         letter-spacing: 0px;
-        color: #272727;
+        color: var(--foreground);
     }
 
     p {
         font-size: 24px;
         font-weight: 400;
         line-height: 1.5em;
-        color: #3B3B3B;
+        color: var(--muted-foreground);
     }
 }
 
@@ -415,3 +415,6 @@
         height: 36px;
     }
 }
+/* Dark-mode band overrides */
+.dark .pillars-section { background: var(--card); }
+.dark .closing-stage-section { background: var(--background); }

@@ -62,7 +62,7 @@ const Gallery = ({ slug, title }) => {
     "/client-room-gallery/LBM05526.jpg",
     "/client-room-gallery/LBM05636.jpg"]
 
-  let allImages = [...roomsGallery[slug], ...images]
+  let allImages = [...(roomsGallery[slug] || []), ...images]
   
   const [data, setData] = useState(allImages)
   const [state, setState] = React.useState({
@@ -72,9 +72,7 @@ const Gallery = ({ slug, title }) => {
     right: false,
   });
 
-  const onInit = () => {
-    console.log('lightGallery has been initialized');
-  };
+  const onInit = () => {};
 
   const toggleDrawer =
     (anchor, open) =>
@@ -92,7 +90,7 @@ const Gallery = ({ slug, title }) => {
 
   return (
     <section className='destination-gallery'>
-      <div className='cmpad'>'
+      <div className='cmpad'>
         <div className='destination-gallery-inner'>
           <div className='destination-gallery-header'>
             <h1>Explore our Rooms</h1>
@@ -108,8 +106,8 @@ const Gallery = ({ slug, title }) => {
             <div className='destination-gallery-grid-items2 bottom-grid'>
               {
                 data.length > 3 ?
-                  data.slice(3, 8).map((item) => (
-                    <img src={item} alt="" onClick={toggleDrawer('bottom', true)} />
+                  data.slice(3, 8).map((item, i) => (
+                    <img key={i} src={item} alt="" onClick={toggleDrawer('bottom', true)} />
                   ))
                   : ''
               }

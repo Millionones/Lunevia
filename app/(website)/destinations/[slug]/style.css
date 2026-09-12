@@ -608,12 +608,15 @@
 
 .book-now-form {
     display: flex;
+    flex-wrap: wrap;
     gap: 20px;
     max-width: 90%;
     justify-content: center;
 
     .rowItem {
         width: 16.66666667%;
+        min-width: 140px;
+        flex: 1 1 140px;
     }
 
     input,
@@ -874,7 +877,7 @@
         gap: 30px;
 
         img {
-            min-width: 320px;
+            min-width: min(320px, 100%);
             max-width: 320px;
         }
     }

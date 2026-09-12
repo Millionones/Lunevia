@@ -5,8 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea} from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button";
 import { del, get, post, put } from "@/helpers/api";
-import { BASE_URL } from "@/config";
 import toast from "react-hot-toast";
+import { toTop } from "@/helpers/functions";
 // import { ReactSelect } from "@/components/ui/select";
 import {
   Select,
@@ -39,8 +39,10 @@ export default function FixedSeoForm() {
 
   const formik = useFormik({
     initialValues: {
+      id: null,
       name: "",
       slug: "",
+      category: "",
       sec1: { title: "", content: "" },
       sec2: [{ img: "", title: "", content: "" }],
       sec3: { title: "", content: "" },
@@ -50,22 +52,17 @@ export default function FixedSeoForm() {
       faq: [{ question: "", answer: "" }],
     },
     onSubmit: (values) => {
-      console.log("Form submitted:", values);
-      const { id, ...rest } = values;
-      const action = id ? put : post;
-      const url = id ? `/service` : "/service";
-      action(url, values)
+      const action = values.id ? put : post;
+      action("service", values)
         .then((res) => {
           toast.success(res.message);
           formik.resetForm()
+          setSelectedType(null)
           getAllservice()
-
         })
         .catch((err) => {
-          toast.error(err.response.data.message)
+          toast.error(err?.message || "Something went wrong")
         })
-
-
     },
   });
 
@@ -89,9 +86,6 @@ export default function FixedSeoForm() {
   };
 
   const handleImageChange = async (e, sec, index) => {
-    console.log(e, "e");
-    console.log(sec, "sec");
-    console.log(index, "index");
     const file = e.target.files?.[0];
     const formData = new FormData()
     formData.append("image", file)
@@ -111,7 +105,6 @@ export default function FixedSeoForm() {
 
   function getAllservice() {
     get(`service`).then((res) => {
-      console.log(res, "get service");
       setservicesData(res.data)
     }).catch((err) => {
 
@@ -142,7 +135,21 @@ export default function FixedSeoForm() {
   };
 
   const handleEdit = (item) => {
-
+    formik.setValues({
+      id: item._id,
+      name: item.name || "",
+      slug: item.slug || "",
+      category: item.category || "",
+      sec1: item.sec1 || { title: "", content: "" },
+      sec2: item.sec2?.length ? item.sec2 : [{ img: "", title: "", content: "" }],
+      sec3: item.sec3 || { title: "", content: "" },
+      sec4: item.sec4?.contents?.length ? item.sec4 : { title: "", contents: [{ title: "", content: "" }] },
+      sec5: item.sec5?.content?.length ? item.sec5 : { title: "", content: [{ title: "", content: "" }] },
+      sec6: item.sec6 || { title: "", content: "" },
+      faq: item.faq?.length ? item.faq : [{ question: "", answer: "" }],
+    });
+    setSelectedType(item.category || null);
+    toTop();
   };
 
 
@@ -164,6 +171,7 @@ export default function FixedSeoForm() {
               }}
             /> */}
             <Select
+              value={formik.values.category || ""}
               onValueChange={(value) => {
                 setSelectedType(value);
                 formik.setFieldValue("category", value);
@@ -175,13 +183,12 @@ export default function FixedSeoForm() {
 
               <SelectContent>
                 {
-                  category.map((item)=>{
-                    <SelectItem value="Full-time">Full-time</SelectItem>
-                  })
+                  category.map((item) => (
+                    <SelectItem key={item._id ?? item.value} value={item.value}>
+                      {item.label}
+                    </SelectItem>
+                  ))
                 }
-                {/* <SelectItem value="Full-time">Full-time</SelectItem>
-                <SelectItem value="Part-time">Part-time</SelectItem>
-                <SelectItem value="Contract">Contract</SelectItem> */}
               </SelectContent>
             </Select>
             {/* <Input name="category" value={formik.values.category} onChange={formik.handleChange} /> */}
@@ -210,7 +217,7 @@ export default function FixedSeoForm() {
                 <>
                   <div>
                     <label className="block mb-1 text-sm font-medium">Preview</label>
-                    <img src={`${BASE_URL}/${item.img}`} alt="Preview" className="w-24 h-24 object-cover rounded-md" />
+                    <img src={item.img} alt="Preview" className="w-24 h-24 object-cover rounded-md" />
                   </div>
                 </>
               ) : null}
@@ -280,7 +287,7 @@ export default function FixedSeoForm() {
 
         {/* Submit */}
         <Button type="submit" className="w-[100PX] bg-green-600 text-white mt-4 hover:bg-green-700">
-          Submit
+          {formik.values.id ? "Update" : "Submit"}
         </Button>
       </form>
 
@@ -303,7 +310,7 @@ export default function FixedSeoForm() {
                   <td className="px-4 py-2">{row.name}</td>
                   <td className="px-4 py-2">{row.slug}</td>
                   {/* <td className="px-4 py-2">{row.category}</td> */}
-                  <td className="px-4 py-2">{category.find(opt => opt?.value === row?.category).label}</td>
+                  <td className="px-4 py-2">{category.find(opt => opt?.value === row?.category)?.label || row?.category || "-"}</td>
 
                   {/* <td className="px-4 py-2">{row.categoryName}</td> */}
                   <td className="px-4 py-2 flex gap-2">

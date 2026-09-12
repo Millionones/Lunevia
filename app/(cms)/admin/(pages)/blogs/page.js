@@ -340,7 +340,7 @@ const Blogs = () => {
                         <Pencil size={18} />
                       </span>
 
-                      <span className="cursor-pointer" onClick={() => handleDelete(row._id)}>
+                      <span className="cursor-pointer" onClick={() => handleDelete(row.slug)}>
                         <Trash2 size={18} />
                       </span>
                     </div>

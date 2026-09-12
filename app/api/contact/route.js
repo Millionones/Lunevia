@@ -22,7 +22,6 @@ export async function POST(req) {
                 pass: process.env.EMAIL_PASS,
             },
         });
-        console.log(email)
         await transporter.sendMail({
             from: "luneviaEnquiry@gmail.com",
             to: process.env.EMAIL_USER,

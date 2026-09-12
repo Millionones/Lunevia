@@ -9,9 +9,14 @@ const DestinationList = () => {
     const [loading, setLoading] = useState(true)
 
     const fetchDestinations = async () => {
-        let response = await get('website/destination?limit=6')
-        if (response.data) {
-            setData(response.data)
+        try {
+            const response = await get('website/destination?limit=6')
+            if (response?.data) {
+                setData(response.data)
+            }
+        } catch (err) {
+            console.error('Failed to load destinations', err)
+        } finally {
             setLoading(false)
         }
     }

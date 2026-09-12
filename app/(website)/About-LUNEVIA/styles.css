@@ -126,18 +126,19 @@
     text-align: center;
 
     h2 {
-        font-size: 48px;
+        /* Fluid so it scales on phones; theme token so it stays visible in dark mode. */
+        font-size: clamp(1.9rem, 5vw, 48px);
         font-weight: 400;
         line-height: 1.2em;
         letter-spacing: 0px;
-        color: #272727;
+        color: var(--foreground);
     }
 
     p {
         font-size: 16px;
         font-weight: 400;
         line-height: 1.5em;
-        color: #3B3B3B;
+        color: var(--muted-foreground);
     }
 }
 

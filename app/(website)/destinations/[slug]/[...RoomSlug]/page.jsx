@@ -1,31 +1,22 @@
 import React from 'react'
+import { notFound } from 'next/navigation'
 import Hero from '../Hero'
 import '../style.css'
 import Details from './Details'
 import Gallery from './Gallery'
-import { API_URL } from '../../../../../config'
+import { serverGet } from '@/helpers/serverApi'
+
+export const revalidate = 3600
 
 const page = async ({ params }) => {
     const { slug, RoomSlug } = await params
 
-    const fetchRoomDetails = async () => {
-        try {
-            const response = await fetch(`${API_URL}website/room/details?slug=${slug}&roomSlug=${RoomSlug[0]}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            return response;
-        } catch (error) {
-            console.error('Error fetching blog:', error);
-            return null;
-        }
-    };
+    const res = await serverGet(`website/room/details?slug=${slug}&roomSlug=${RoomSlug[0]}`)
+    const roomData = res?.data
 
-    let data = await fetchRoomDetails();
-    let roomData = await data.json();
-    roomData = roomData.data
+    if (!roomData || !roomData.roomDetails?.length) {
+        notFound()
+    }
 
     const heroData = { title: roomData.title, mainImage: roomData.mainImage }
     const roomDetails = roomData.roomDetails[0]
