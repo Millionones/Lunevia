@@ -8,6 +8,7 @@ import { ThemeProvider } from "./providers/ThemeProvider";
 import { SmoothScroll } from "./providers/SmoothScroll";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import SplashScreen from "@/components/SplashScreen";
+import { Toaster } from "@/components/ui/sonner";
 
 const latoSans = Lato({
   variable: "--font-lato-sans",
@@ -49,6 +50,8 @@ export default function RootLayout({
           <SmoothScroll>{children}</SmoothScroll>
           <ThemeToggle />
           <SplashScreen />
+          <Toaster richColors position="top-center" />
+
         </ThemeProvider>
       </body>
     </html>

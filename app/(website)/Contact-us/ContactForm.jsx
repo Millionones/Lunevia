@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react'
-import toast from 'react-hot-toast';
+import { toast } from 'sonner';
 import { MapPin, Phone, Mail } from 'lucide-react'
 import { validateEmail, validateMobile } from '../../../helpers/functions';
 import { post } from '../../../helpers/api'
@@ -79,7 +79,9 @@ const ContactForm = ({ data }) => {
                         comments: "",
                     });
 
-                    toast.success(response.message);
+                    toast.success(response.message || "Message sent successfully!", {
+                        description: "Thanks for reaching out — our team will get back to you shortly.",
+                    });
                 }
             }
             setSubmit(false);
