@@ -66,6 +66,10 @@ export default function PageHero({
   breadcrumbs,
   image = "/About_us_banner.png",
   imageAlt,
+  // Optional CTA below the subtitle. Renders only when buttonLabel is set, so
+  // existing callers (no button) are unaffected.
+  buttonLabel,
+  buttonLink,
   // "in" (default) = gentle zoom-in Ken-Burns; "out" = sits near full-cover so
   // more of the photo is visible (least cropped). Note: this only reveals more
   // of the EXISTING image — it cannot add scenery beyond the original frame.
@@ -141,6 +145,33 @@ export default function PageHero({
           >
             {subtitle}
           </motion.p>
+        ) : null}
+
+        {buttonLabel ? (
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: EASE, delay: 0.55 }}
+            className="mt-8"
+          >
+            {/^https?:\/\//.test(buttonLink || "") ? (
+              <a
+                href={buttonLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-white/95 px-7 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-neutral-900 transition hover:bg-white active:scale-95"
+              >
+                {buttonLabel}
+              </a>
+            ) : (
+              <Link
+                href={buttonLink || "#"}
+                className="inline-flex items-center gap-2 rounded-full bg-white/95 px-7 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-neutral-900 transition hover:bg-white active:scale-95"
+              >
+                {buttonLabel}
+              </Link>
+            )}
+          </motion.div>
         ) : null}
 
         {Array.isArray(breadcrumbs) && breadcrumbs.length ? (

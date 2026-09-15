@@ -4,16 +4,21 @@ import Philosophy from './PhilosophySection'
 import Pillars from './Pillars'
 import ExperienceSection from './ExperienceSection'
 import ClosingStage from './ClosingStage'
+import { loadPage } from '@/helpers/serverPage'
 
 import './style.css'
-const page = () => {
+
+export const revalidate = 3600
+
+const page = async () => {
+    const content = await loadPage('experience')
     return (
         <>
-            <Hero />
-            <Philosophy />
-            <Pillars />
-            <ExperienceSection />
-            <ClosingStage />
+            <Hero hero={content.hero} />
+            <Philosophy data={content.philosophy} />
+            <Pillars data={content.pillars} />
+            <ExperienceSection data={content.experiences} />
+            <ClosingStage data={content.closing} />
         </>
     )
 }

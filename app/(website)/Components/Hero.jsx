@@ -6,16 +6,14 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/pagination'
+import { PAGE_DEFAULTS } from '@/helpers/pageDefaults'
 
-// Three banner photos, ~3s each.
-const SLIDES = [
-    { src: '/lunevia_home_hero1.jpg', alt: 'A Lunevia resort amid the landscape' },
-    { src: '/lunevia_home_hero2.jpg', alt: 'A Lunevia resort, where architecture meets landscape' },
-    { src: '/lunevia_home_hero3.jpg', alt: 'A Lunevia backwater retreat at dusk' },
-    { src: '/client-room-gallery/LBM05356.jpg', alt: 'The light-filled reception at a Lunevia retreat' },
-]
-
-const Hero = () => {
+const Hero = ({ hero }) => {
+    const h = hero || PAGE_DEFAULTS.home.hero
+    // CMS-managed slides/copy, with the shipped defaults as fallback.
+    const SLIDES = Array.isArray(h.slides) && h.slides.length ? h.slides : PAGE_DEFAULTS.home.hero.slides
+    const eyebrow = h.eyebrow || PAGE_DEFAULTS.home.hero.eyebrow
+    const tagline = h.tagline || PAGE_DEFAULTS.home.hero.tagline
     const rootRef = useRef(null)
 
     useEffect(() => {
@@ -87,12 +85,12 @@ const Hero = () => {
             <div className="parallax-hero__scrim" aria-hidden="true" />
 
             <div className="parallax-hero__content" data-parallax-layer="content">
-                <span className="parallax-hero__eyebrow">Luxury Resorts &amp; Retreats</span>
+                <span className="parallax-hero__eyebrow">{eyebrow}</span>
                 <h1 className="parallax-hero__title">
                     <img src="/logo-official-white.png" alt="LUNEVIA" className="parallax-hero__logo" />
                 </h1>
                 <p className="parallax-hero__tagline">
-                    Where architecture meets landscape.
+                    {tagline}
                 </p>
             </div>
 

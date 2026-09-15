@@ -2,8 +2,7 @@ import React from 'react'
 import { Button } from '@/components/ui/button'
 import Reveal from '../../Components/Reveal'
 import { BOOKING_URL } from '@/config'
-
-const trim = (s = "", n = 180) => (s.length > n ? s.slice(0, n).trimEnd() + "…" : s)
+import { htmlToExcerpt } from '@/helpers/functions'
 
 // "Plan Your Stay" — reuses the homepage "Discover Our Destinations" banner card
 // (image left / info right) so the look is consistent across the site.
@@ -24,7 +23,7 @@ const BookNow = ({ data = {} }) => {
                         <div className="destination-banner__info">
                             <span className="destination-banner__eyebrow">Plan Your Stay</span>
                             <h3 className="destination-banner__title">{data.title}</h3>
-                            <p className="destination-banner__subtitle">{trim(data.description)}</p>
+                            <p className="destination-banner__subtitle">{htmlToExcerpt(data.description)}</p>
                             <div className="destination-banner__actions">
                                 <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" aria-label="Book now">
                                     <Button>Book Now</Button>

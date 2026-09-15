@@ -137,6 +137,7 @@
     /* number of lines you want */
     -webkit-box-orient: vertical;
     overflow: hidden;
+    overflow-wrap: anywhere;
 }
 
 .line-separator {

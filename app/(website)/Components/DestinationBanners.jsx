@@ -1,15 +1,15 @@
 "use client"
 import React from 'react'
 import Link from 'next/link'
+import { motion } from 'motion/react'
 import { Button } from '@/components/ui/button'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { BOOKING_URL } from '@/config'
+import { htmlToExcerpt } from '@/helpers/functions'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-
-const trim = (s = "", n = 180) => (s.length > n ? s.slice(0, n).trimEnd() + "…" : s)
 
 // Two-column destination banners (image left / info right) as a slider.
 // Fed by the live CMS destination data passed down from the homepage.
@@ -42,17 +42,34 @@ const DestinationBanners = ({ data = [] }) => {
                             <div className="destination-banner__info">
                                 <span className="destination-banner__eyebrow">Destination</span>
                                 <h3 className="destination-banner__title">{item.title}</h3>
-                                <p className="destination-banner__subtitle">{trim(item.description)}</p>
-                                <div className="destination-banner__actions">
-                                    <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" aria-label={`Book ${item.title}`}>
-                                        <Button>Book Now</Button>
-                                    </a>
-                                    <Link
-                                        href={`/destinations/${item.slug}`}
-                                        className="destination-banner__link"
+                                <p className="destination-banner__subtitle">{htmlToExcerpt(item.aboutProperty?.description)}</p>
+                                {/* swiper-no-swiping so a slight drag over the CTAs registers as a
+                                    click, not a swipe (Swiper would otherwise swallow the tap). */}
+                                <div className="destination-banner__actions swiper-no-swiping">
+                                    <motion.a
+                                        href={BOOKING_URL}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={`Book ${item.title}`}
+                                        className="destination-banner__cta-wrap"
+                                        style={{ touchAction: 'manipulation' }}
+                                        whileTap={{ scale: 0.94 }}
+                                        whileHover={{ scale: 1.02 }}
                                     >
-                                        Explore
-                                    </Link>
+                                        <Button>Book Now</Button>
+                                    </motion.a>
+                                    <motion.div
+                                        className="destination-banner__cta-wrap"
+                                        whileTap={{ scale: 0.94 }}
+                                    >
+                                        <Link
+                                            href={`/destinations/${item.slug}`}
+                                            className="destination-banner__link"
+                                            style={{ touchAction: 'manipulation' }}
+                                        >
+                                            Explore
+                                        </Link>
+                                    </motion.div>
                                 </div>
                             </div>
                         </div>

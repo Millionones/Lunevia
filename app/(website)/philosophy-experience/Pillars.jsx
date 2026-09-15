@@ -1,33 +1,17 @@
 import React from 'react'
 import { BorderBeamPanel } from '@/components/ui/creative/border-beam-panel'
+import { PAGE_DEFAULTS } from '@/helpers/pageDefaults'
 
-const pillars = [
-    {
-        title: 'Connection to Nature',
-        body: 'Our spaces are designed to blend seamlessly with their surroundings, allowing guests to experience Kerala’s landscapes — from misty hills to serene waters — in their purest form.',
-    },
-    {
-        title: 'Slow Luxury',
-        body: 'True luxury lies in time, privacy, and intention. At LUNEVIA, we create environments where guests can unwind, breathe, and rediscover the art of unhurried living.',
-    },
-    {
-        title: 'Cultural Immersion',
-        body: 'Every destination celebrates local traditions, cuisine, and craftsmanship — offering authentic experiences that reflect the spirit of Kerala.',
-    },
-    {
-        title: 'Thoughtful Hospitality',
-        body: 'Our team anticipates every detail so that guests can focus on what matters most — the experience.',
-    },
-]
-
-const Pillars = () => {
+const Pillars = ({ data }) => {
+    const d = { ...PAGE_DEFAULTS.experience.pillars, ...(data || {}) }
+    const items = Array.isArray(d.items) && d.items.length ? d.items : PAGE_DEFAULTS.experience.pillars.items
     return (
         <section className='pillars-section'>
             <div className='cmpad'>
                 <div className='pillars-inner'>
-                    <h2>Core Philosophy Pillars</h2>
+                    <h2>{d.heading}</h2>
                     <div className='mt-10 grid gap-6 sm:grid-cols-2'>
-                        {pillars.map((p, i) => (
+                        {items.map((p, i) => (
                             <BorderBeamPanel
                                 key={p.title}
                                 beams={i % 2 ? 1 : 2}

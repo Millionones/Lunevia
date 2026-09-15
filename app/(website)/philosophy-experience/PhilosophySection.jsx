@@ -2,8 +2,11 @@ import React from 'react'
 import Reveal from '../Components/Reveal'
 import { BorderBeamPanel } from '@/components/ui/creative/border-beam-panel'
 import { DotPattern } from '@/components/ui/dot-pattern'
+import { PAGE_DEFAULTS } from '@/helpers/pageDefaults'
 
-const Philosophy = () => {
+const Philosophy = ({ data }) => {
+    const d = { ...PAGE_DEFAULTS.experience.philosophy, ...(data || {}) }
+    const paragraphs = Array.isArray(d.paragraphs) && d.paragraphs.length ? d.paragraphs : PAGE_DEFAULTS.experience.philosophy.paragraphs
     return (
         <section className='philosophy-section relative overflow-hidden'>
             <DotPattern className='pointer-events-none absolute inset-0 -z-10 h-full w-full fill-neutral-300/40 dark:fill-neutral-700/40 [mask-image:radial-gradient(60%_55%_at_50%_40%,black,transparent)]' />
@@ -20,7 +23,7 @@ const Philosophy = () => {
                             className='mx-auto w-full max-w-[560px] bg-background/30 p-2'
                         >
                             <img
-                                src='/Experience_about.png'
+                                src={d.image}
                                 alt='A LUNEVIA experience'
                                 loading='lazy'
                                 className='h-auto w-full rounded-2xl object-cover'
@@ -31,26 +34,16 @@ const Philosophy = () => {
                     {/* Copy */}
                     <Reveal className='flex flex-col gap-5' delay={0.12}>
                         <span className='text-xs font-semibold uppercase tracking-[0.35em] text-neutral-500 dark:text-neutral-400'>
-                            Our Philosophy
+                            {d.eyebrow}
                         </span>
                         <h2 className='text-3xl md:text-5xl font-bold leading-tight tracking-tight text-neutral-900 dark:text-white'>
-                            Hospitality Rooted in Experience
+                            {d.title}
                         </h2>
-                        <p className='text-base leading-relaxed text-neutral-600 dark:text-neutral-400'>
-                            At Lunevia, we believe hospitality is not just about offering a place to stay or dine, but about
-                            creating meaningful experiences that people remember. Our philosophy is rooted in warmth,
-                            authenticity, comfort, and thoughtful service.
-                        </p>
-                        <p className='text-base leading-relaxed text-neutral-600 dark:text-neutral-400'>
-                            We aim to build spaces where guests feel welcomed, valued, and at ease. Every resort, restaurant,
-                            and hospitality property under Lunevia is envisioned as a destination that blends quality, care,
-                            and character — experiences that are aesthetically pleasing, operationally efficient, and
-                            emotionally memorable.
-                        </p>
-                        <p className='text-base leading-relaxed text-neutral-600 dark:text-neutral-400'>
-                            For us, true hospitality lies in the details — the ambiance, the service, the people, and the
-                            sense of belonging that each guest carries back with them.
-                        </p>
+                        {paragraphs.map((p, i) => (
+                            <p key={i} className='text-base leading-relaxed text-neutral-600 dark:text-neutral-400'>
+                                {p}
+                            </p>
+                        ))}
                     </Reveal>
                 </div>
             </div>

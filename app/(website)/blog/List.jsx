@@ -2,27 +2,27 @@ import Link from 'next/link'
 import React from 'react'
 import Reveal from '../Components/Reveal'
 import { blogs } from './blogs'
+import { htmlToExcerpt } from '@/helpers/functions'
+import { PAGE_DEFAULTS } from '@/helpers/pageDefaults'
 
 // Rich-text descriptions are HTML; strip tags to a short plain-text excerpt.
-const excerpt = (html = '', n = 140) => {
-    const text = String(html).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
-    return text.length > n ? text.slice(0, n).trimEnd() + '…' : text
-}
+const excerpt = (html = '', n = 140) => htmlToExcerpt(html, n)
 
-const List = ({ data }) => {
+const List = ({ data, header }) => {
     const items = data && data.length ? data : blogs
+    const h = { ...PAGE_DEFAULTS.blog.list, ...(header || {}) }
     return (
         <section className="bg-transparent py-20 md:py-28">
             <div className="cmpad">
                 <div className="mx-auto mb-14 max-w-2xl text-center">
                     <span className="text-xs font-semibold uppercase tracking-[0.35em] text-neutral-500 dark:text-neutral-400">
-                        The Journal
+                        {h.eyebrow}
                     </span>
                     <h2 className="mt-4 text-3xl font-bold tracking-tight text-neutral-900 dark:text-white md:text-5xl">
-                        Insights on Luxury Resort Living
+                        {h.heading}
                     </h2>
                     <p className="mx-auto mt-5 max-w-xl leading-relaxed text-neutral-600 dark:text-neutral-400">
-                        Stories, guides, and inspiration from across the Lunevia collection.
+                        {h.subtext}
                     </p>
                 </div>
 

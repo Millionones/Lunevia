@@ -1,15 +1,7 @@
 import React from 'react'
 import PageHero from '../Components/PageHero'
+import { PAGE_DEFAULTS } from '@/helpers/pageDefaults'
 
-const Hero = () => {
-    return (
-        <PageHero
-            eyebrow="Legal"
-            title="Privacy Policy"
-            breadcrumbs={['Home', 'Privacy Policy']}
-            image="/About_us_banner.png"
-        />
-    )
-}
+const Hero = ({ hero }) => <PageHero {...(hero || PAGE_DEFAULTS.privacy.hero)} />
 
 export default Hero

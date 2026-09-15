@@ -25,9 +25,9 @@ const Features = ({ data = [] }) => {
                                     loading="lazy"
                                     className="h-28 w-28 shrink-0 rounded-xl object-cover"
                                 />
-                                <div className="flex flex-col justify-center">
-                                    <h3 className="text-lg font-bold tracking-tight text-foreground">{item.title}</h3>
-                                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.description}</p>
+                                <div className="flex min-w-0 flex-col justify-center">
+                                    <h3 className="text-lg font-bold tracking-tight text-foreground break-words">{item.title}</h3>
+                                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground break-words">{item.description}</p>
                                 </div>
                             </div>
                         </Reveal>

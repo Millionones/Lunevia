@@ -73,6 +73,13 @@ export const setMetaTitleAndDesc = (title, desc, absolute = true) => {
   return obj;
 };
 
+// Rich-text (Quill) descriptions are HTML; strip tags to a short plain-text excerpt
+// so they can be safely rendered as text (no leaked markup) in cards/banners.
+export const htmlToExcerpt = (html = "", n = 180) => {
+  const text = String(html).replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  return text.length > n ? text.slice(0, n).trimEnd() + "…" : text;
+};
+
 export const validateEmail = (email) => {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(email);

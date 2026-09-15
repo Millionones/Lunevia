@@ -4,8 +4,11 @@ import Reveal from './Reveal'
 import { BorderBeamPanel } from '@/components/ui/creative/border-beam-panel'
 import { DotPattern } from '@/components/ui/dot-pattern'
 import LiquidLink from './LiquidLink'
+import { PAGE_DEFAULTS } from '@/helpers/pageDefaults'
 
-const Story = () => {
+const Story = ({ data }) => {
+    const d = { ...PAGE_DEFAULTS.home.story, ...(data || {}) }
+    const paragraphs = Array.isArray(d.paragraphs) && d.paragraphs.length ? d.paragraphs : PAGE_DEFAULTS.home.story.paragraphs
     return (
         <section className='story-section relative overflow-hidden'>
             {/* Subtle textured backdrop */}
@@ -25,7 +28,7 @@ const Story = () => {
                             className='mx-auto w-full max-w-[560px] bg-background/30 p-2'
                         >
                             <Image
-                                src='/About_Image_Lunevia.png'
+                                src={d.image}
                                 alt='A LUNEVIA property where architecture meets landscape'
                                 width={800}
                                 height={600}
@@ -38,25 +41,21 @@ const Story = () => {
                     {/* Copy */}
                     <Reveal className='order-2 flex flex-col gap-5' delay={0.12}>
                         <span className='text-xs font-semibold uppercase tracking-[0.35em] text-neutral-500 dark:text-neutral-400'>
-                            Our Philosophy
+                            {d.eyebrow}
                         </span>
                         <h1 className='text-4xl md:text-5xl font-bold leading-tight tracking-tight text-neutral-900 dark:text-white'>
-                            The LUNEVIA Way
+                            {d.title}
                         </h1>
                         <h5 className='text-lg md:text-xl font-bold text-neutral-700 dark:text-neutral-300'>
-                            At LUNEVIA, we believe travel is not about places — it is about transformation.
+                            {d.subhead}
                         </h5>
-                        <p className='text-base leading-relaxed text-neutral-600 dark:text-neutral-400'>
-                            Each of our properties is carefully selected, thoughtfully designed, and deeply connected to
-                            its surroundings. From secluded beachfront sanctuaries to hillside retreats wrapped in nature,
-                            every LUNEVIA stay is curated to awaken the senses and slow the rhythm of life.
-                        </p>
-                        <p className='text-base leading-relaxed text-neutral-600 dark:text-neutral-400'>
-                            We create spaces where architecture meets landscape, where culture meets comfort, and where
-                            every detail is intentional.
-                        </p>
+                        {paragraphs.map((p, i) => (
+                            <p key={i} className='text-base leading-relaxed text-neutral-600 dark:text-neutral-400'>
+                                {p}
+                            </p>
+                        ))}
                         <div className='mt-3'>
-                            <LiquidLink href='/destinations' className='px-8'>Explore our locations</LiquidLink>
+                            <LiquidLink href={d.ctaLink} className='px-8'>{d.ctaLabel}</LiquidLink>
                         </div>
                     </Reveal>
                 </div>

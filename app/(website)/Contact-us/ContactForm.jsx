@@ -7,13 +7,16 @@ import { post } from '../../../helpers/api'
 import { DotPattern } from '@/components/ui/dot-pattern'
 import { LiquidButton } from '@/components/ui/liquid-glass-button'
 import Reveal from '../Components/Reveal'
+import { PAGE_DEFAULTS } from '@/helpers/pageDefaults'
 
 const inputClass =
     "w-full rounded-xl border border-neutral-300/70 bg-white/70 px-4 py-3 text-sm text-neutral-900 outline-none transition placeholder:text-neutral-400 focus:border-neutral-500 focus:ring-2 focus:ring-neutral-900/10 dark:border-neutral-700 dark:bg-neutral-900/60 dark:text-white dark:placeholder:text-neutral-500 dark:focus:border-neutral-400 dark:focus:ring-white/10"
 const labelClass =
     "mb-1.5 block text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400"
 
-const ContactForm = () => {
+const ContactForm = ({ data }) => {
+    const c = { ...PAGE_DEFAULTS.contact.form, ...(data || {}) }
+    const phones = Array.isArray(c.phones) && c.phones.length ? c.phones : PAGE_DEFAULTS.contact.form.phones
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -94,14 +97,13 @@ const ContactForm = () => {
                     {/* Left — contact info */}
                     <Reveal>
                         <span className="text-xs font-semibold uppercase tracking-[0.35em] text-neutral-500 dark:text-neutral-400">
-                            Contact Us
+                            {c.eyebrow}
                         </span>
                         <h2 className="mt-4 text-3xl font-bold tracking-tight text-neutral-900 dark:text-white md:text-4xl">
-                            Get in Touch with Our Hospitality Team
+                            {c.heading}
                         </h2>
                         <p className="mt-5 max-w-md leading-relaxed text-neutral-600 dark:text-neutral-400">
-                            Have questions or need assistance with your booking? Our team is here to help —
-                            reach out anytime and we’ll ensure your stay is smooth and memorable.
+                            {c.subtext}
                         </p>
 
                         <div className="mt-10 space-y-6">
@@ -112,8 +114,7 @@ const ContactForm = () => {
                                 <div>
                                     <h3 className="text-sm font-bold tracking-tight text-neutral-900 dark:text-white">Location</h3>
                                     <p className="mt-1 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
-                                        LUNEVIA HOSPITALITY LLP, 8-63/A, Karimannoor,<br />
-                                        Thodupuzha, Idukki - 685581, Kerala, India
+                                        {c.address}
                                     </p>
                                 </div>
                             </div>
@@ -125,8 +126,9 @@ const ContactForm = () => {
                                 <div>
                                     <h3 className="text-sm font-bold tracking-tight text-neutral-900 dark:text-white">Phone</h3>
                                     <div className="mt-1 flex flex-col text-sm text-neutral-600 dark:text-neutral-400">
-                                        <a href="tel:+916238829339" className="transition-colors hover:text-neutral-900 dark:hover:text-white">+91 6238829339</a>
-                                        <a href="tel:+916238899339" className="transition-colors hover:text-neutral-900 dark:hover:text-white">+91 6238899339</a>
+                                        {phones.map((p, i) => (
+                                            <a key={i} href={`tel:${String(p).replace(/\s+/g, '')}`} className="transition-colors hover:text-neutral-900 dark:hover:text-white">{p}</a>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
@@ -137,8 +139,8 @@ const ContactForm = () => {
                                 </span>
                                 <div>
                                     <h3 className="text-sm font-bold tracking-tight text-neutral-900 dark:text-white">Email</h3>
-                                    <a href="mailto:info@lunevia.in" className="mt-1 block text-sm text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white">
-                                        info@lunevia.in
+                                    <a href={`mailto:${c.email}`} className="mt-1 block text-sm text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white">
+                                        {c.email}
                                     </a>
                                 </div>
                             </div>

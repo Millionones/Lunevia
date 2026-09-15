@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { get } from "../../../helpers/api"
+import { htmlToExcerpt } from "@/helpers/functions"
 
 const DestinationList = () => {
     const [data, setData] = useState([])
@@ -52,7 +53,7 @@ const DestinationList = () => {
                                                         <h2>{item.title}</h2>
                                                     </div>
                                                     <div className='destination-card-desc'>
-                                                        <p>{item.description}</p>
+                                                        <p>{htmlToExcerpt(item.aboutProperty?.description)}</p>
                                                     </div>
                                                     <div className="line-separator"></div>
                                                     {/* <ul className='destination-card-features'>

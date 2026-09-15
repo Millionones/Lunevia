@@ -8,8 +8,8 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const EASE_OUT = [0.16, 1, 0.3, 1] as const; // strong deceleration for the "crash"
 const SESSION_KEY = "lunevia_splash_seen";
 
-// TEMP (tuning): true = replay on every homepage load. Set false for once-per-session.
-const REPLAY_ALWAYS = true;
+// true = replay on every homepage load; false = play once per browser session.
+const REPLAY_ALWAYS = false;
 
 // Crescent knobs. Positions are % of the wordmark box (586-wide source):
 //   "e" spans x 284..332 -> centre 308/586 = 52.56%.

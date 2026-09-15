@@ -1,12 +1,16 @@
 import React from 'react'
 import Hero from './Hero'
 import Content from './Content'
+import { loadPage } from '@/helpers/serverPage'
 
-const page = () => {
+export const revalidate = 3600
+
+const page = async () => {
+    const content = await loadPage('terms')
     return (
         <>
-            <Hero />
-            <Content/>
+            <Hero hero={content.hero} />
+            <Content />
         </>
     )
 }

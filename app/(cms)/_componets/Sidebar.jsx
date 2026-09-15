@@ -7,7 +7,8 @@ import {
   Users,
   Quote,
   Factory,
-  Newspaper
+  Newspaper,
+  FileText
 } from "lucide-react";
 
 import Link from "next/link";
@@ -44,6 +45,11 @@ const Sidebar = () => {
       name: "Properties",
       link: "/properties",
       icon: <Factory size={20} />,
+    },
+    {
+      name: "Pages",
+      link: "/pages",
+      icon: <FileText size={20} />,
     },
     // {
     //   name: "Bookings",
