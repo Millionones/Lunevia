@@ -5,6 +5,18 @@ import axios from "axios";
 axios.defaults.baseURL = API_URL;
 axios.defaults.withCredentials = true;
 
+// Fire-and-forget on-demand revalidation. Called after a successful admin write
+// so the public site reflects CMS changes on the next visit instead of waiting
+// out the hourly ISR window (see app/api/revalidate/route.js). Scoped to the
+// /admin panel — public writes (contact form, etc.) run on other paths and are
+// intentionally skipped, and it never blocks or fails the underlying save.
+function triggerRevalidate() {
+  if (typeof window === "undefined") return;
+  if (!window.location.pathname.startsWith("/admin")) return;
+  // Same-origin, no body => the route does a full public-site revalidation.
+  fetch("/api/revalidate", { method: "POST", keepalive: true }).catch(() => {});
+}
+
 export function get(url, config) {
   return new Promise((resolve, reject) => {
     axios
@@ -23,6 +35,7 @@ export function post(url, data, config) {
     axios
       .post(url, data, { ...config })
       .then((response) => {
+        triggerRevalidate();
         resolve(response.data);
       })
       .catch((err) => {
@@ -36,6 +49,7 @@ export function put(url, data, config) {
     axios
       .put(url, data, { ...config })
       .then((response) => {
+        triggerRevalidate();
         resolve(response.data);
       })
       .catch((error) => {
@@ -48,6 +62,7 @@ export function del(url) {
     axios
       .delete(url, {})
       .then((response) => {
+        triggerRevalidate();
         resolve(response.data);
       })
       .catch((err) => {
@@ -61,6 +76,7 @@ export function delQuery(url, id = "") {
     axios
       .delete(`${url} ${id ? "=" + id : ""}`, {})
       .then((response) => {
+        triggerRevalidate();
         resolve(response.data);
       })
       .catch((err) => {

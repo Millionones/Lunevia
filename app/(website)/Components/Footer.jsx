@@ -30,10 +30,8 @@ const STYLES = `
   --pill-highlight-hover: color-mix(in oklch, var(--foreground) 20%, transparent);
 }
 @keyframes footer-breathe { 0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; } 100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; } }
-@keyframes footer-scroll-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @keyframes footer-heartbeat { 0%, 100% { transform: scale(1); } 15%, 45% { transform: scale(1.2); } 30% { transform: scale(1); } }
 .animate-footer-breathe { animation: footer-breathe 8s ease-in-out infinite alternate; }
-.animate-footer-scroll-marquee { animation: footer-scroll-marquee 40s linear infinite; }
 .animate-footer-heartbeat { animation: footer-heartbeat 2s cubic-bezier(0.25, 1, 0.5, 1) infinite; color: #ef6461; }
 .footer-bg-grid {
   background-size: 60px 60px;
@@ -110,7 +108,6 @@ const STYLES = `
   text-shadow: 0 0 14px color-mix(in oklch, var(--foreground) 12%, transparent);
   will-change: transform, opacity;
 }
-.footer-marquee-track { will-change: transform; transform: translateZ(0); }
 /* Mobile GPUs choke on many backdrop-filter layers — drop them on small screens. */
 @media (max-width: 640px) {
   .footer-glass-pill { backdrop-filter: none; -webkit-backdrop-filter: none; }
@@ -180,16 +177,6 @@ const socials = [
     { href: "https://www.linkedin.com/company/lunevia/?viewAsMember=true", src: "/linkedin-app-white-icon.png", alt: "LinkedIn" },
     { href: "https://www.youtube.com/@Luneviaresorts", src: "/youtube-app-white-icon.png", alt: "YouTube" },
 ];
-
-const MarqueeItem = () => (
-    <div className="flex items-center space-x-12 px-6">
-        <span>Curated Stays</span> <span className="text-primary/60">✦</span>
-        <span>Signature Experiences</span> <span className="text-secondary/60">✦</span>
-        <span>Private Villas</span> <span className="text-primary/60">✦</span>
-        <span>Backwater Reserves</span> <span className="text-secondary/60">✦</span>
-        <span>Timeless Kerala</span> <span className="text-primary/60">✦</span>
-    </div>
-);
 
 const Arrow = () => (
     <svg className="w-4 h-4 -mr-1 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -305,14 +292,6 @@ const Footer = () => {
                         <AnimatePresence mode="wait">
                             <LogoSweep key={shutterKey} />
                         </AnimatePresence>
-                    </div>
-
-                    {/* Diagonal marquee */}
-                    <div className="absolute top-12 left-0 w-full overflow-hidden border-y border-border/50 bg-background/85 py-4 z-10 -rotate-2 scale-110 shadow-2xl">
-                        <div className="footer-marquee-track flex w-max animate-footer-scroll-marquee text-xs md:text-sm font-bold tracking-[0.3em] text-muted-foreground uppercase">
-                            <MarqueeItem />
-                            <MarqueeItem />
-                        </div>
                     </div>
 
                     {/* Center content */}

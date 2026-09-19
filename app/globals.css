@@ -148,6 +148,19 @@ h1, h2, h3, h4 {
   font-weight: 700 !important;
 }
 
+/* CMS (Quill) HTML bakes inline color / background-color onto pasted content
+   from the old site, which then leaks onto the front-end as coloured text and
+   stray highlight boxes. Neutralise those inline styles so CMS copy inherits the
+   site's themed text colour in both light and dark. Only elements that actually
+   carry an inline style are touched, so document structure is preserved.
+   !important is required to beat inline styles (Tailwind v4 utilities can't). */
+.cms-reset [style*="color"] {
+  color: inherit !important;
+}
+.cms-reset [style*="background"] {
+  background-color: transparent !important;
+}
+
 /* MUI (booking date/time pickers, admin) sets its own font via Emotion and
    ignores the body font — force it onto Lato so the whole site is one typeface.
    Outside @layer so it wins over MUI's injected styles (with the !important). */

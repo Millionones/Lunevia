@@ -40,13 +40,13 @@ const Story = ({ data }) => {
 
                     {/* Copy */}
                     <Reveal className='order-2 flex flex-col gap-5' delay={0.12}>
-                        <span className='text-xs font-semibold uppercase tracking-[0.35em] text-neutral-500 dark:text-neutral-400'>
+                        <span className='text-center md:text-left text-xs font-semibold uppercase tracking-[0.35em] text-neutral-500 dark:text-neutral-400'>
                             {d.eyebrow}
                         </span>
-                        <h1 className='text-4xl md:text-5xl font-bold leading-tight tracking-tight text-neutral-900 dark:text-white'>
+                        <h1 className='text-center md:text-left text-4xl md:text-5xl font-bold leading-tight tracking-tight text-neutral-900 dark:text-white'>
                             {d.title}
                         </h1>
-                        <h5 className='text-lg md:text-xl font-bold text-neutral-700 dark:text-neutral-300'>
+                        <h5 className='text-center md:text-left text-lg md:text-xl font-bold text-neutral-700 dark:text-neutral-300'>
                             {d.subhead}
                         </h5>
                         {paragraphs.map((p, i) => (
@@ -54,7 +54,7 @@ const Story = ({ data }) => {
                                 {p}
                             </p>
                         ))}
-                        <div className='mt-3'>
+                        <div className='mt-3 text-center md:text-left'>
                             <LiquidLink href={d.ctaLink} className='px-8'>{d.ctaLabel}</LiquidLink>
                         </div>
                     </Reveal>

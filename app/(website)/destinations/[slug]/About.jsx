@@ -11,10 +11,10 @@ const About = ({ data }) => {
             <div className="cmpad">
                 <div className="grid items-start gap-10 md:gap-16 md:grid-cols-2">
                     <Reveal className="flex flex-col gap-5" y={28}>
-                        <span className="text-xs font-semibold uppercase tracking-[0.35em] text-neutral-500 dark:text-neutral-400">
+                        <span className="text-center md:text-left text-xs font-semibold uppercase tracking-[0.35em] text-neutral-500 dark:text-neutral-400">
                             The Property
                         </span>
-                        <h2 className="text-3xl font-bold leading-tight tracking-tight text-neutral-900 dark:text-white md:text-5xl">
+                        <h2 className="text-center md:text-left text-3xl font-bold leading-tight tracking-tight text-neutral-900 dark:text-white md:text-5xl">
                             {data.title}
                         </h2>
                         <div

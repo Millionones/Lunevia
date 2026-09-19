@@ -2,21 +2,12 @@
 import React, { useRef } from 'react'
 import { Phone, Mail, MapPin } from 'lucide-react'
 import { motion, useScroll, useTransform, useSpring, useReducedMotion } from 'motion/react'
-import CloudDrift from '../../Components/CloudDrift'
-
-// Serve a locally-upscaled 4K version for full-page heroes where the API image
-// (capped at 1600px) would look soft when stretched across the viewport.
-const HERO_4K_OVERRIDES = {
-    "https://djwonpcpwhtovzdkcdbt.supabase.co/storage/v1/object/public/lunevia/destination/87b6fe2d-597a-41e0-a758-fe4b9846b900.webp":
-        "/crown-woods-hero-4k.webp",
-}
 
 const EASE = [0.16, 1, 0.3, 1]
 
 const Hero = ({ data }) => {
-    const heroSrc = HERO_4K_OVERRIDES[data.mainImage] || data.mainImage
-    // Drifting-cloud atmosphere on the misty Munnar property (the 4K override).
-    const withClouds = heroSrc === "/crown-woods-hero-4k.webp"
+    // Use the banner image uploaded in the CMS directly — no local overrides.
+    const heroSrc = data.mainImage
 
     // Scroll parallax on the title block (same idea as the homepage hero): as the
     // hero scrolls out, the copy lifts and fades. Spring-smoothed for the Lenis feel.
@@ -37,11 +28,6 @@ const Hero = ({ data }) => {
             />
             {/* Legibility scrim */}
             <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/10 to-black/85" />
-            {/* Clouds sit ABOVE the scrim so they stay bright and visible. */}
-            {withClouds ? <CloudDrift /> : null}
-            {/* Deeper bottom scrim — tones down the baked-in watermark until the
-                cleaned image is dropped in. */}
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/90 via-black/45 to-transparent" />
 
             {/* Title + contact chips — vertically centered, parallax on scroll */}
             <motion.div
