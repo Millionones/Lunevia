@@ -64,7 +64,7 @@ const validationSchema = Yup.object({
 });
 
 const Locations = ({
-    updateData,
+    onSave,
     existData,
 }) => {
     const [loading, setLoading] =
@@ -92,16 +92,16 @@ const Locations = ({
             values
         ) => {
             try {
-                await formik.validateForm();
-
-                updateData(values);
+                await onSave({ locations: values.locations });
 
                 toast.success(
                     "Locations saved successfully"
                 );
             } catch (err) {
                 toast.error(
-                    err.message
+                    typeof err === "string"
+                        ? err
+                        : err?.message || "Save failed"
                 );
             }
         },
@@ -559,7 +559,7 @@ const Locations = ({
                             type="submit"
                             className="bg-green-600 text-white"
                         >
-                            Save & Finish
+                            Save Locations
                         </Button>
                     </div>
                 </form>

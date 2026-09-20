@@ -60,7 +60,7 @@ const validationSchema = Yup.object({
 });
 
 const Amenties = ({
-    updateData,
+    onSave,
     existData,
 }) => {
     const [loading, setLoading] =
@@ -89,14 +89,16 @@ const Amenties = ({
             values
         ) => {
             try {
-                updateData(values);
+                await onSave({ amenties: values.amenities });
 
                 toast.success(
                     "Amenities saved successfully"
                 );
             } catch (err) {
                 toast.error(
-                    err.message
+                    typeof err === "string"
+                        ? err
+                        : err?.message || "Save failed"
                 );
             }
         },
@@ -565,8 +567,7 @@ const Amenties = ({
                             type="submit"
                             className="bg-green-600 text-white"
                         >
-                            Save &
-                            Continue
+                            Save Amenities
                         </Button>
                     </div>
                 </form>

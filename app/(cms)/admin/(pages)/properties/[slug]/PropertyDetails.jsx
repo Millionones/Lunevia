@@ -42,7 +42,7 @@ const validationSchema = Yup.object({
     galleryImages: Yup.array(),
 });
 
-const PropertyDetails = ({ updateData, existData }) => {
+const PropertyDetails = ({ onSave, existData }) => {
     const [highlights, setHighlights] = useState([""]);
     const [highlightsOptions, setHighlightsOptions] = useState([]);
     const [galleryPreview, setGalleryPreview] = useState([]);
@@ -86,11 +86,15 @@ const PropertyDetails = ({ updateData, existData }) => {
                     },
                 };
 
-                updateData(payload);
+                await onSave(payload);
 
                 toast.success("Property details saved");
             } catch (err) {
-                toast.error(err.message);
+                toast.error(
+                    typeof err === "string"
+                        ? err
+                        : err?.message || "Save failed"
+                );
             }
         },
     });
@@ -553,7 +557,7 @@ const PropertyDetails = ({ updateData, existData }) => {
                         >
                             {uploadsInFlight > 0
                                 ? "Uploading…"
-                                : "Save & Continue"}
+                                : "Save Property Details"}
                         </Button>
                     </div>
                 </form>

@@ -67,60 +67,15 @@ const Properties = ({ slug }) => {
         setValue(newValue);
     };
 
-    // UPDATE STEP DATA
-    const updateData = (data) => {
-
-        let updatedData = {
-            ...formData,
-        };
-
-        // STEP 1
-        if (value === "1") {
-            updatedData.step1 = data;
-
-            setValue("2");
-        }
-
-        // STEP 2
-        if (value === "2") {
-            updatedData.step2 = data;
-
-            setValue("3");
-        }
-
-        // STEP 3
-        if (value === "3") {
-            updatedData.step3 = data;
-
-            setValue("4");
-        }
-
-        // STEP 4
-        if (value === "4") {
-            updatedData.step4 = data;
-            updateProperty(updatedData);
-        }
-
-        // UPDATE STATE
-        setFormData(updatedData);
-
+    // Save a single section immediately. The backend `update` does a partial
+    // update (only fields present in the body are written), so each tab persists
+    // on its own without disturbing the others. Refetch afterwards so switching
+    // tabs (MUI unmounts inactive panels) always reflects what was just saved.
+    // Throws on failure so the calling section can surface the real error.
+    const saveSection = async (partial) => {
+        await put(`destination/${slug}`, partial);
+        await fetchPropertyDetails();
     };
-
-    const updateProperty = async (data) => {
-        // API CALL TO UPDATE PROPERTY
-        // Use formData to get all the details from different steps
-
-        let req = {
-            ...data?.step1,
-            roomDetails: [...data?.step2?.rooms],
-            amenties: [...data?.step3?.amenities],
-            locations: [...data?.step4?.locations],
-        }
-
-        const res = await put(`destination/${slug}`, req);
-
-        router.push("/admin/properties");
-    }
 
     return (
         <>
@@ -167,7 +122,7 @@ const Properties = ({ slug }) => {
                     {/* STEP 1 */}
                     <TabPanel value="1">
                         <PropertyDetails
-                            updateData={updateData}
+                            onSave={saveSection}
                             existData={formData}
                         />
                     </TabPanel>
@@ -175,7 +130,7 @@ const Properties = ({ slug }) => {
                     {/* STEP 2 */}
                     <TabPanel value="2">
                         <RoomDetails
-                            updateData={updateData}
+                            onSave={saveSection}
                             existData={formData}
                         />
                     </TabPanel>
@@ -183,7 +138,7 @@ const Properties = ({ slug }) => {
                     {/* STEP 3 */}
                     <TabPanel value="3">
                         <Amenties
-                            updateData={updateData}
+                            onSave={saveSection}
                             existData={formData}
                         />
                     </TabPanel>
@@ -191,7 +146,7 @@ const Properties = ({ slug }) => {
                     {/* STEP 4 */}
                     <TabPanel value="4">
                         <Locations
-                            updateData={updateData}
+                            onSave={saveSection}
                             existData={formData}
                         />
                     </TabPanel>

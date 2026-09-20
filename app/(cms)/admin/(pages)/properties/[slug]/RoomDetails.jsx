@@ -95,7 +95,7 @@ const validationSchema = Yup.object({
 });
 
 const RoomDetails = ({
-    updateData,
+    onSave,
     existData,
 }) => {
     const [loading, setLoading] =
@@ -126,13 +126,17 @@ const RoomDetails = ({
 
         onSubmit: async (values) => {
             try {
-                updateData(values);
+                await onSave({ roomDetails: values.rooms });
 
                 toast.success(
                     "Rooms saved successfully"
                 );
             } catch (err) {
-                toast.error(err.message);
+                toast.error(
+                    typeof err === "string"
+                        ? err
+                        : err?.message || "Save failed"
+                );
             }
         },
     });
@@ -1011,8 +1015,7 @@ const RoomDetails = ({
                             type="submit"
                             className="bg-green-600 text-white"
                         >
-                            Save &
-                            Continue
+                            Save Rooms
                         </Button>
                     </div>
                 </form>
