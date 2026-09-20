@@ -4,6 +4,16 @@ import axios from "axios";
 // import { resetToken } from ".";
 axios.defaults.baseURL = API_URL;
 axios.defaults.withCredentials = true;
+// A request that fails without a response (CORS block, network drop, or a very
+// slow cold start) would otherwise hang forever. Time it out so it rejects.
+axios.defaults.timeout = 60000; // 60s
+
+// Safely extract an error to reject with. On a responseless failure `err.response`
+// is undefined, so reading `err.response.data` throws *inside* the catch — which
+// leaves the outer promise unsettled (infinite spinner). Always reject cleanly.
+function toError(err) {
+  return err?.response?.data || err?.message || "Request failed";
+}
 
 // Fire-and-forget on-demand revalidation. Called after a successful admin write
 // so the public site reflects CMS changes on the next visit instead of waiting
@@ -25,7 +35,7 @@ export function get(url, config) {
         resolve(response.data);
       })
       .catch((err) => {
-        reject(err);
+        reject(toError(err));
       });
   });
 }
@@ -39,7 +49,7 @@ export function post(url, data, config) {
         resolve(response.data);
       })
       .catch((err) => {
-        reject(err.response.data);
+        reject(toError(err));
       });
   });
 }
@@ -52,8 +62,8 @@ export function put(url, data, config) {
         triggerRevalidate();
         resolve(response.data);
       })
-      .catch((error) => {
-        reject(error.response.data);
+      .catch((err) => {
+        reject(toError(err));
       });
   });
 }
@@ -66,7 +76,7 @@ export function del(url) {
         resolve(response.data);
       })
       .catch((err) => {
-        reject(err.response.data);
+        reject(toError(err));
       });
   });
 }
@@ -80,7 +90,7 @@ export function delQuery(url, id = "") {
         resolve(response.data);
       })
       .catch((err) => {
-        reject(err.response.data);
+        reject(toError(err));
       });
   });
 }
