@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
@@ -11,8 +12,15 @@ import Lenis from "lenis";
  * lockstep with the momentum scroll. Respects prefers-reduced-motion.
  */
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+
   useEffect(() => {
     if (typeof window === "undefined") return;
+
+    // The CMS admin has its own scrollable panes (overflow-y-auto). Lenis hijacks
+    // the window scroll and fights those nested containers, breaking vertical
+    // scrolling on long admin pages — so skip smooth-scroll entirely under /admin.
+    if (pathname?.startsWith("/admin")) return;
 
     const prefersReduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
@@ -36,7 +44,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       gsap.ticker.remove(tick);
       lenis.destroy();
     };
-  }, []);
+  }, [pathname]);
 
   return <>{children}</>;
 }
