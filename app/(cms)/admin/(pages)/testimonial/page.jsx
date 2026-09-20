@@ -10,6 +10,7 @@ import Link from "next/link";
 import { dateConverter, timeConverter, toTop } from "@/helpers/functions";
 import { Pencil, Trash2, TrashIcon } from "lucide-react";
 import toast from "react-hot-toast";
+import { uploadImage as uploadImageApi } from "@/helpers/uploadImage";
 import Swal from "sweetalert2";
 
 const Testimonial = () => {
@@ -114,14 +115,8 @@ const Testimonial = () => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const formData = new FormData();
-    formData.append("image", file);
-
     try {
-      const res = await post("common/image/testimonial", formData);
-
-      // Use image URL from response
-      const imageUrl = res.data?.new_filename; // adjust key based on your API
+      const imageUrl = await uploadImageApi(file, "testimonial");
 
       if (fieldName === "image") {
         formik.setFieldValue("image", imageUrl);

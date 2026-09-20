@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import { Input } from "@/components/ui/input";
 
 import { del, get, post, put } from "@/helpers/api";
+import { uploadImage as uploadImageApi } from "@/helpers/uploadImage";
 import Link from "next/link";
 import { dateConverter, timeConverter, toTop } from "@/helpers/functions";
 import { Pencil, Trash2, TrashIcon } from "lucide-react";
@@ -169,32 +170,12 @@ const Blogs = () => {
     });
   }
 
-  const uploadImage = async (
-    file,
-    path
-  ) => {
+  // Routes through the shared uploader (client-side downscale + real errors).
+  const uploadImage = async (file, path) => {
     try {
-      const formData =
-        new FormData();
-
-      formData.append(
-        "file",
-        file
-      );
-
-      const url = `common/image/${path}`;
-
-      const res = await post(
-        url,
-        formData
-      );
-
-      return res.data.url;
+      return await uploadImageApi(file, path);
     } catch (err) {
-      toast.error(
-        "Image upload failed"
-      );
-
+      toast.error(err?.message || "Image upload failed");
       throw err;
     }
   };

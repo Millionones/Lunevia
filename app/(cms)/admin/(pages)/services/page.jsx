@@ -6,6 +6,7 @@ import { Textarea} from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button";
 import { del, get, post, put } from "@/helpers/api";
 import toast from "react-hot-toast";
+import { uploadImage as uploadImageApi } from "@/helpers/uploadImage";
 import { toTop } from "@/helpers/functions";
 // import { ReactSelect } from "@/components/ui/select";
 import {
@@ -87,12 +88,10 @@ export default function FixedSeoForm() {
 
   const handleImageChange = async (e, sec, index) => {
     const file = e.target.files?.[0];
-    const formData = new FormData()
-    formData.append("image", file)
+    if (!file) return;
 
     try {
-      const res = await post("common/image/service", formData)
-      const imageUrl = res?.data?.new_filename;
+      const imageUrl = await uploadImageApi(file, "service");
       const clone = [...formik.values[sec]];
       clone[index]["img"] = imageUrl
       formik.setFieldValue("sec2", clone);

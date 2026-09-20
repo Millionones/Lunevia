@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 
 import toast from "react-hot-toast";
+import { uploadImage as uploadImageApi } from "@/helpers/uploadImage";
 
 import { post } from "@/helpers/api";
 
@@ -112,33 +113,13 @@ const Amenties = ({
         }
     }, [existData]);
 
-    // IMAGE UPLOAD
-    const uploadImage = async (
-        file,
-        path
-    ) => {
+    // IMAGE UPLOAD — routes through the shared uploader (client-side downscale +
+    // real error messages) so large images don't silently fail.
+    const uploadImage = async (file, path) => {
         try {
-            const formData =
-                new FormData();
-
-            formData.append(
-                "file",
-                file
-            );
-
-            const url = `common/image/${path}`;
-
-            const res = await post(
-                url,
-                formData
-            );
-
-            return res.data.url;
+            return await uploadImageApi(file, path);
         } catch (err) {
-            toast.error(
-                "Image upload failed"
-            );
-
+            toast.error(err?.message || "Image upload failed");
             throw err;
         }
     };

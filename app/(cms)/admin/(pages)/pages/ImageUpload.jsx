@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
-import { post } from "@/helpers/api";
+import { uploadImage } from "@/helpers/uploadImage";
 import toast from "react-hot-toast";
 
 // Uploads to the shared /common/image/pages endpoint and returns the stored
@@ -12,14 +12,12 @@ export default function ImageUpload({ label = "Image", value, onChange }) {
   const handle = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const fd = new FormData();
-    fd.append("image", file);
     setUploading(true);
     try {
-      const res = await post("common/image/pages", fd);
-      onChange(res.data?.new_filename || res.data?.url || "");
+      const url = await uploadImage(file, "pages");
+      onChange(url);
     } catch (err) {
-      toast.error(err?.response?.data?.message || "Image upload failed");
+      toast.error(err?.message || "Image upload failed");
     } finally {
       setUploading(false);
     }
