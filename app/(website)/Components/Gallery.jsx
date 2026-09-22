@@ -3,24 +3,12 @@ import React from 'react'
 import { RadialScrollGallery } from '@/components/ui/portfolio-and-image-gallery'
 import { ArrowUpRight, X, ChevronLeft, ChevronRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'motion/react'
-
-// Fallback set (real Lunevia interiors/grounds) used when the CMS provides no
-// gallery images. The homepage feeds `data` (client-managed image URLs) from the
-// backend; images are rendered raw — no tag/caption overlays.
-const DEFAULT_IMAGES = [
-    "/client-room-gallery/LBM04282.jpg",
-    "/client-room-gallery/LBM05356.jpg",
-    "/client-room-gallery/LBM05383.jpg",
-    "/client-room-gallery/LBM04998.jpg",
-    "/client-room-gallery/LBM04960.jpg",
-    "/client-room-gallery/LBM05237.jpg",
-    "/client-room-gallery/LBM05418.jpg",
-    "/client-room-gallery/LBM05518.jpg",
-]
+import { DEFAULT_GALLERY_IMAGES } from '@/helpers/galleryDefaults'
 
 const Gallery = ({ data = [] }) => {
-    // Client-managed CMS images when present, else the bundled fallback set.
-    const images = Array.isArray(data) && data.length ? data : DEFAULT_IMAGES
+    // Client-managed CMS images when present, else the bundled fallback set
+    // (real Lunevia interiors/grounds). Images are rendered raw — no overlays.
+    const images = Array.isArray(data) && data.length ? data : DEFAULT_GALLERY_IMAGES
 
     // Below lg the pinned radial wheel (which needs desktop width) is replaced by a
     // plain horizontal swipe strip; `isCompact` gates whether the GSAP wheel mounts.

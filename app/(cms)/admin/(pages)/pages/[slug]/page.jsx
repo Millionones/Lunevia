@@ -11,6 +11,7 @@ import { get, post } from "@/helpers/api";
 import { PAGE_DEFAULTS, mergeContent, CMS_PAGES } from "@/helpers/pageDefaults";
 import { PAGE_SCHEMA, blankItem } from "@/helpers/pageSchema";
 import ImageUpload from "../ImageUpload";
+import GalleryImages from "@/app/(cms)/_componets/GalleryImages";
 
 // ---- generic field renderers -------------------------------------------------
 
@@ -30,9 +31,28 @@ function TextField({ field, formik, path }) {
   );
 }
 
-function StringList({ field, formik, path }) {
+function StringList({ field, formik, path, onUploadingChange }) {
   const arr = getIn(formik.values, path) || [];
   const set = (next) => formik.setFieldValue(path, next);
+
+  // Image lists get the richer gallery manager (preview grid, multi-add,
+  // drag-to-reorder, remove, and the site defaults with a Customize button).
+  if (field.kind === "image") {
+    return (
+      <div className="col-span-full">
+        <label className="mb-2 block text-sm font-medium">{field.label}</label>
+        <GalleryImages
+          value={arr}
+          onChange={set}
+          folder="pages"
+          defaults={field.defaults}
+          addLabel={field.addLabel || "Add image"}
+          onUploadingChange={onUploadingChange}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="col-span-full">
       <div className="mb-2 flex items-center justify-between">
@@ -45,12 +65,10 @@ function StringList({ field, formik, path }) {
           <Plus size={14} /> {field.addLabel || "Add"}
         </button>
       </div>
-      <div className={field.kind === "image" ? "grid grid-cols-2 gap-3 sm:grid-cols-3" : "space-y-3"}>
+      <div className="space-y-3">
         {arr.map((val, i) => (
           <div key={i} className="rounded-md border p-3">
-            {field.kind === "image" ? (
-              <ImageUpload label="" value={val} onChange={(url) => formik.setFieldValue(`${path}.${i}`, url)} />
-            ) : field.kind === "textarea" ? (
+            {field.kind === "textarea" ? (
               <Textarea value={val ?? ""} onChange={(e) => formik.setFieldValue(`${path}.${i}`, e.target.value)} />
             ) : (
               <Input value={val ?? ""} onChange={(e) => formik.setFieldValue(`${path}.${i}`, e.target.value)} />
@@ -110,7 +128,7 @@ function ObjectList({ field, formik, path }) {
   );
 }
 
-function Field({ field, formik, path }) {
+function Field({ field, formik, path, onUploadingChange }) {
   if (field.type === "image") {
     return (
       <ImageUpload
@@ -120,7 +138,8 @@ function Field({ field, formik, path }) {
       />
     );
   }
-  if (field.type === "stringlist") return <StringList field={field} formik={formik} path={path} />;
+  if (field.type === "stringlist")
+    return <StringList field={field} formik={formik} path={path} onUploadingChange={onUploadingChange} />;
   if (field.type === "list") return <ObjectList field={field} formik={formik} path={path} />;
   return <TextField field={field} formik={formik} path={path} />;
 }
@@ -135,6 +154,7 @@ export default function PageEditor() {
   const meta = CMS_PAGES.find((p) => p.slug === slug);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   const formik = useFormik({
     initialValues: defaults || {},
@@ -196,7 +216,13 @@ export default function PageEditor() {
               {group.help ? <p className="mb-4 text-xs text-gray-500">{group.help}</p> : <div className="mb-4" />}
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {group.fields.map((field) => (
-                  <Field key={field.name} field={field} formik={formik} path={field.name} />
+                  <Field
+                    key={field.name}
+                    field={field}
+                    formik={formik}
+                    path={field.name}
+                    onUploadingChange={setUploading}
+                  />
                 ))}
               </div>
             </section>
@@ -205,10 +231,10 @@ export default function PageEditor() {
           <div className="flex items-center gap-3">
             <button
               type="submit"
-              disabled={saving}
+              disabled={saving || uploading}
               className="rounded-md bg-blue-600 px-5 py-2 text-white transition hover:bg-blue-700 disabled:opacity-60"
             >
-              {saving ? "Saving…" : "Save changes"}
+              {saving ? "Saving…" : uploading ? "Uploading…" : "Save changes"}
             </button>
             <Link href="/admin/pages" className="text-sm text-gray-500 hover:text-black">
               Cancel

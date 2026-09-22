@@ -11,6 +11,8 @@
 //
 // Groups are just visual sections (a titled card).
 
+import { DEFAULT_GALLERY_IMAGES } from "@/helpers/galleryDefaults";
+
 const heroFields = () => [
     { type: "text", name: "hero.eyebrow", label: "Eyebrow" },
     { type: "text", name: "hero.title", label: "Title" },
@@ -62,7 +64,7 @@ export const PAGE_SCHEMA = {
             label: "Gallery images",
             help: "Leave empty to use the site's default gallery images.",
             fields: [
-                { type: "stringlist", name: "gallery.images", label: "Images", kind: "image", addLabel: "Add image" },
+                { type: "stringlist", name: "gallery.images", label: "Images", kind: "image", addLabel: "Add image", defaults: DEFAULT_GALLERY_IMAGES },
             ],
         },
         {
