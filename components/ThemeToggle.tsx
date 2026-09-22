@@ -3,8 +3,20 @@
 import * as React from "react";
 import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-export function ThemeToggle() {
+/**
+ * Reusable light/dark toggle button. Presentational + inline (no fixed
+ * positioning) so it can live inside the header on desktop and inside the
+ * hamburger menu on mobile. Callers pass `className` for colour/placement.
+ */
+export function ThemeToggleButton({
+  className,
+  label = false,
+}: {
+  className?: string;
+  label?: boolean;
+}) {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
 
@@ -12,18 +24,23 @@ export function ThemeToggle() {
   React.useEffect(() => setMounted(true), []);
 
   const isDark = resolvedTheme === "dark";
+  const Icon = mounted && isDark ? Sun : Moon;
 
   return (
     <button
       type="button"
       onClick={() => setTheme(isDark ? "light" : "dark")}
       aria-label="Toggle dark mode"
-      className="fixed bottom-28 right-8 z-[9999] flex h-12 w-12 items-center justify-center rounded-full border border-neutral-200 bg-white/90 text-neutral-800 shadow-xl backdrop-blur transition-all hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-primary/50 dark:border-neutral-800 dark:bg-neutral-900/90 dark:text-neutral-100"
+      className={cn(
+        "inline-flex items-center justify-center gap-2 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50",
+        className
+      )}
     >
-      {mounted ? (
-        isDark ? <Sun size={20} /> : <Moon size={20} />
-      ) : (
-        <Moon size={20} />
+      <Icon size={20} />
+      {label && (
+        <span className="text-sm font-medium">
+          {mounted && isDark ? "Light mode" : "Dark mode"}
+        </span>
       )}
     </button>
   );

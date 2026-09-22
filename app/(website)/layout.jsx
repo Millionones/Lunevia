@@ -1,5 +1,6 @@
 import Header from './Components/Header'
 import Footer from './Components/Footer'
+import LunaWidget from './Components/Luna/LunaWidget'
 
 export default function HomeLayout({ children }) {
     return (
@@ -9,6 +10,8 @@ export default function HomeLayout({ children }) {
             <Header />
             {children}
             <Footer />
+            {/* Luna assistant — public-site-only floating helper (bottom-right). */}
+            <LunaWidget />
         </>
     );
 }

@@ -7,6 +7,7 @@ import { Toaster } from 'react-hot-toast'
 import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { ButtonWithIcon } from '@/components/ui/button-with-icon'
+import { ThemeToggleButton } from '@/components/ThemeToggle'
 import { BOOKING_URL } from '@/config'
 
 const NAV = [
@@ -116,6 +117,8 @@ const Header = () => {
 
                         {/* Desktop CTAs */}
                         <div className="hidden lg:flex items-center gap-3">
+                            {/* Light/dark toggle — inherits the header's current text colour. */}
+                            <ThemeToggleButton className="h-10 w-10 text-inherit hover:bg-current/10" />
                             {!isDestinationPage && (
                                 <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" aria-label="Book Now">
                                     <ButtonWithIcon glass arrowLight={!scrolled} className={CTA_TRANSPARENT}>Book Now</ButtonWithIcon>
@@ -196,6 +199,14 @@ const Header = () => {
                         <Link href="/Contact-us" onClick={() => setMenuOpen(false)} aria-label="Enquire Now">
                             <ButtonWithIcon glass className={cn('w-full', CTA_TRANSPARENT)}>Enquire Now</ButtonWithIcon>
                         </Link>
+
+                        {/* Light/dark toggle — bottom-right of the menu. */}
+                        <div className="flex justify-end pt-1">
+                            <ThemeToggleButton
+                                label
+                                className="h-10 flex-row-reverse gap-2 rounded-full border border-border px-3 text-foreground hover:bg-foreground/10"
+                            />
+                        </div>
                     </div>
                 </div>
             </aside>
