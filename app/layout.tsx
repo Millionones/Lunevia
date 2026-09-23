@@ -6,7 +6,6 @@ import "./globals.css";
 import './styles/app.css';
 import { ThemeProvider } from "./providers/ThemeProvider";
 import { SmoothScroll } from "./providers/SmoothScroll";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import SplashScreen from "@/components/SplashScreen";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -48,7 +47,6 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <SmoothScroll>{children}</SmoothScroll>
-          <ThemeToggle />
           <SplashScreen />
           <Toaster richColors position="top-center" />
 
