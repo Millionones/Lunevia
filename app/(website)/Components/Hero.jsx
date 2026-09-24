@@ -7,6 +7,7 @@ import { Autoplay, Pagination } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import { PAGE_DEFAULTS } from '@/helpers/pageDefaults'
+import LunaHero from './Luna/LunaHero'
 
 const Hero = ({ hero }) => {
     const h = hero || PAGE_DEFAULTS.home.hero
@@ -93,6 +94,9 @@ const Hero = ({ hero }) => {
                     {tagline}
                 </p>
             </div>
+
+            {/* Animated Luna assistant — greets from the corner, opens the chat on click. */}
+            <LunaHero />
 
             {/* Pagination lives outside the (z-0) background layer so it sits above the scrim. */}
             <div className="parallax-hero__dots" />
