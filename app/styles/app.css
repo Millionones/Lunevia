@@ -1802,7 +1802,7 @@
 .parallax-hero__luna-art {
   position: relative;
   display: block;
-  width: clamp(150px, 20vw, 260px);
+  width: clamp(75px, 10vw, 130px);
   aspect-ratio: 576 / 743;
 }
 
@@ -1839,7 +1839,7 @@
 
 @media screen and (max-width: 640px) {
   .parallax-hero__luna-art {
-    width: clamp(116px, 34vw, 172px);
+    width: clamp(58px, 17vw, 86px);
   }
   .parallax-hero__luna-bubble {
     max-width: 170px;

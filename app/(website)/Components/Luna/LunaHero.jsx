@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence, useInView, useReducedMotion } from 'motion/react'
 import { useLuna } from './LunaContext'
-import { LUNA_POSE_HERO, LUNA_AVATAR, LUNA_HERO_BUBBLE } from './lunaConfig'
+import { LUNA_POSE_HERO, LUNA_AVATAR, LUNA_HERO_BUBBLE, LUNA_SPRING, LUNA_SPRING_SOFT } from './lunaConfig'
 
 // The animated Luna character that lives in the homepage hero. She peeks in from
 // the bottom-right corner (already mid-wave) and gently floats. A greeting bubble
@@ -54,10 +54,11 @@ const LunaHero = () => {
                 onBlur={() => setHovered(false)}
                 aria-label="Chat with Luna, our assistant"
                 className="parallax-hero__luna-btn"
-                animate={reduce ? undefined : { y: [0, -10, 0] }}
-                transition={reduce ? undefined : { duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.96 }}
+                // Gentle idle: float + breathe + a slight sway so she feels alive.
+                animate={reduce ? undefined : { y: [0, -10, 0], scale: [1, 1.03, 1], rotate: [0, -1.5, 0, 1.5, 0] }}
+                transition={reduce ? undefined : { duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+                whileHover={{ scale: 1.06, rotate: -2, transition: LUNA_SPRING }}
+                whileTap={{ scale: 0.94, transition: LUNA_SPRING }}
             >
                 <AnimatePresence>
                     {showBubble && (
@@ -67,7 +68,7 @@ const LunaHero = () => {
                             initial={{ opacity: 0, y: 8, scale: 0.9 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 8, scale: 0.9 }}
-                            transition={{ duration: 0.25 }}
+                            transition={LUNA_SPRING_SOFT}
                         >
                             {LUNA_HERO_BUBBLE}
                         </motion.span>
