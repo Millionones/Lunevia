@@ -54,9 +54,8 @@ const LunaHero = () => {
                         onBlur={() => setHovered(false)}
                         aria-label="Chat with Luna, our assistant"
                         className="parallax-hero__luna-btn"
-                        // Gentle idle: float + breathe + a slight sway so she feels alive.
-                        animate={reduce ? undefined : { y: [0, -10, 0], scale: [1, 1.03, 1], rotate: [0, -1.5, 0, 1.5, 0] }}
-                        transition={reduce ? undefined : { duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+                        // No idle bounce — she simply rests in the corner. Still
+                        // reacts to hover/tap.
                         whileHover={{ scale: 1.06, rotate: -2, transition: LUNA_SPRING }}
                         whileTap={{ scale: 0.94, transition: LUNA_SPRING }}
                     >
