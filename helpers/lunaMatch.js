@@ -117,13 +117,24 @@ export function buildIndex(kb) {
     return entries;
 }
 
+// The full ordered pool of questions eligible to be shown as quick-reply chips
+// (de-duplicated). LunaChat filters out already-read ones so the chips rotate.
+export function getSuggestionPool(kb) {
+    const seen = new Set();
+    const pool = [];
+    for (const e of buildIndex(kb)) {
+        if (!e.suggest) continue;
+        const key = e.q.toLowerCase().trim();
+        if (seen.has(key)) continue;
+        seen.add(key);
+        pool.push(e.q);
+    }
+    return pool;
+}
+
 // A few starter questions shown as quick-reply chips.
 export function getSuggestions(kb, n = 5) {
-    const idx = buildIndex(kb);
-    return idx
-        .filter((e) => e.suggest)
-        .slice(0, n)
-        .map((e) => e.q);
+    return getSuggestionPool(kb).slice(0, n);
 }
 
 // Score a single entry against the query tokens.
@@ -170,7 +181,9 @@ export function matchLuna(query, kb) {
 
     // Threshold: need at least one solid keyword/tag hit.
     if (best && bestScore >= 2) {
-        return { answer: best.a, suggestions, matched: true };
+        // `question` lets the caller mark a typed query as read when it resolves
+        // to a suggestable question.
+        return { answer: best.a, suggestions, matched: true, question: best.suggest ? best.q : null };
     }
-    return { answer: FALLBACK, suggestions, matched: false };
+    return { answer: FALLBACK, suggestions, matched: false, question: null };
 }
