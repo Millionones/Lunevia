@@ -15,3 +15,9 @@ export const LUNA_POSE_HERO = "/luna/luna-hero.png"
 
 // Copy shown in the hero character's speech bubble.
 export const LUNA_HERO_BUBBLE = "Hi, I'm Luna 🌙 Need help planning your stay?"
+
+// Shared motion/react transition presets so every Luna surface (hero, launcher,
+// chat panel, intro bubble) animates with one cohesive feel.
+export const LUNA_SPRING = { type: "spring", stiffness: 300, damping: 26 }
+export const LUNA_SPRING_SOFT = { type: "spring", stiffness: 180, damping: 22 }
+export const LUNA_EASE = [0.22, 1, 0.36, 1] // easeOutExpo-ish, for fades

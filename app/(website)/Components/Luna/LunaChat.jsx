@@ -1,7 +1,8 @@
 "use client"
 import React, { useEffect, useRef, useState } from 'react'
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import { X, Send } from 'lucide-react'
-import { LUNA_AVATAR, LUNA_FALLBACK_AVATAR } from './lunaConfig'
+import { LUNA_AVATAR, LUNA_FALLBACK_AVATAR, LUNA_SPRING } from './lunaConfig'
 import { matchLuna, getSuggestionPool } from '@/helpers/lunaMatch'
 import { getReadSet, markRead, clearRead, normQ } from '@/helpers/lunaRead'
 
@@ -24,6 +25,7 @@ const Avatar = ({ className }) => (
 )
 
 const LunaChat = ({ open, onClose, kb }) => {
+    const reduce = useReducedMotion()
     const [messages, setMessages] = useState([{ from: 'luna', text: GREETING }])
     const [input, setInput] = useState('')
     const [suggestions, setSuggestions] = useState([])
@@ -94,15 +96,21 @@ const LunaChat = ({ open, onClose, kb }) => {
     }
 
     return (
-        <div
+        <motion.div
             role="dialog"
             aria-label="Luna assistant chat"
             aria-hidden={!open}
-            className={[
-                'fixed bottom-24 right-4 sm:right-6 z-[9992] flex w-[92vw] max-w-[380px] flex-col overflow-hidden rounded-2xl border border-border bg-card text-card-foreground shadow-2xl transition-all duration-300',
-                open ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none translate-y-4 opacity-0',
-            ].join(' ')}
-            style={{ height: 'min(72vh, 560px)' }}
+            className="fixed bottom-24 right-4 sm:right-6 z-[9992] flex w-[92vw] max-w-[380px] flex-col overflow-hidden rounded-2xl border border-border bg-card text-card-foreground shadow-2xl"
+            initial={false}
+            animate={open
+                ? { opacity: 1, scale: 1, y: 0 }
+                : { opacity: 0, scale: reduce ? 1 : 0.9, y: reduce ? 0 : 12 }}
+            transition={LUNA_SPRING}
+            style={{
+                height: 'min(72vh, 560px)',
+                transformOrigin: 'bottom right',
+                pointerEvents: open ? 'auto' : 'none',
+            }}
         >
             {/* Header */}
             <div className="flex items-center gap-3 border-b border-border bg-muted/50 px-4 py-3">
@@ -123,36 +131,51 @@ const LunaChat = ({ open, onClose, kb }) => {
 
             {/* Messages */}
             <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
-                {messages.map((m, i) => (
-                    <div key={i} className={m.from === 'user' ? 'flex justify-end' : 'flex items-end gap-2'}>
-                        {m.from === 'luna' && <Avatar className="h-6 w-6 shrink-0 rounded-full object-cover" />}
-                        <div
-                            className={[
-                                'max-w-[80%] rounded-2xl px-3.5 py-2 text-sm leading-relaxed',
-                                m.from === 'user'
-                                    ? 'rounded-br-sm bg-primary text-primary-foreground'
-                                    : 'rounded-bl-sm bg-muted text-foreground',
-                            ].join(' ')}
+                <AnimatePresence initial={false}>
+                    {messages.map((m, i) => (
+                        <motion.div
+                            key={i}
+                            initial={reduce ? { opacity: 0 } : { opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={LUNA_SPRING}
+                            className={m.from === 'user' ? 'flex justify-end' : 'flex items-end gap-2'}
                         >
-                            {m.text}
-                        </div>
-                    </div>
-                ))}
-
-                {/* Quick-reply chips (rotate as questions are read) */}
-                {suggestions.length > 0 && (
-                    <div className="flex flex-wrap gap-2 pt-1">
-                        {suggestions.map((s) => (
-                            <button
-                                key={s}
-                                type="button"
-                                onClick={() => ask(s, true)}
-                                className="rounded-full border border-border bg-background px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:border-primary hover:text-foreground"
+                            {m.from === 'luna' && <Avatar className="h-6 w-6 shrink-0 rounded-full object-cover" />}
+                            <div
+                                className={[
+                                    'max-w-[80%] rounded-2xl px-3.5 py-2 text-sm leading-relaxed',
+                                    m.from === 'user'
+                                        ? 'rounded-br-sm bg-primary text-primary-foreground'
+                                        : 'rounded-bl-sm bg-muted text-foreground',
+                                ].join(' ')}
                             >
-                                {s}
-                            </button>
-                        ))}
-                    </div>
+                                {m.text}
+                            </div>
+                        </motion.div>
+                    ))}
+                </AnimatePresence>
+
+                {/* Quick-reply chips (rotate as questions are read; reflow smoothly) */}
+                {suggestions.length > 0 && (
+                    <motion.div layout className="flex flex-wrap gap-2 pt-1">
+                        <AnimatePresence initial={false}>
+                            {suggestions.map((s) => (
+                                <motion.button
+                                    key={s}
+                                    layout
+                                    initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.8 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.8 }}
+                                    transition={LUNA_SPRING}
+                                    type="button"
+                                    onClick={() => ask(s, true)}
+                                    className="rounded-full border border-border bg-background px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:border-primary hover:text-foreground"
+                                >
+                                    {s}
+                                </motion.button>
+                            ))}
+                        </AnimatePresence>
+                    </motion.div>
                 )}
             </div>
 
@@ -175,7 +198,7 @@ const LunaChat = ({ open, onClose, kb }) => {
                     <Send className="h-4 w-4" />
                 </button>
             </form>
-        </div>
+        </motion.div>
     )
 }
 
