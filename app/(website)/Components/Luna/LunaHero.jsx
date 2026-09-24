@@ -2,21 +2,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence, useInView, useReducedMotion } from 'motion/react'
 import { useLuna } from './LunaContext'
-import {
-    LUNA_POSE_IDLE,
-    LUNA_POSE_WAVE,
-    LUNA_AVATAR,
-    LUNA_HERO_BUBBLE,
-} from './lunaConfig'
+import { LUNA_POSE_HERO, LUNA_AVATAR, LUNA_HERO_BUBBLE } from './lunaConfig'
 
-// The animated Luna character that lives in the homepage hero. Two full-figure
-// poses (idle + wave) are stacked and crossfaded so Luna "raises her hand" to
-// wave — on entrance, periodically, and on hover. Clicking her opens the chat
-// (shared via LunaContext). While she is on screen she reports heroActive so
-// the corner launcher steps aside. Honors prefers-reduced-motion.
-const WAVE_MS = 1600
-const WAVE_EVERY_MS = 7000
-
+// The animated Luna character that lives in the homepage hero. She peeks in from
+// the bottom-right corner (already mid-wave) and gently floats. A greeting bubble
+// shows on entrance and on hover. Clicking her opens the chat (shared via
+// LunaContext). While she is on screen she reports heroActive so the corner
+// launcher steps aside. Honors prefers-reduced-motion.
 const LunaHero = () => {
     const { openChat, setHeroActive } = useLuna()
     const reduce = useReducedMotion()
@@ -24,42 +16,25 @@ const LunaHero = () => {
     const ref = useRef(null)
     const inView = useInView(ref, { amount: 0.2 })
 
-    const [waving, setWaving] = useState(false)
     const [hovered, setHovered] = useState(false)
     const [showHi, setShowHi] = useState(false)
 
     // Tell the widget when the hero character owns the screen.
     useEffect(() => { setHeroActive(inView) }, [inView, setHeroActive])
 
-    // Preload both poses so the crossfade never flickers.
+    // Preload the pose so it never pops in late.
     useEffect(() => {
-        [LUNA_POSE_IDLE, LUNA_POSE_WAVE].forEach((src) => {
-            const img = new window.Image()
-            img.src = src
-        })
+        const img = new window.Image()
+        img.src = LUNA_POSE_HERO
     }, [])
 
-    const wave = () => {
-        setWaving(true)
-        window.setTimeout(() => setWaving(false), WAVE_MS)
-    }
-
-    // Entrance: a quick hello wave + a greeting bubble that lingers a moment.
+    // Entrance: a greeting bubble that lingers a moment.
     useEffect(() => {
         const t1 = window.setTimeout(() => setShowHi(true), 900)
         const t2 = window.setTimeout(() => setShowHi(false), 5200)
-        const t3 = reduce ? null : window.setTimeout(wave, 900)
-        return () => { [t1, t2, t3].forEach((t) => t && clearTimeout(t)) }
-    }, [reduce])
+        return () => { [t1, t2].forEach((t) => t && clearTimeout(t)) }
+    }, [])
 
-    // Periodic wave to stay lively (skipped under reduced motion).
-    useEffect(() => {
-        if (reduce) return
-        const id = window.setInterval(wave, WAVE_EVERY_MS)
-        return () => clearInterval(id)
-    }, [reduce])
-
-    const showWave = hovered || waving
     const showBubble = hovered || showHi
 
     return (
@@ -101,20 +76,10 @@ const LunaHero = () => {
 
                 <span className="parallax-hero__luna-art">
                     <img
-                        src={LUNA_POSE_IDLE}
+                        src={LUNA_POSE_HERO}
                         alt="Luna"
                         className="parallax-hero__luna-img"
-                        style={{ opacity: showWave ? 0 : 1 }}
                         onError={(e) => { e.currentTarget.src = LUNA_AVATAR }}
-                        draggable={false}
-                    />
-                    <img
-                        src={LUNA_POSE_WAVE}
-                        alt=""
-                        aria-hidden="true"
-                        className="parallax-hero__luna-img parallax-hero__luna-img--wave"
-                        style={{ opacity: showWave ? 1 : 0 }}
-                        onError={(e) => { e.currentTarget.style.display = 'none' }}
                         draggable={false}
                     />
                 </span>
