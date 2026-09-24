@@ -3,18 +3,25 @@ import React, { useEffect, useState } from 'react'
 import LunaLauncher from './LunaLauncher'
 import LunaIntroPopup from './LunaIntroPopup'
 import LunaChat from './LunaChat'
+import { useLuna } from './LunaContext'
 import { getLunaKnowledge } from '@/helpers/lunaKnowledge'
 
-// Orchestrates the Luna feature: loads the knowledge base once, owns the
-// open/closed chat state, and shows the first-session intro greeting. Mounted
-// site-wide on the public site (see app/(website)/layout.jsx).
+// Orchestrates the Luna feature: loads the knowledge base once and shows the
+// first-session intro greeting. The open/closed chat state lives in LunaContext
+// so the homepage-hero character and this corner launcher drive the same panel.
+// Mounted site-wide on the public site (see app/(website)/layout.jsx).
 const INTRO_SEEN_KEY = 'luna_intro_seen'
 const INTRO_DELAY_MS = 3200 // let the homepage splash finish first
 
 const LunaWidget = () => {
+    const { open, openChat, closeChat, toggleChat, heroActive } = useLuna()
     const [kb, setKb] = useState(null)
-    const [open, setOpen] = useState(false)
     const [intro, setIntro] = useState(false)
+
+    const dismissIntro = () => {
+        setIntro(false)
+        try { sessionStorage.setItem(INTRO_SEEN_KEY, '1') } catch {}
+    }
 
     // Fetch the knowledge base once per session (cached in sessionStorage).
     useEffect(() => {
@@ -32,29 +39,19 @@ const LunaWidget = () => {
         return () => clearTimeout(t)
     }, [])
 
-    const dismissIntro = () => {
-        setIntro(false)
-        try { sessionStorage.setItem(INTRO_SEEN_KEY, '1') } catch {}
-    }
+    // Whenever the chat opens (from any launcher), retire the intro bubble.
+    useEffect(() => {
+        if (open) dismissIntro()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [open])
 
-    const openChat = () => {
-        setOpen(true)
-        dismissIntro()
-    }
-
-    const toggleChat = () => {
-        if (open) {
-            setOpen(false)
-        } else {
-            openChat()
-        }
-    }
-
+    // While the hero character owns the screen, the corner launcher and the
+    // intro bubble step aside so there is only ever one Luna at a time.
     return (
         <>
-            <LunaIntroPopup show={intro && !open} onOpen={openChat} onDismiss={dismissIntro} />
-            <LunaChat open={open} onClose={() => setOpen(false)} kb={kb} />
-            <LunaLauncher open={open} onToggle={toggleChat} />
+            <LunaIntroPopup show={intro && !open && !heroActive} onOpen={openChat} onDismiss={dismissIntro} />
+            <LunaChat open={open} onClose={closeChat} kb={kb} />
+            <LunaLauncher open={open} onToggle={toggleChat} hidden={heroActive && !open} />
         </>
     )
 }

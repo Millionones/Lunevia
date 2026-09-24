@@ -1742,6 +1742,89 @@
   100% { transform: scaleY(0.2); opacity: 0.2; }
 }
 
+/* Animated Luna character in the hero (see Components/Luna/LunaHero.jsx).
+   Pinned bottom-right, above the scrim; only the button itself is clickable. */
+.parallax-hero__luna {
+  position: absolute;
+  right: clamp(8px, 4vw, 56px);
+  bottom: 0;
+  z-index: 3;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+}
+
+.parallax-hero__luna-btn {
+  pointer-events: auto;
+  position: relative;
+  display: block;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  filter: drop-shadow(0 16px 30px rgba(0, 0, 0, 0.45));
+}
+
+.parallax-hero__luna-btn:focus-visible {
+  outline: none;
+}
+
+.parallax-hero__luna-btn:focus-visible .parallax-hero__luna-art {
+  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 6px;
+  border-radius: 24px;
+}
+
+.parallax-hero__luna-art {
+  position: relative;
+  display: block;
+  width: clamp(150px, 20vw, 260px);
+  aspect-ratio: 351 / 318;
+}
+
+.parallax-hero__luna-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+  transition: opacity 0.45s ease;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Greeting bubble tethered above Luna. */
+.parallax-hero__luna-bubble {
+  position: absolute;
+  bottom: calc(100% - 10px);
+  right: 6px;
+  width: max-content;
+  max-width: 230px;
+  padding: 10px 14px;
+  border-radius: 16px 16px 4px 16px;
+  background: rgba(255, 255, 255, 0.96);
+  color: #1a1a1a;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: left;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+  pointer-events: none;
+}
+
+@media screen and (max-width: 640px) {
+  .parallax-hero__luna-art {
+    width: clamp(116px, 34vw, 172px);
+  }
+  .parallax-hero__luna-bubble {
+    max-width: 170px;
+    font-size: 12px;
+  }
+}
+
 @media screen and (max-width: 640px) {
   .parallax-hero {
     height: 80vh;
