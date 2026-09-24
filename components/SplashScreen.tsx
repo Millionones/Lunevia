@@ -98,20 +98,11 @@ export default function SplashScreen() {
         <motion.div
           key="lunevia-splash"
           role="presentation"
-          className="fixed inset-0 z-[10000] flex items-center justify-center overflow-hidden bg-[#0b0b0d]"
+          className="fixed inset-0 z-[10000] flex items-center justify-center overflow-hidden bg-black"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8, ease: EASE }}
         >
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(60% 60% at 50% 50%, rgba(255,255,255,0.07), transparent 70%)",
-            }}
-          />
-
           {/* Lockup — zoom-fades on exit */}
           <motion.div
             className="relative flex items-center justify-center [will-change:transform,opacity]"
