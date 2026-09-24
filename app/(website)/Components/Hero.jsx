@@ -2,12 +2,14 @@
 import React, { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useInView } from 'motion/react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import { PAGE_DEFAULTS } from '@/helpers/pageDefaults'
 import LunaHero from './Luna/LunaHero'
+import { useLuna } from './Luna/LunaContext'
 
 const Hero = ({ hero }) => {
     const h = hero || PAGE_DEFAULTS.home.hero
@@ -16,6 +18,12 @@ const Hero = ({ hero }) => {
     const eyebrow = h.eyebrow || PAGE_DEFAULTS.home.hero.eyebrow
     const tagline = h.tagline || PAGE_DEFAULTS.home.hero.tagline
     const rootRef = useRef(null)
+
+    // Tell Luna when the hero banner is on screen so the fixed corner character
+    // shows here and hands off to the round launcher once scrolled past.
+    const { setHeroActive } = useLuna()
+    const bannerInView = useInView(rootRef, { amount: 0 })
+    useEffect(() => { setHeroActive(bannerInView) }, [bannerInView, setHeroActive])
 
     useEffect(() => {
         const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
