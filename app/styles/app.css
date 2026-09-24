@@ -75,13 +75,13 @@
   align-items: center;
   justify-content: center;
   position: fixed;
-  /* Sit in the bottom-right stack ABOVE the Luna launcher, and give it an
-     explicit z-index so page sections (some use z-index up to 10000) can't
-     paint over it. */
-  bottom: 96px;
-  right: 24px;
+  /* Sit in the bottom-right stack ABOVE the Luna round launcher (48px @ bottom
+     24px), and give it an explicit z-index so page sections (some use z-index up
+     to 10000) can't paint over it — but still below Luna/launcher/chat. */
+  bottom: 84px;
+  right: 20px;
   z-index: 9990;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, bottom 0.3s ease;
 
   img {
     width: 44px;
@@ -89,15 +89,28 @@
 
 }
 
-/* Larger on tablets/desktop where there's room. */
+/* Larger on tablets/desktop where there's room (clears the 56px launcher). */
 @media (min-width: 640px) {
   .wtsp-btn {
-    bottom: 104px;
-    right: 26px;
+    bottom: 92px;
+    right: 22px;
   }
 
   .wtsp-btn img {
     width: 52px;
+  }
+}
+
+/* While the hero banner is on screen the big Luna character owns the corner. */
+body[data-luna-hero="true"] .wtsp-btn {
+  /* Mobile: raise WhatsApp clear of the taller character (~111px). */
+  bottom: 124px;
+}
+
+@media (min-width: 768px) {
+  /* Desktop: hide WhatsApp over the banner — Luna owns that corner there. */
+  body[data-luna-hero="true"] .wtsp-btn {
+    display: none;
   }
 }
 
@@ -1764,13 +1777,14 @@
   100% { transform: scaleY(0.2); opacity: 0.2; }
 }
 
-/* Animated Luna character in the hero (see Components/Luna/LunaHero.jsx).
-   Pinned bottom-right, above the scrim; only the button itself is clickable. */
+/* Animated Luna character (see Components/Luna/LunaHero.jsx). Fixed to the
+   viewport's bottom-right corner (stuck to the screen, not the hero banner) so
+   she follows the scroll; only the button itself is clickable. */
 .parallax-hero__luna {
-  position: absolute;
+  position: fixed;
   right: 0;
   bottom: 0;
-  z-index: 3;
+  z-index: 9991;
   pointer-events: none;
   display: flex;
   align-items: flex-end;

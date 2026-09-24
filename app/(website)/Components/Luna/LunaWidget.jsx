@@ -45,6 +45,13 @@ const LunaWidget = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [open])
 
+    // Mirror hero-banner state onto <body> so the WhatsApp button (rendered in
+    // Header, a separate tree) can restack above Luna / hide on desktop via CSS.
+    useEffect(() => {
+        document.body.dataset.lunaHero = heroActive ? 'true' : 'false'
+        return () => { delete document.body.dataset.lunaHero }
+    }, [heroActive])
+
     // While the hero character owns the screen, the corner launcher and the
     // intro bubble step aside so there is only ever one Luna at a time.
     return (
