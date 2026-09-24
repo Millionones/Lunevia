@@ -1746,7 +1746,7 @@
    Pinned bottom-right, above the scrim; only the button itself is clickable. */
 .parallax-hero__luna {
   position: absolute;
-  right: clamp(8px, 4vw, 56px);
+  right: 0;
   bottom: 0;
   z-index: 3;
   pointer-events: none;
@@ -1781,7 +1781,7 @@
   position: relative;
   display: block;
   width: clamp(150px, 20vw, 260px);
-  aspect-ratio: 351 / 318;
+  aspect-ratio: 576 / 743;
 }
 
 .parallax-hero__luna-img {
@@ -1790,7 +1790,7 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  object-position: bottom center;
+  object-position: bottom right;
   transition: opacity 0.45s ease;
   user-select: none;
   -webkit-user-drag: none;
