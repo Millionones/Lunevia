@@ -2,11 +2,17 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { X, Send } from 'lucide-react'
 import { LUNA_AVATAR, LUNA_FALLBACK_AVATAR } from './lunaConfig'
-import { matchLuna, getSuggestions } from '@/helpers/lunaMatch'
+import { matchLuna, getSuggestionPool } from '@/helpers/lunaMatch'
+import { getReadSet, markRead, clearRead, normQ } from '@/helpers/lunaRead'
 
 // Luna's chat window. Rule-based: every user message is answered locally by
 // matchLuna() against the in-memory knowledge base — no network per message.
+// Quick-reply chips rotate: once a question is read it is retired (persisted in
+// localStorage) and the next unseen question from the knowledge base takes its
+// place; when every question has been seen the pool recycles.
 const GREETING = "Hi, I'm Luna 🌙 — your Lunevia assistant. Ask me about our stays, rooms, or anything about Crown Woods Munnar."
+const CHIP_COUNT = 5
+const WAVE_MS = 1200
 
 const Avatar = ({ className }) => (
     <img
@@ -21,30 +27,65 @@ const LunaChat = ({ open, onClose, kb }) => {
     const [messages, setMessages] = useState([{ from: 'luna', text: GREETING }])
     const [input, setInput] = useState('')
     const [suggestions, setSuggestions] = useState([])
+    const [readSet, setReadSet] = useState(() => new Set())
+    const [waving, setWaving] = useState(false)
     const scrollRef = useRef(null)
     const inputRef = useRef(null)
 
-    // Seed the quick-reply chips once the knowledge base is available.
+    // Load the persisted read-set once (client-only; empty during SSR).
+    useEffect(() => { setReadSet(getReadSet()) }, [])
+
+    // Derive the visible chips from the pool minus already-read questions.
+    // When everything has been seen, recycle so the chips never disappear.
     useEffect(() => {
-        if (kb) setSuggestions(getSuggestions(kb, 5))
-    }, [kb])
+        if (!kb) return
+        const pool = getSuggestionPool(kb)
+        if (!pool.length) { setSuggestions([]); return }
+        const visible = pool.filter((q) => !readSet.has(normQ(q)))
+        if (visible.length === 0) {
+            clearRead()
+            setReadSet(new Set()) // re-runs this effect with a fresh pool
+            return
+        }
+        setSuggestions(visible.slice(0, CHIP_COUNT))
+    }, [kb, readSet])
 
     // Keep the newest message in view.
     useEffect(() => {
         if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight
     }, [messages, open])
 
-    // Focus the input when the panel opens.
+    // Focus the input and give a little wave each time the panel opens.
     useEffect(() => {
-        if (open) setTimeout(() => inputRef.current?.focus(), 150)
+        if (!open) return
+        setTimeout(() => inputRef.current?.focus(), 150)
+        setWaving(true)
+        const t = setTimeout(() => setWaving(false), WAVE_MS)
+        return () => clearTimeout(t)
     }, [open])
 
-    const ask = (question) => {
+    // Retire a question so it drops off the chips (persisted across visits).
+    const retire = (q) => {
+        const id = normQ(q)
+        if (!id) return
+        markRead(q)
+        setReadSet((prev) => {
+            if (prev.has(id)) return prev
+            const next = new Set(prev)
+            next.add(id)
+            return next
+        })
+    }
+
+    const ask = (question, fromChip = false) => {
         const q = (question ?? input).trim()
         if (!q) return
-        const { answer } = matchLuna(q, kb)
+        const { answer, question: matchedQ } = matchLuna(q, kb)
         setMessages((m) => [...m, { from: 'user', text: q }, { from: 'luna', text: answer }])
         setInput('')
+        // Retire the clicked chip, or a typed query that resolved to a chip question.
+        if (fromChip) retire(q)
+        else if (matchedQ) retire(matchedQ)
     }
 
     const onSubmit = (e) => {
@@ -65,7 +106,7 @@ const LunaChat = ({ open, onClose, kb }) => {
         >
             {/* Header */}
             <div className="flex items-center gap-3 border-b border-border bg-muted/50 px-4 py-3">
-                <Avatar className="h-9 w-9 rounded-full object-cover ring-1 ring-border" />
+                <Avatar className={['h-9 w-9 rounded-full object-cover ring-1 ring-border', waving ? 'luna-wave' : ''].join(' ')} />
                 <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-semibold">Luna</p>
                     <p className="truncate text-xs text-muted-foreground">Lunevia assistant</p>
@@ -98,14 +139,14 @@ const LunaChat = ({ open, onClose, kb }) => {
                     </div>
                 ))}
 
-                {/* Quick-reply chips */}
+                {/* Quick-reply chips (rotate as questions are read) */}
                 {suggestions.length > 0 && (
                     <div className="flex flex-wrap gap-2 pt-1">
                         {suggestions.map((s) => (
                             <button
                                 key={s}
                                 type="button"
-                                onClick={() => ask(s)}
+                                onClick={() => ask(s, true)}
                                 className="rounded-full border border-border bg-background px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:border-primary hover:text-foreground"
                             >
                                 {s}
