@@ -42,7 +42,10 @@ const LunaLauncher = ({ open, onToggle, hidden = false }) => {
             tabIndex={hidden ? -1 : 0}
             initial={false}
             animate={{ scale: hidden ? 0 : 1, opacity: hidden ? 0 : 1 }}
-            transition={LUNA_SPRING}
+            // When appearing (hero figure folding away) wait a beat so the big
+            // figure starts collapsing first, then this circle grows in — a clean
+            // hand-off. When retiring (hero returning) yield immediately.
+            transition={{ ...LUNA_SPRING, delay: hidden ? 0 : 0.04 }}
             whileHover={reduce || hidden ? undefined : { scale: 1.1 }}
             whileTap={reduce || hidden ? undefined : { scale: 0.9 }}
             className={[

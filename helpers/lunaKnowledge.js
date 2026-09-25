@@ -1,4 +1,5 @@
 import { get } from "./api";
+import { LUNA_FALLBACK_KB, withFallback, hasKnowledge } from "./lunaFallback";
 
 // Luna fetches the whole knowledge base once per browser session and answers
 // entirely on the client — no server round-trip per message. The payload is
@@ -23,8 +24,9 @@ function writeCache(kb) {
     }
 }
 
-// Returns the aggregated knowledge base ({ brand, faqs, rooms, destinations })
-// or null on failure (Luna then shows a graceful "reach us directly" fallback).
+// Returns the aggregated knowledge base ({ brand, faqs, rooms, destinations }).
+// Never returns null: if the backend is unreachable or sends nothing usable, Luna
+// falls back to the shipped defaults so the chat is never "literally plain".
 export async function getLunaKnowledge() {
     const cached = readCache();
     if (cached) return cached;
@@ -32,9 +34,17 @@ export async function getLunaKnowledge() {
     try {
         const response = await get("luna/knowledge");
         const kb = response?.data ?? null;
-        if (kb) writeCache(kb);
-        return kb;
+        if (hasKnowledge(kb)) {
+            // Good live data — backfill any gaps and cache it for the session.
+            const merged = withFallback(kb);
+            writeCache(merged);
+            return merged;
+        }
+        // Reached the backend but it had nothing to say — use the local defaults
+        // WITHOUT caching, so a later reload can still pick up real data.
+        return LUNA_FALLBACK_KB;
     } catch {
-        return null;
+        // Network/backend failure — same graceful local defaults, uncached.
+        return LUNA_FALLBACK_KB;
     }
 }
