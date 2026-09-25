@@ -57,13 +57,20 @@ const LunaChat = ({ open, onClose, kb }) => {
         if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight
     }, [messages, open])
 
-    // Focus the input and give a little wave each time the panel opens.
+    // Give a little wave each time the panel opens. Only auto-focus the input on
+    // desktop — on mobile/responsive that would pop up the on-screen keyboard and
+    // shove the chat around, so we let the user tap the field when they're ready.
     useEffect(() => {
         if (!open) return
-        setTimeout(() => inputRef.current?.focus(), 150)
+        const canAutoFocus =
+            typeof window !== 'undefined' &&
+            window.matchMedia('(min-width: 768px)').matches &&
+            !window.matchMedia('(pointer: coarse)').matches
+        let focusTimer
+        if (canAutoFocus) focusTimer = setTimeout(() => inputRef.current?.focus(), 150)
         setWaving(true)
         const t = setTimeout(() => setWaving(false), WAVE_MS)
-        return () => clearTimeout(t)
+        return () => { clearTimeout(t); if (focusTimer) clearTimeout(focusTimer) }
     }, [open])
 
     // Retire a question so it drops off the chips (persisted across visits).

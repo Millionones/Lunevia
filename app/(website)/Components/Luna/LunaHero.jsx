@@ -40,10 +40,15 @@ const LunaHero = () => {
             {show && (
                 <motion.div
                     className="parallax-hero__luna"
-                    initial={reduce ? { opacity: 0 } : { opacity: 0, y: 60, scale: 0.85 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={reduce ? { opacity: 0 } : { opacity: 0, y: 40, scale: 0.8 }}
-                    transition={{ type: 'spring', stiffness: 120, damping: 16, delay: 0.4 }}
+                    // Scale from the bottom-right corner so the full figure grows
+                    // out of — and, on scroll, folds back down into — the round
+                    // launcher that lives in that same corner. A pure scale+fade
+                    // (no y-slide) reads as one continuous morph, not two swaps.
+                    style={{ transformOrigin: 'bottom right' }}
+                    initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.32 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.32 }}
+                    transition={reduce ? { duration: 0.18 } : { type: 'spring', stiffness: 340, damping: 30, mass: 0.7 }}
                 >
                     <motion.button
                         type="button"

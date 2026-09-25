@@ -101,17 +101,11 @@
   }
 }
 
-/* While the hero banner is on screen the big Luna character owns the corner. */
+/* While the hero banner is on screen the full-size Luna character owns the whole
+   bottom-right corner (all widths), so hide WhatsApp there — it returns the moment
+   she folds into the round launcher on scroll. */
 body[data-luna-hero="true"] .wtsp-btn {
-  /* Mobile: raise WhatsApp clear of the taller character (~111px). */
-  bottom: 124px;
-}
-
-@media (min-width: 768px) {
-  /* Desktop: hide WhatsApp over the banner — Luna owns that corner there. */
-  body[data-luna-hero="true"] .wtsp-btn {
-    display: none;
-  }
+  display: none;
 }
 
 .wtsp-btn:hover {
@@ -1816,8 +1810,9 @@ body[data-luna-hero="true"] .wtsp-btn {
 .parallax-hero__luna-art {
   position: relative;
   display: block;
+  /* Same compact corner footprint as before the full-figure swap. */
   width: clamp(75px, 10vw, 130px);
-  aspect-ratio: 576 / 743;
+  aspect-ratio: 760 / 1174;
 }
 
 .parallax-hero__luna-img {
